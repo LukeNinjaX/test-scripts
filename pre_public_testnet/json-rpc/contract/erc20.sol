@@ -6,7 +6,7 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 contract MyToken is ERC20 {
     address private deployer;
 
-    constructor() ERC20("MyToken", "TTT") {
+    constructor() ERC20("MyToken", "MT") {
         deployer = msg.sender;
         _mint(msg.sender, 100 * 10 ** uint(decimals()));
     }

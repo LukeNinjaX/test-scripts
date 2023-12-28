@@ -3799,30 +3799,6 @@
   call $~lib/rt/itcms/__visit
   i32.const 8000
   call $~lib/rt/itcms/__visit
-  i32.const 2784
-  call $~lib/rt/itcms/__visit
-  i32.const 2832
-  call $~lib/rt/itcms/__visit
-  i32.const 2896
-  call $~lib/rt/itcms/__visit
-  i32.const 2944
-  call $~lib/rt/itcms/__visit
-  i32.const 2992
-  call $~lib/rt/itcms/__visit
-  i32.const 3056
-  call $~lib/rt/itcms/__visit
-  i32.const 3120
-  call $~lib/rt/itcms/__visit
-  i32.const 3168
-  call $~lib/rt/itcms/__visit
-  i32.const 3216
-  call $~lib/rt/itcms/__visit
-  i32.const 3280
-  call $~lib/rt/itcms/__visit
-  i32.const 3328
-  call $~lib/rt/itcms/__visit
-  i32.const 3376
-  call $~lib/rt/itcms/__visit
   global.get $~lib/@artela/aspect-libs/package/sys.hostApi.evmCall
   local.tee $0
   if
@@ -3907,6 +3883,30 @@
    local.get $0
    call $~lib/rt/itcms/__visit
   end
+  i32.const 2784
+  call $~lib/rt/itcms/__visit
+  i32.const 2832
+  call $~lib/rt/itcms/__visit
+  i32.const 2896
+  call $~lib/rt/itcms/__visit
+  i32.const 2944
+  call $~lib/rt/itcms/__visit
+  i32.const 2992
+  call $~lib/rt/itcms/__visit
+  i32.const 3056
+  call $~lib/rt/itcms/__visit
+  i32.const 3120
+  call $~lib/rt/itcms/__visit
+  i32.const 3168
+  call $~lib/rt/itcms/__visit
+  i32.const 3216
+  call $~lib/rt/itcms/__visit
+  i32.const 3280
+  call $~lib/rt/itcms/__visit
+  i32.const 3328
+  call $~lib/rt/itcms/__visit
+  i32.const 3376
+  call $~lib/rt/itcms/__visit
   global.get $~lib/@artela/aspect-libs/types/entrance/entryPoint
   local.tee $0
   if

@@ -2,9 +2,9 @@ import {
     sys,
     PreContractCallInput,
     PostContractCallInput,
+    IPreContractCallJP,
+    IPostContractCallJP,
 } from "@artela/aspect-libs";
-
-import { IPreContractCallJP, IPostContractCallJP } from "@artela/aspect-libs/types/aspect-interface";
 
 export class StoreAspect implements IPreContractCallJP, IPostContractCallJP {
     preContractCall(ctx: PreContractCallInput): void {

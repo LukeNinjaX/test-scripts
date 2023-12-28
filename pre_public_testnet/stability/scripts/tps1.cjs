@@ -19,7 +19,7 @@ async function f() {
         console.log("current time: ", dt);
     }
 
-    let tokenAddress = "0x574C68472612e30385c0C81F36157FDe0F894097";
+    let tokenAddress = "0x460342666332Cc27c924488c7152c874fE0FA366";
     let tokenContract = new web3.eth.Contract(tokenAbi, tokenAddress);
     let receiverAddress = "0xE2AF7C239b4F2800a2F742d406628b4fc4b8a0d4";
     for (let l = 0; l < 1000000; l++) {
@@ -48,7 +48,7 @@ async function f() {
                     // console.log('transfer tx hash: ' + signedTransferTx.transactionHash);
 
                     // const dt = new Date().toISOString();
-                    // let lable = "sent index " + m + ", date: " + dt;
+                    // let lable = "sent index " + m + ", date: " + dt + ", hash: " + signedTransferTx.transactionHash;
                     // console.time(lable);
                     // web3.eth.sendSignedTransaction(signedTransferTx.rawTransaction)
                     // console.timeEnd(lable);
@@ -64,29 +64,29 @@ async function f() {
             }
         }
 
-        {
-            var opts = url.parse('http://127.0.0.1:26657/num_unconfirmed_txs\?'),
-                data = { title: 'Test' };
-            opts.headers = {};
-            opts.headers['Content-Type'] = 'application/json';
+        // {
+        //     var opts = url.parse('http://127.0.0.1:26657/num_unconfirmed_txs\?'),
+        //         data = { title: 'Test' };
+        //     opts.headers = {};
+        //     opts.headers['Content-Type'] = 'application/json';
 
-            let clear = false;
-            for (; ;) {
-                if (clear) {
-                    break;
-                }
-                http.request(opts, function (res) {
-                    res.on('data', function (chunk) {
-                        console.log('BODY: ' + chunk);
-                        if (chunk.includes('"n_txs":"0"')) {
-                            clear = true;
-                        }
-                    });
-                    res.pipe(process.stdout);
-                }).end(JSON.stringify(data));
-                await new Promise(r => setTimeout(r, 300));
-            }
-        }
+        //     let clear = false;
+        //     for (; ;) {
+        //         if (clear) {
+        //             break;
+        //         }
+        //         http.request(opts, function (res) {
+        //             res.on('data', function (chunk) {
+        //                 console.log('BODY: ' + chunk);
+        //                 if (chunk.includes('"n_txs":"0"')) {
+        //                     clear = true;
+        //                 }
+        //             });
+        //             res.pipe(process.stdout);
+        //         }).end(JSON.stringify(data));
+        //         await new Promise(r => setTimeout(r, 300));
+        //     }
+        // }
 
         const dt = new Date().toISOString();
         console.log("date time:", dt)

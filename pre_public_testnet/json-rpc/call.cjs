@@ -8,6 +8,10 @@ const eventBytes = fs.readFileSync("/home/luke/go/src/github.com/artela-network/
 const eventAbidata = fs.readFileSync("/home/luke/go/src/github.com/artela-network/test-scripts/pre_public_testnet/json-rpc/contract/event.abi", "utf-8")
 var eventAbi = JSON.parse(eventAbidata);
 
+const erc20Bytes = fs.readFileSync("/home/luke/go/src/github.com/artela-network/test-scripts/pre_public_testnet/json-rpc/contract/erc20.bin", "utf-8")
+const erc20Abidata = fs.readFileSync("/home/luke/go/src/github.com/artela-network/test-scripts/pre_public_testnet/json-rpc/contract/erc20.abi", "utf-8")
+var erc20Abi = JSON.parse(erc20Abidata);
+
 const ARTELA_ADDR = "0x0000000000000000000000000000000000A27E14";
 
 // load bank account, the private key of bank is the genesis account key got from last step.
@@ -19,7 +23,7 @@ let contractAddress;
 let callEventBlockNumber;
 let callEventTopics;
 let callEventTxHash;
-async function deploy() {
+async function deployEvent() {
     // retrieve current nonce
     let nonceVal = await web3.eth.getTransactionCount(bank.address);
     {
@@ -46,7 +50,7 @@ async function deploy() {
     }
 }
 
-async function call() {
+async function callEvent() {
     let eventContract = new web3.eth.Contract(eventAbi, contractAddress);
     let method = eventContract.methods.sendEvent();
 
@@ -64,6 +68,59 @@ async function call() {
             callEventTopics = receipt.logs[0].topics;
             callEventTxHash = receipt.transactionHash;
         });
+}
+
+async function estimeateGas() {
+    const gasEstimate = await web3.eth.estimateGas(transactionObject);
+    console.log("Estimated Gas: ", gasEstimate);
+}
+
+async function ethCall() {
+    let nonceVal = await web3.eth.getTransactionCount(bank.address);
+    let erc20Address;
+    {
+        // instantiate an instance of erc20 contract
+        let erc20Contract = new web3.eth.Contract(erc20Abi);
+        // deploy erc20 contract
+        let erc20Deploy = erc20Contract.deploy({ data: erc20Bytes, arguments: [1000000000000000] });
+
+        let erc20Tx = {
+            from: bank.address,
+            data: erc20Deploy.encodeABI(),
+            nonce: nonceVal,
+            gas: 4000000
+        }
+        let signedErc20Tx = await web3.eth.accounts.signTransaction(erc20Tx, bank.privateKey);
+        console.log('deploy erc20 tx hash: ' + signedErc20Tx.transactionHash);
+        await web3.eth.sendSignedTransaction(signedErc20Tx.rawTransaction)
+            .on('receipt', receipt => {
+                console.log(receipt);
+                erc20Address = receipt.contractAddress;
+            });
+    }
+
+    let receiverAddress = "0xE2AF7C239b4F2800a2F742d406628b4fc4b8a0d4";
+    let erc20Contract = new web3.eth.Contract(erc20Abi, erc20Address);
+    {
+        let transfer = erc20Contract.methods.transfer(receiverAddress, 10000000);
+
+        let transferTx = {
+            from: bank.address,
+            to: erc20Address,
+            data: transfer.encodeABI(),
+            maxPriorityFeePerGas: 10000,
+            maxFeePerGas: 100001,
+            gas: 4000000
+        }
+        let signedTransferTx = await web3.eth.accounts.signTransaction(transferTx, bank.privateKey);
+        await web3.eth.sendSignedTransaction(signedTransferTx.rawTransaction)
+            .on('receipt', receipt => {
+                console.log(receipt);
+            });
+    }
+
+    let result = await erc20Contract.methods.balanceOf(receiverAddress).call()
+    assert.deepEqual(result, '10000000');
 }
 
 async function getLogs() {
@@ -117,7 +174,7 @@ async function f() {
     console.log("eth_getBlockByHash:", blockByHash);
     assert.deepEqual(blockByHash.number, blockByNumber.number);
 
-    await deploy();
+    await deployEvent();
 
     // Get contract code for a specific address
     const contractCode = await web3.eth.getCode(contractAddress);
@@ -125,11 +182,11 @@ async function f() {
     assert.deepEqual(contractCode.length, 1348);
 
     // Get logs from a block
-    await call();
+    await callEvent();
     await getLogs();
 
-    await call();
-    await call();
+    await callEvent();
+    await callEvent();
     const storageValue = await web3.eth.getStorageAt(contractAddress, 0);
     console.log("eth_getStorageAt:", storageValue);
     assert.deepEqual(storageValue.length, 66);
@@ -151,6 +208,9 @@ async function f() {
     assert.deepEqual(feeHistory.gasUsedRatio.length, 10);
     assert.deepEqual(feeHistory.baseFeePerGas, ['0x7', '0x7', '0x7', '0x7', '0x7', '0x7', '0x7', '0x7', '0x7', '0x7', '0x7']);
     assert.deepEqual(feeHistory.oldestBlock, "0x" + ((blockNumber - 9).toString(16)));
+
+    await ethCall();
+    // await estimeateGas();
 
     console.log(`
         ┌─┐       ┌─┐

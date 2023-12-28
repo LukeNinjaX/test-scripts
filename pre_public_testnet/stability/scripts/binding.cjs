@@ -2,20 +2,17 @@ const fs = require('fs');
 const Web3 = require('@artela/web3');
 const web3 = new Web3('http://127.0.0.1:8545');
 
-const tokenBytes = fs.readFileSync("contract/ArtToken.bin", "utf-8")
-const tokenAbidata = fs.readFileSync("contract/ArtToken.abi", "utf-8")
+const tokenBytes = fs.readFileSync("./contract/erc20.bin", "utf-8")
+const tokenAbidata = fs.readFileSync("./contract/erc20.abi", "utf-8")
 var tokenAbi = JSON.parse(tokenAbidata)
 
 const ARTELA_ADDR = "0x0000000000000000000000000000000000A27E14";
-
-var http = require('http'),
-    url = require('url');
 
 async function f() {
     let gasPrice = await web3.eth.getGasPrice();
 
     // load local account from private key
-    let privateFile = 'keys/1.txt';
+    let privateFile = './keys/1.txt';
     let pk = fs.readFileSync(privateFile, 'utf-8');
     let sender = web3.eth.accounts.privateKeyToAccount(pk);
     console.log("from address: ", sender.address);
@@ -55,7 +52,7 @@ async function f() {
             });
     }
 
-    for (let i = 0; i < 0; i++) {
+    for (let i = 0; i < 1; i++) {
         console.log("");
         console.log("--------------------deloy aspect--------------------------");
         let aspectID;
