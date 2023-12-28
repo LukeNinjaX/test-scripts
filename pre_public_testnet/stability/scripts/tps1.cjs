@@ -19,7 +19,7 @@ async function f() {
         console.log("current time: ", dt);
     }
 
-    let tokenAddress = "0x089e26D0776c1718CB08e72114bB19D7EFE3f6E9";
+    let tokenAddress = "0x574C68472612e30385c0C81F36157FDe0F894097";
     let tokenContract = new web3.eth.Contract(tokenAbi, tokenAddress);
     let receiverAddress = "0xE2AF7C239b4F2800a2F742d406628b4fc4b8a0d4";
     for (let l = 0; l < 1000000; l++) {
@@ -50,12 +50,12 @@ async function f() {
                     // const dt = new Date().toISOString();
                     // let lable = "sent index " + m + ", date: " + dt;
                     // console.time(lable);
-                    web3.eth.sendSignedTransaction(signedTransferTx.rawTransaction)
+                    // web3.eth.sendSignedTransaction(signedTransferTx.rawTransaction)
                     // console.timeEnd(lable);
-                    // await web3.eth.sendSignedTransaction(signedTransferTx.rawTransaction)
-                    //     .on('receipt', receipt => {
-                    //         console.log(receipt);
-                    //     });
+                    await web3.eth.sendSignedTransaction(signedTransferTx.rawTransaction)
+                        .on('receipt', receipt => {
+                            console.log(receipt);
+                        });
                 }
                 // await new Promise(r => setTimeout(r, 50));
             } catch (e) {

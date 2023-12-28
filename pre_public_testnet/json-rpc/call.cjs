@@ -4,8 +4,8 @@ const web3 = new Web3('http://127.0.0.1:8545');
 
 const assert = require('node:assert/strict');
 
-const eventBytes = fs.readFileSync("/home/luke/go/src/github.com/artela-network/auto/pre_public_testnet/json-rpc/contract/event.bin", "utf-8")
-const eventAbidata = fs.readFileSync("/home/luke/go/src/github.com/artela-network/auto/pre_public_testnet/json-rpc/contract/event.abi", "utf-8")
+const eventBytes = fs.readFileSync("/home/luke/go/src/github.com/artela-network/test-scripts/pre_public_testnet/json-rpc/contract/event.bin", "utf-8")
+const eventAbidata = fs.readFileSync("/home/luke/go/src/github.com/artela-network/test-scripts/pre_public_testnet/json-rpc/contract/event.abi", "utf-8")
 var eventAbi = JSON.parse(eventAbidata);
 
 const ARTELA_ADDR = "0x0000000000000000000000000000000000A27E14";
@@ -119,11 +119,6 @@ async function f() {
 
     await deploy();
 
-
-    const storageValue = await web3.eth.getStorageAt(contractAddress, 0);
-    console.log("eth_getStorageAt:", storageValue);
-    assert.deepEqual(storageValue.length, 66);
-
     // Get contract code for a specific address
     const contractCode = await web3.eth.getCode(contractAddress);
     console.log("eth_getCode:", contractCode);
@@ -132,6 +127,13 @@ async function f() {
     // Get logs from a block
     await call();
     await getLogs();
+
+    await call();
+    await call();
+    const storageValue = await web3.eth.getStorageAt(contractAddress, 0);
+    console.log("eth_getStorageAt:", storageValue);
+    assert.deepEqual(storageValue.length, 66);
+    assert.deepEqual(storageValue, '0x0000000000000000000000000000000000000000000000000000000000000003');
 
     // Get transaction information by a specific transaction hash
     const transactionByHash = await web3.eth.getTransaction(callEventTxHash);
@@ -142,6 +144,13 @@ async function f() {
     const transactionReceipt = await web3.eth.getTransactionReceipt(callEventTxHash);
     console.log("eth_getTransactionReceipt:", transactionReceipt);
     assert.deepEqual(transactionReceipt.transactionHash, callEventTxHash);
+
+    const feeHistory = await web3.eth.getFeeHistory(10, blockNumber, []);
+    console.log("eth_getFeeHistory:", feeHistory);
+    assert.deepEqual(feeHistory.baseFeePerGas.length, 11);
+    assert.deepEqual(feeHistory.gasUsedRatio.length, 10);
+    assert.deepEqual(feeHistory.baseFeePerGas, ['0x7', '0x7', '0x7', '0x7', '0x7', '0x7', '0x7', '0x7', '0x7', '0x7', '0x7']);
+    assert.deepEqual(feeHistory.oldestBlock, "0x" + ((blockNumber - 9).toString(16)));
 
     console.log(`
         ┌─┐       ┌─┐

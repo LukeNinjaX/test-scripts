@@ -55,7 +55,7 @@ async function f() {
             });
     }
 
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < 0; i++) {
         console.log("");
         console.log("--------------------deloy aspect--------------------------");
         let aspectID;
@@ -139,78 +139,6 @@ async function f() {
 
     // await new Promise(r => setTimeout(r, 1000));
     console.log("token contract address: ", tokenAddress);
-
-
-    // let receiverAddress = "0xE2AF7C239b4F2800a2F742d406628b4fc4b8a0d4";
-    // for (let l = 0; l < 1000000; l++) {
-    //     console.log("=====================================================================");
-    //     console.log("===========================call tx loops: ", l, "===========================");
-
-    //     let lable = "send 10000 txs, loop " + l
-    //     console.time(lable);
-    //     for (let m = 1; m <= 10000; m++) {
-    //         try {
-    //             let callerFile = 'keys/' + m + '.txt';
-    //             let callerPK = fs.readFileSync(callerFile, 'utf-8');
-    //             let caller = web3.eth.accounts.privateKeyToAccount(callerPK);
-    //             // console.log("call with key: ", callerFile, ", address: ", caller.address);
-    //             web3.eth.accounts.wallet.add(caller.privateKey);
-    //             {
-    //                 let transfer = tokenContract.methods.transfer(receiverAddress, 0);
-
-    //                 let transferTx = {
-    //                     from: caller.address,
-    //                     to: tokenAddress,
-    //                     data: transfer.encodeABI(),
-    //                     gas: 4000000
-    //                 }
-    //                 let signedTransferTx = await web3.eth.accounts.signTransaction(transferTx, caller.privateKey);
-    //                 // console.log('transfer tx hash: ' + signedTransferTx.transactionHash);
-
-    //                 web3.eth.sendSignedTransaction(signedTransferTx.rawTransaction)
-    //                 // await web3.eth.sendSignedTransaction(signedTransferTx.rawTransaction)
-    //                 //     .on('receipt', receipt => {
-    //                 //         console.log(receipt);
-    //                 //     });
-    //             }
-    //             // await new Promise(r => setTimeout(r, 50));
-    //         } catch (e) {
-    //             console.log("send tx failed, index: " + m, "error: ", e);
-    //             await new Promise(r => setTimeout(r, 1000));
-    //         }
-    //     }
-
-    //     // {
-    //     //     var opts = url.parse('http://127.0.0.1:26657/num_unconfirmed_txs\?'),
-    //     //         data = { title: 'Test' };
-    //     //     opts.headers = {};
-    //     //     opts.headers['Content-Type'] = 'application/json';
-
-    //     //     let clear = false;
-    //     //     for (; ;) {
-    //     //         if (clear) {
-    //     //             break;
-    //     //         }
-    //     //         http.request(opts, function (res) {
-    //     //             res.on('data', function (chunk) {
-    //     //                 console.log('BODY: ' + chunk);
-    //     //                 if (chunk.includes('"n_txs":"0"')) {
-    //     //                     clear = true;
-    //     //                 }
-    //     //             });
-    //     //             res.pipe(process.stdout);
-    //     //         }).end(JSON.stringify(data));
-    //     //         await new Promise(r => setTimeout(r, 300));
-    //     //     }
-    //     // }
-
-    //     const dt = new Date();
-    //     console.log("date time:", dt)
-    //     console.timeEnd(lable);
-
-    //     // await new Promise(r => setTimeout(r, 1000));
-    // }
-
 }
 
 f().then();
