@@ -11,39 +11,43 @@ import {
     uint8ArrayToHex,
     hexToUint8Array,
     BytesData,
-    stringToUint8Array, JitCallBuilder, StaticCallRequest, CallTreeQuery, EthCallTree, uint8ArrayToAddress,
+    stringToUint8Array, JitCallBuilder, StaticCallRequest, CallTreeQuery, EthCallTree,
 } from "@artela/aspect-libs";
 
 import { IPreContractCallJP, IPostContractCallJP } from "@artela/aspect-libs/types/aspect-interface";
 import { Protobuf } from "as-proto/assembly/Protobuf";
 export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP {
     preContractCall(ctx: PreContractCallInput): void {
-        sys.log("---running joinpoint preContractCall");
         ///
         /// utils hostapi
         ///
-        sys.log("utils hostapi");
+        sys.hostApi.util.log("call utils hostapi");
         const hexStr = "6A";
         const encodedHex = hexToUint8Array(hexStr);
         const decodedHex = uint8ArrayToHex(encodedHex);
         sys.require(decodedHex != hexStr, "hexToUint8Array or uint8ArrayToHex error");
+        sys.log("---calling aspect PreContractCallCtx");
         // sys.hostApi.util.revert("error message");
 
         ///
         /// statedb hostapi
         ///
-        sys.log("statedb hostapi");
+        sys.log("call statedb hostapi");
+        //todo
         const balance = sys.hostApi.stateDb.balance(hexToUint8Array("0xE2AF7C239b4F2800a2F742d406628b4fc4b8a0d4"));
         const state = sys.hostApi.stateDb.stateAt(hexToUint8Array("0xE2AF7C239b4F2800a2F742d406628b4fc4b8a0d4"), stringToUint8Array(""));
         const codeHash = sys.hostApi.stateDb.codeHash(hexToUint8Array("0xE2AF7C239b4F2800a2F742d406628b4fc4b8a0d4"));
-        const nonce = sys.hostApi.stateDb.nonce(hexToUint8Array("0xE2AF7C239b4F2800a2F742d406628b4fc4b8a0d4"));
+        // const nonce = sys.hostApi.stateDb.nonce(hexToUint8Array("0xE2AF7C239b4F2800a2F742d406628b4fc4b8a0d4"));
 
         ///
         /// runtime context hostapi
         ///
-        sys.log("runtime hostapi");
+        sys.log("call runtime context hostapi");
+
         const txBytes = sys.hostApi.runtimeContext.get("tx.bytes");
         const txBytesData = Protobuf.decode<BytesData>(txBytes, BytesData.decode);
+        sys.log("tx.bytes" + " " + uint8ArrayToHex(txBytesData.data))
+
 
         const messageUtil = MessageUtil.instance();
         const key = "123";
@@ -63,7 +67,7 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
         ///
         /// crypto hostapi
         ///
-        sys.log("crypto hostapi");
+        sys.hostApi.util.log("call crypto hostapi");
         let cryptostr = stringToUint8Array("test");
         let keccakdata = sys.hostApi.crypto.keccak(cryptostr);
         let sha256data = sys.hostApi.crypto.sha256(cryptostr);
@@ -75,30 +79,19 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
         ///
         /// other calls
         ///
-        sys.log("calls hostapi");
+        sys.hostApi.util.log("call other calls");
         let ethMessage = new StaticCallRequest();
-        const from = sys.hostApi.aspectProperty.get("from");
-        sys.log("property from");
-        const to = sys.hostApi.aspectProperty.get("to");
-        sys.log("property to");
-        const data = sys.hostApi.aspectProperty.get("data");
-        sys.log("property data");
-        ethMessage.from = from
-        ethMessage.to = to
-        ethMessage.gas = 400000;
-        ethMessage.data = data;
-        let staticCallresult = sys.hostApi.evmCall.staticCall(ethMessage);
+        ///todo
+        let staticCallresult = sys.hostApi.evmCall.staticCall(ethMessage)
 
-        // let request = new JitCallBuilder()
-        //     .callData(stringToUint8Array(callData))
-        //     .sender(hexToUint8 Array(walletAddress))
-        //     .build();
-        // let jitresponse = sys.hostApi.evmCall.jitCall(request);
+        let request = new JitCallBuilder()
+            .callData(stringToUint8Array(callData))
+            .sender(hexToUint8Array(walletAddress))
+            .build();
+        let jitresponse = sys.hostApi.evmCall.jitCall(request);
     }
 
     postContractCall(ctx: PostContractCallInput): void {
-        sys.log("---running joinpoint preContractCall");
-
         // Get the method of currently called contract.
         const currentCallMethod = ethereum.parseMethodSig(ctx.call!.data);
 

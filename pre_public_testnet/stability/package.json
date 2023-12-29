@@ -9,7 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@artela/aspect-libs": "^0.0.29",
+    "@artela/aspect-libs": "^0.0.30",
     "@artela/web3": "^1.9.22",
     "@artela/web3-atl": "^1.9.22",
     "@artela/web3-eth": "^1.9.22",

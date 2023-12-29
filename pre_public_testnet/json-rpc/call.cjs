@@ -12,6 +12,8 @@ const erc20Bytes = fs.readFileSync("/home/luke/go/src/github.com/artela-network/
 const erc20Abidata = fs.readFileSync("/home/luke/go/src/github.com/artela-network/test-scripts/pre_public_testnet/json-rpc/contract/erc20.abi", "utf-8")
 var erc20Abi = JSON.parse(erc20Abidata);
 
+const allAspectPath = '/home/luke/go/src/github.com/artela-network/test-scripts/pre_public_testnet/json-rpc/aspect/all.wasm';
+
 const ARTELA_ADDR = "0x0000000000000000000000000000000000A27E14";
 
 // load bank account, the private key of bank is the genesis account key got from last step.
@@ -26,28 +28,27 @@ let callEventTxHash;
 async function deployEvent() {
     // retrieve current nonce
     let nonceVal = await web3.eth.getTransactionCount(bank.address);
-    {
-        // instantiate an instance of event contract
-        let eventContract = new web3.eth.Contract(eventAbi);
-        // deploy event contract
-        let eventDeploy = eventContract.deploy({ data: eventBytes });
+    // instantiate an instance of event contract
+    let eventContract = new web3.eth.Contract(eventAbi);
+    // deploy event contract
+    let eventDeploy = eventContract.deploy({ data: eventBytes });
 
-        let eventTx = {
-            from: bank.address,
-            data: eventDeploy.encodeABI(),
-            nonce: nonceVal,
-            gas: 4000000
-        }
-        let signedTx = await web3.eth.accounts.signTransaction(eventTx, bank.privateKey);
-        console.log("eth_signTransaction: ", signedTx)
-        await web3.eth.sendSignedTransaction(signedTx.rawTransaction)
-            .on('receipt', receipt => {
-                console.log("eth_sendSignedTransaction: ", receipt);
-                console.log("contract address: ", receipt.contractAddress);
-                contractAddress = receipt.contractAddress;
-                eventBlockNumber = receipt.blockNumber;
-            });
+    let eventTx = {
+        from: bank.address,
+        data: eventDeploy.encodeABI(),
+        nonce: nonceVal,
+        gas: 4000000
     }
+
+    let signedTx = await web3.eth.accounts.signTransaction(eventTx, bank.privateKey);
+    console.log("eth_signTransaction: ", signedTx)
+    await web3.eth.sendSignedTransaction(signedTx.rawTransaction)
+        .on('receipt', receipt => {
+            console.log("eth_sendSignedTransaction: ", receipt);
+            console.log("contract address: ", receipt.contractAddress);
+            contractAddress = receipt.contractAddress;
+            eventBlockNumber = receipt.blockNumber;
+        });
 }
 
 async function callEvent() {
@@ -60,19 +61,231 @@ async function callEvent() {
         data: method.encodeABI(),
         gas: 4000000
     }
+
     let signedTx = await web3.eth.accounts.signTransaction(tx, bank.privateKey);
     await web3.eth.sendSignedTransaction(signedTx.rawTransaction)
         .on('receipt', receipt => {
             console.log("call event: ", receipt);
+            assert.deepEqual(receipt.status, true);
             callEventBlockNumber = receipt.blockNumber;
             callEventTopics = receipt.logs[0].topics;
             callEventTxHash = receipt.transactionHash;
         });
 }
 
-async function estimeateGas() {
-    const gasEstimate = await web3.eth.estimateGas(transactionObject);
-    console.log("Estimated Gas: ", gasEstimate);
+async function estimatedGasCreateEvent() {
+    let nonceVal = await web3.eth.getTransactionCount(bank.address);
+    let eventContract = new web3.eth.Contract(eventAbi);
+    let eventDeploy = eventContract.deploy({ data: eventBytes });
+
+    let eventTx = {
+        from: bank.address,
+        data: eventDeploy.encodeABI(),
+        nonce: nonceVal,
+        gas: 4000000
+    }
+
+    const estimateGas = await web3.eth.estimateGas(eventTx);
+    console.log("eth_estimatedGas(createEvent): ", estimateGas);
+    eventTx.gas = estimateGas;
+
+    let signedTx = await web3.eth.accounts.signTransaction(eventTx, bank.privateKey);
+    await web3.eth.sendSignedTransaction(signedTx.rawTransaction)
+        .on('receipt', receipt => {
+            console.log("eth_estimatedGas, create event: ", receipt);
+            assert.deepEqual(receipt.status, true);
+        });
+}
+
+async function estimatedGasCallEvent() {
+    let eventContract = new web3.eth.Contract(eventAbi, contractAddress);
+    let method = eventContract.methods.sendEvent();
+
+    let tx = {
+        from: bank.address,
+        to: contractAddress,
+        data: method.encodeABI(),
+        gas: 4000000
+    }
+
+    const estimateGas = await web3.eth.estimateGas(tx);
+    console.log("eth_estimatedGas(callEvent): ", estimateGas);
+    tx.gas = estimateGas;
+
+    let signedTx = await web3.eth.accounts.signTransaction(tx, bank.privateKey);
+    await web3.eth.sendSignedTransaction(signedTx.rawTransaction)
+        .on('receipt', receipt => {
+            console.log("eth_estimatedGas, call event: ", receipt);
+            assert.deepEqual(receipt.status, true);
+        });
+}
+
+
+async function estimeateGasTransfer() {
+    // receiver is the EOA address or contract address that receive native tokens
+    const receiver = "0x21b30AdBC8d74a87F822b36f2E88591F59D1F387";
+
+    // transfer account from bank to local account
+    // the params of getTransactionCount is bank address.
+    let bankNonce = await web3.atl.getTransactionCount(bank.address);
+    let tx = {
+        'from': bank.address,
+        'to': receiver,
+        'value': web3.utils.toWei('1000', 'ether'), // transfer 1 eth
+        'gas': 2000000,
+        'gaslimit': 4000000,
+        'nonce': bankNonce
+    };
+
+    const estimateGas = await web3.eth.estimateGas(tx);
+    console.log("eth_estimatedGas(estimeateGasTransfer): ", estimateGas);
+    tx.gas = estimateGas;
+
+    // send transaction
+    await web3.atl.sendTransaction(tx).on('receipt', receipt => {
+        console.log("estimeateGasTransfer: ", receipt);
+        assert.deepEqual(receipt.status, true);
+    });
+}
+
+async function estimeateGasJIT() {
+    // let gasPrice = await web3.eth.getGasPrice();
+    let sender = bank;
+
+    let pretokenAddress;
+    {
+        let nonceVal = await web3.eth.getTransactionCount(sender.address);
+        let tokenContract = new web3.eth.Contract(erc20Abi);
+        let tokenDeploy = tokenContract.deploy({ data: erc20Bytes, arguments: [1000000000000000] });
+
+        let tokenTx = {
+            from: sender.address,
+            data: tokenDeploy.encodeABI(),
+            nonce: nonceVal,
+            gas: 4000000
+        }
+        let signedTokenTx = await web3.eth.accounts.signTransaction(tokenTx, sender.privateKey);
+        console.log('deploy token tx hash: ' + signedTokenTx.transactionHash);
+        await web3.eth.sendSignedTransaction(signedTokenTx.rawTransaction)
+            .on('receipt', receipt => {
+                console.log(receipt);
+                console.log("token contract address: ", receipt.contractAddress);
+                pretokenAddress = receipt.contractAddress;
+            });
+    }
+
+    // let tokenAddress;
+    // {
+    //     let nonceVal = await web3.eth.getTransactionCount(sender.address);
+    //     let tokenContract = new web3.eth.Contract(erc20Abi);
+    //     let tokenDeploy = tokenContract.deploy({ data: erc20Bytes, arguments: [1000000000000000] });
+
+    //     let tokenTx = {
+    //         from: sender.address,
+    //         data: tokenDeploy.encodeABI(),
+    //         nonce: nonceVal,
+    //         gas: 4000000
+    //     }
+    //     let signedTokenTx = await web3.eth.accounts.signTransaction(tokenTx, sender.privateKey);
+    //     console.log('deploy token tx hash: ' + signedTokenTx.transactionHash);
+    //     await web3.eth.sendSignedTransaction(signedTokenTx.rawTransaction)
+    //         .on('receipt', receipt => {
+    //             console.log(receipt);
+    //             console.log("token contract address: ", receipt.contractAddress);
+    //             tokenAddress = receipt.contractAddress;
+    //         });
+    // }
+
+    let aspectID;
+    {
+        let aspectCode = fs.readFileSync(allAspectPath, {
+            encoding: "hex"
+        });
+        let pretokenContract = new web3.eth.Contract(erc20Abi, pretokenAddress);
+        let calldata = pretokenContract.methods.balanceOf(sender.address).encodeABI();
+        // instantiate an instance of aspect
+        let aspect = new web3.atl.Aspect();
+        let deploy = await aspect.deploy({
+            data: '0x' + aspectCode,
+            joinPoints: ["PreContractCall", "PostContractCall"],
+            properties: [
+                { 'key': 'from', 'value': sender.address },
+                { 'key': 'to', 'value': pretokenAddress },
+                { 'key': 'data', 'value': calldata }
+            ],
+            paymaster: sender.address,
+            proof: '0x0',
+        });
+
+        let tx = {
+            from: sender.address,
+            data: deploy.encodeABI(),
+            to: ARTELA_ADDR,
+            // gasPrice,
+            gas: 9000000
+        }
+        let signedTx = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
+        console.log("sending signed transaction...");
+        let ret = await web3.eth.sendSignedTransaction(signedTx.rawTransaction)
+            .on('receipt', receipt => {
+                console.log(receipt);
+            });
+        aspectID = ret.aspectAddress;
+        console.log("ret: ", ret);
+        console.log("== deploy aspectID ==", aspectID)
+    }
+
+    // await new Promise(r => setTimeout(r, 1000));
+    // let tokenContract = new web3.eth.Contract(erc20Abi, tokenAddress);
+
+    // // binding aspect to erc20 contract
+    // {
+    //     // bind the smart contract with aspect
+    //     let bind = await tokenContract.bind({
+    //         priority: 1,
+    //         aspectId: aspectID,
+    //         to: tokenAddress,
+    //         aspectVersion: 1,
+    //     })
+
+    //     let tx = {
+    //         from: sender.address,
+    //         data: bind.encodeABI(),
+    //         gasPrice,
+    //         to: ARTELA_ADDR,
+    //         gas: 9000000
+    //     }
+    //     let signedTx = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
+    //     console.log("sending signed transaction...");
+    //     await web3.eth.sendSignedTransaction(signedTx.rawTransaction)
+    //         .on('receipt', receipt => {
+    //             console.log(receipt);
+    //         });
+    // }
+
+    // // call the tx bound aspect with static calls
+    // {
+    //     let receiverAddress = "0xE2AF7C239b4F2800a2F742d406628b4fc4b8a0d4";
+    //     let transfer = tokenContract.methods.transfer(receiverAddress, 0);
+
+    //     let transferTx = {
+    //         from: sender.address,
+    //         to: tokenAddress,
+    //         data: transfer.encodeABI(),
+    //         gas: 4000000
+    //     }
+
+    //     const estimateGas = await web3.eth.estimateGas(transferTx);
+    //     console.log("eth_estimatedGas(estimeateGasJIT): ", estimateGas);
+    //     transferTx.gas = estimateGas;
+
+    //     let signedTransferTx = await web3.eth.accounts.signTransaction(transferTx, sender.privateKey);
+    //     await web3.eth.sendSignedTransaction(signedTransferTx.rawTransaction)
+    //         .on('receipt', receipt => {
+    //             console.log(receipt);
+    //             assert.deepEqual(receipt.status, true);
+    //         });
+    // }
 }
 
 async function ethCall() {
@@ -137,6 +350,7 @@ async function getLogs() {
 }
 
 async function f() {
+    await estimeateGasJIT();
     let netVersion = await web3.eth.net.getId();
     console.log("net_version: ", netVersion)
 
@@ -210,7 +424,11 @@ async function f() {
     assert.deepEqual(feeHistory.oldestBlock, "0x" + ((blockNumber - 9).toString(16)));
 
     await ethCall();
-    // await estimeateGas();
+
+    await estimatedGasCreateEvent();
+    await estimatedGasCallEvent();
+    await estimeateGasTransfer();
+    await estimeateGasJIT();
 
     console.log(`
         ┌─┐       ┌─┐
