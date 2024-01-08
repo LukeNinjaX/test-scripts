@@ -22,8 +22,7 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
         ///
         /// utils hostapi
         ///
-        sys.log("utils hostapi");
-        const hexStr = "6A";
+        /*const hexStr = "6A";
         const encodedHex = hexToUint8Array(hexStr);
         const decodedHex = uint8ArrayToHex(encodedHex);
         sys.require(decodedHex != hexStr, "hexToUint8Array or uint8ArrayToHex error");
@@ -32,7 +31,6 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
         ///
         /// statedb hostapi
         ///
-        sys.log("statedb hostapi");
         const balance = sys.hostApi.stateDb.balance(hexToUint8Array("0xE2AF7C239b4F2800a2F742d406628b4fc4b8a0d4"));
         const state = sys.hostApi.stateDb.stateAt(hexToUint8Array("0xE2AF7C239b4F2800a2F742d406628b4fc4b8a0d4"), stringToUint8Array(""));
         const codeHash = sys.hostApi.stateDb.codeHash(hexToUint8Array("0xE2AF7C239b4F2800a2F742d406628b4fc4b8a0d4"));
@@ -41,7 +39,6 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
         ///
         /// runtime context hostapi
         ///
-        sys.log("runtime hostapi");
         const txBytes = sys.hostApi.runtimeContext.get("tx.bytes");
         const txBytesData = Protobuf.decode<BytesData>(txBytes, BytesData.decode);
 
@@ -63,7 +60,6 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
         ///
         /// crypto hostapi
         ///
-        sys.log("crypto hostapi");
         let cryptostr = stringToUint8Array("test");
         let keccakdata = sys.hostApi.crypto.keccak(cryptostr);
         let sha256data = sys.hostApi.crypto.sha256(cryptostr);
@@ -75,19 +71,15 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
         ///
         /// other calls
         ///
-        sys.log("calls hostapi");
         let ethMessage = new StaticCallRequest();
         const from = sys.hostApi.aspectProperty.get("from");
-        sys.log("property from");
         const to = sys.hostApi.aspectProperty.get("to");
-        sys.log("property to");
         const data = sys.hostApi.aspectProperty.get("data");
-        sys.log("property data");
         ethMessage.from = from
         ethMessage.to = to
         ethMessage.gas = 400000;
         ethMessage.data = data;
-        let staticCallresult = sys.hostApi.evmCall.staticCall(ethMessage);
+        let staticCallresult = sys.hostApi.evmCall.staticCall(ethMessage);*/
 
         // let request = new JitCallBuilder()
         //     .callData(stringToUint8Array(callData))
@@ -97,10 +89,10 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
     }
 
     postContractCall(ctx: PostContractCallInput): void {
-        sys.log("---running joinpoint preContractCall");
+        sys.log("---running joinpoint postContractCall");
 
         // Get the method of currently called contract.
-        const currentCallMethod = ethereum.parseMethodSig(ctx.call!.data);
+        /*const currentCallMethod = ethereum.parseMethodSig(ctx.call!.data);
 
 
         // Define functions that are not allowed to be reentered.
@@ -127,7 +119,7 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
                     // sys.revert(`illegal transaction: method reentered from ${currentCallMethod} to ${parentCallMethod}`);
                 }
             }
-        }
+        }*/
     }
 
 

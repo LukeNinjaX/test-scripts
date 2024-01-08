@@ -149,7 +149,7 @@ async function estimeateGasTransfer() {
 }
 
 async function estimeateGasJIT() {
-    // let gasPrice = await web3.eth.getGasPrice();
+    let gasPrice = await web3.eth.getGasPrice();
     let sender = bank;
 
     let pretokenAddress;
@@ -174,27 +174,27 @@ async function estimeateGasJIT() {
             });
     }
 
-    // let tokenAddress;
-    // {
-    //     let nonceVal = await web3.eth.getTransactionCount(sender.address);
-    //     let tokenContract = new web3.eth.Contract(erc20Abi);
-    //     let tokenDeploy = tokenContract.deploy({ data: erc20Bytes, arguments: [1000000000000000] });
+    let tokenAddress;
+    {
+        let nonceVal = await web3.eth.getTransactionCount(sender.address);
+        let tokenContract = new web3.eth.Contract(erc20Abi);
+        let tokenDeploy = tokenContract.deploy({ data: erc20Bytes, arguments: [1000000000000000] });
 
-    //     let tokenTx = {
-    //         from: sender.address,
-    //         data: tokenDeploy.encodeABI(),
-    //         nonce: nonceVal,
-    //         gas: 4000000
-    //     }
-    //     let signedTokenTx = await web3.eth.accounts.signTransaction(tokenTx, sender.privateKey);
-    //     console.log('deploy token tx hash: ' + signedTokenTx.transactionHash);
-    //     await web3.eth.sendSignedTransaction(signedTokenTx.rawTransaction)
-    //         .on('receipt', receipt => {
-    //             console.log(receipt);
-    //             console.log("token contract address: ", receipt.contractAddress);
-    //             tokenAddress = receipt.contractAddress;
-    //         });
-    // }
+        let tokenTx = {
+            from: sender.address,
+            data: tokenDeploy.encodeABI(),
+            nonce: nonceVal,
+            gas: 4000000
+        }
+        let signedTokenTx = await web3.eth.accounts.signTransaction(tokenTx, sender.privateKey);
+        console.log('deploy token tx hash: ' + signedTokenTx.transactionHash);
+        await web3.eth.sendSignedTransaction(signedTokenTx.rawTransaction)
+            .on('receipt', receipt => {
+                console.log(receipt);
+                console.log("token contract address: ", receipt.contractAddress);
+                tokenAddress = receipt.contractAddress;
+            });
+    }
 
     let aspectID;
     {
@@ -235,57 +235,57 @@ async function estimeateGasJIT() {
         console.log("== deploy aspectID ==", aspectID)
     }
 
-    // await new Promise(r => setTimeout(r, 1000));
-    // let tokenContract = new web3.eth.Contract(erc20Abi, tokenAddress);
+    await new Promise(r => setTimeout(r, 1000));
+    let tokenContract = new web3.eth.Contract(erc20Abi, tokenAddress);
 
-    // // binding aspect to erc20 contract
-    // {
-    //     // bind the smart contract with aspect
-    //     let bind = await tokenContract.bind({
-    //         priority: 1,
-    //         aspectId: aspectID,
-    //         to: tokenAddress,
-    //         aspectVersion: 1,
-    //     })
+    // binding aspect to erc20 contract
+    {
+        // bind the smart contract with aspect
+        let bind = await tokenContract.bind({
+            priority: 1,
+            aspectId: aspectID,
+            to: tokenAddress,
+            aspectVersion: 1,
+        })
 
-    //     let tx = {
-    //         from: sender.address,
-    //         data: bind.encodeABI(),
-    //         gasPrice,
-    //         to: ARTELA_ADDR,
-    //         gas: 9000000
-    //     }
-    //     let signedTx = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
-    //     console.log("sending signed transaction...");
-    //     await web3.eth.sendSignedTransaction(signedTx.rawTransaction)
-    //         .on('receipt', receipt => {
-    //             console.log(receipt);
-    //         });
-    // }
+        let tx = {
+            from: sender.address,
+            data: bind.encodeABI(),
+            gasPrice,
+            to: ARTELA_ADDR,
+            gas: 9000000
+        }
+        let signedTx = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
+        console.log("sending signed transaction...");
+        await web3.eth.sendSignedTransaction(signedTx.rawTransaction)
+            .on('receipt', receipt => {
+                console.log(receipt);
+            });
+    }
 
-    // // call the tx bound aspect with static calls
-    // {
-    //     let receiverAddress = "0xE2AF7C239b4F2800a2F742d406628b4fc4b8a0d4";
-    //     let transfer = tokenContract.methods.transfer(receiverAddress, 0);
+    // call the tx bound aspect with static calls
+    {
+        let receiverAddress = "0xE2AF7C239b4F2800a2F742d406628b4fc4b8a0d4";
+        let transfer = tokenContract.methods.transfer(receiverAddress, 0);
 
-    //     let transferTx = {
-    //         from: sender.address,
-    //         to: tokenAddress,
-    //         data: transfer.encodeABI(),
-    //         gas: 4000000
-    //     }
+        let transferTx = {
+            from: sender.address,
+            to: tokenAddress,
+            data: transfer.encodeABI(),
+            gas: 4000000
+        }
 
-    //     const estimateGas = await web3.eth.estimateGas(transferTx);
-    //     console.log("eth_estimatedGas(estimeateGasJIT): ", estimateGas);
-    //     transferTx.gas = estimateGas;
+        const estimateGas = await web3.eth.estimateGas(transferTx);
+        console.log("eth_estimatedGas(estimeateGasJIT): ", estimateGas);
+        transferTx.gas = estimateGas;
 
-    //     let signedTransferTx = await web3.eth.accounts.signTransaction(transferTx, sender.privateKey);
-    //     await web3.eth.sendSignedTransaction(signedTransferTx.rawTransaction)
-    //         .on('receipt', receipt => {
-    //             console.log(receipt);
-    //             assert.deepEqual(receipt.status, true);
-    //         });
-    // }
+        let signedTransferTx = await web3.eth.accounts.signTransaction(transferTx, sender.privateKey);
+        await web3.eth.sendSignedTransaction(signedTransferTx.rawTransaction)
+            .on('receipt', receipt => {
+                console.log(receipt);
+                assert.deepEqual(receipt.status, true);
+            });
+    }
 }
 
 async function ethCall() {
@@ -350,7 +350,6 @@ async function getLogs() {
 }
 
 async function f() {
-    await estimeateGasJIT();
     let netVersion = await web3.eth.net.getId();
     console.log("net_version: ", netVersion)
 

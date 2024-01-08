@@ -2,21 +2,21 @@ const fs = require('fs');
 const Web3 = require('@artela/web3');
 const web3 = new Web3('http://127.0.0.1:8545');
 
-const eventBytes = fs.readFileSync("/home/luke/go/src/github.com/artela-network/test-scripts/pre_public_testnet/json-rpc/contract/event.bin", "utf-8")
-const eventAbidata = fs.readFileSync("/home/luke/go/src/github.com/artela-network/test-scripts/pre_public_testnet/json-rpc/contract/event.abi", "utf-8")
+const eventBytes = fs.readFileSync("./contract/event.bin", "utf-8")
+const eventAbidata = fs.readFileSync("./contract/event.abi", "utf-8")
 var eventAbi = JSON.parse(eventAbidata);
 
-const tokenBytes = fs.readFileSync("/home/luke/go/src/github.com/artela-network/test-scripts/pre_public_testnet/stability/contract/erc20.bin", "utf-8")
-const tokenAbidata = fs.readFileSync("/home/luke/go/src/github.com/artela-network/test-scripts/pre_public_testnet/stability/contract/erc20.abi", "utf-8")
+const tokenBytes = fs.readFileSync("./contract/erc20.bin", "utf-8")
+const tokenAbidata = fs.readFileSync("./contract/erc20.abi", "utf-8")
 var tokenAbi = JSON.parse(tokenAbidata)
 
 const ARTELA_ADDR = "0x0000000000000000000000000000000000A27E14";
 
-async function f() {
+async function f(n) {
     let gasPrice = await web3.eth.getGasPrice();
 
     // load local account from private key
-    let privateFile = '/home/luke/go/src/github.com/artela-network/test-scripts/pre_public_testnet/stability/keys/1.txt';
+    let privateFile = './keys/1.txt';
     let pk = fs.readFileSync(privateFile, 'utf-8');
     let sender = web3.eth.accounts.privateKeyToAccount(pk);
     console.log("from address: ", sender.address);
@@ -72,12 +72,12 @@ async function f() {
             });
     }
 
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 1; i++) {
         console.log("");
-        console.log("--------------------deloy aspect--------------------------");
+        console.log("--------------------deloy aspect--------------------------, index: ", n * 2000 + i);
         let aspectID;
         {
-            let aspectCode = fs.readFileSync('/home/luke/go/src/github.com/artela-network/test-scripts/pre_public_testnet/stability/aspect/release.wasm', {
+            let aspectCode = fs.readFileSync('./aspect/release.wasm', {
                 encoding: "hex"
             });
             let pretokenContract = new web3.eth.Contract(tokenAbi, pretokenAddress);
@@ -150,4 +150,11 @@ async function f() {
     console.log("token contract address: ", tokenAddress);
 }
 
-f().then();
+async function loop100() {
+    for (let n = 0; n < 1; n++) {
+        console.log("**************loops:", n);
+        await f(n);
+    }
+}
+
+loop100().then();
