@@ -3,8 +3,9 @@
 The repository contains a collection of test scripts designed for evaluating the Artela blockchain. These scripts serve as comprehensive tools to assess the functionality and performance of the Artela chain.
 
 
-1. Instructions
-Generating Private Keys
+# Instructions
+
+1. Generating Private Keys
 Generate 10,000 private keys (not necessary if already present in the ./keys directory). Create a directory named keys under stability. Run the script node scripts/create.js.
 
 2. Recharging
