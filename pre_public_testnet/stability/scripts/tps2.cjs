@@ -20,16 +20,16 @@ async function f() {
     }
 
     // let tokenAddress = "0xE8778CdC1E582579338f4E3Ea93Df1a0d02965C2"; // erc20
-    let tokenAddress = "0x774cDED3f938851967eAA1818734bd2e4765944C"; // erc20 + aspect
+    let tokenAddress = "0xa0FA2AEe3e77EcD005f0f6339ec0442624C39104"; // erc20 + aspect
     let tokenContract = new web3.eth.Contract(tokenAbi, tokenAddress);
     let receiverAddress = "0xE2AF7C239b4F2800a2F742d406628b4fc4b8a0d4";
-    for (let l = 0; l < 1000000; l++) {
+    for (let l = 0; l < 1; l++) {
         console.log("=====================================================================");
         console.log("===========================call tx loops: ", l, "===========================");
 
         let lable = "send 5000 txs, loop " + l
         console.time(lable);
-        for (let m = 5001; m <= 10000; m++) {
+        for (let m = 1; m <= 1; m++) {
             try {
                 let callerFile = 'keys/' + m + '.txt';
                 let callerPK = fs.readFileSync(callerFile, 'utf-8');
@@ -48,17 +48,17 @@ async function f() {
                     let signedTransferTx = await web3.eth.accounts.signTransaction(transferTx, caller.privateKey);
                     // console.log('transfer tx hash: ' + signedTransferTx.transactionHash);
 
-                    const dt = new Date().toISOString();
-                    let lable = "sent index " + m + ", date: " + dt + ", hash: " + signedTransferTx.transactionHash;
-                    console.time(lable);
-                    web3.eth.sendSignedTransaction(signedTransferTx.rawTransaction)
-                    console.timeEnd(lable);
-                    // await web3.eth.sendSignedTransaction(signedTransferTx.rawTransaction)
-                    //     .on('receipt', receipt => {
-                    //         console.log(receipt);
-                    //     });
+                    // const dt = new Date().toISOString();
+                    // let lable = "sent index " + m + ", date: " + dt + ", hash: " + signedTransferTx.transactionHash;
+                    // console.time(lable);
+                    // web3.eth.sendSignedTransaction(signedTransferTx.rawTransaction)
+                    // console.timeEnd(lable);
+                    await web3.eth.sendSignedTransaction(signedTransferTx.rawTransaction)
+                        .on('receipt', receipt => {
+                            console.log(receipt);
+                        });
                 }
-                await new Promise(r => setTimeout(r, 100));
+                await new Promise(r => setTimeout(r, 10));
             } catch (e) {
                 console.log("send tx failed, index: " + m, "error: ", e);
                 await new Promise(r => setTimeout(r, 1000));

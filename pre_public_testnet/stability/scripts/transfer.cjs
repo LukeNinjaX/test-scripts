@@ -73,7 +73,7 @@ async function f() {
                         data: transfer.encodeABI(),
                         gas: 4000000
                     }
-                    let signedTransferTx = await web3.eth.accounts.signTransaction(transferTx, account.privateKey);
+                    let signedTransferTx = await web3.eth.accounts.signTransaction(transferTx, receiver.privateKey);
                     // console.log('transfer tx hash: ' + signedTransferTx.transactionHash);
 
                     // web3.eth.sendSignedTransaction(signedTransferTx.rawTransaction)

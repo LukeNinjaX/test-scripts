@@ -19,7 +19,7 @@ async function f() {
         console.log("current time: ", dt);
     }
 
-    let tokenAddress = "0x460342666332Cc27c924488c7152c874fE0FA366";
+    let tokenAddress = "0xCde8764905b5F4e84B6f5AE26113ED95c85391a4";
     let tokenContract = new web3.eth.Contract(tokenAbi, tokenAddress);
     let receiverAddress = "0xE2AF7C239b4F2800a2F742d406628b4fc4b8a0d4";
     for (let l = 0; l < 1000000; l++) {
@@ -28,7 +28,7 @@ async function f() {
 
         let lable = "send 5000 txs, loop " + l
         console.time(lable);
-        for (let m = 1; m <= 5000; m++) {
+        for (let m = 1; m <= 2; m++) {
             try {
                 let callerFile = 'keys/' + m + '.txt';
                 let callerPK = fs.readFileSync(callerFile, 'utf-8');

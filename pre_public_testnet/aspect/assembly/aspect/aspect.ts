@@ -19,10 +19,12 @@ import { Protobuf } from "as-proto/assembly/Protobuf";
 export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP {
     preContractCall(ctx: PreContractCallInput): void {
         sys.log("---running joinpoint preContractCall");
+        // for (let i = 0; i < 1000; i) {
+        // }
         ///
         /// utils hostapi
         ///
-        /*const hexStr = "6A";
+        const hexStr = "6A";
         const encodedHex = hexToUint8Array(hexStr);
         const decodedHex = uint8ArrayToHex(encodedHex);
         sys.require(decodedHex != hexStr, "hexToUint8Array or uint8ArrayToHex error");
@@ -68,9 +70,9 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
 
         let walletAddress = "0xBed7f94DF2B8e44A963d52474E2aBDE05Ed2A86c";
         let callData = "test";
-        ///
-        /// other calls
-        ///
+        // /
+        // / other calls
+        // /
         let ethMessage = new StaticCallRequest();
         const from = sys.hostApi.aspectProperty.get("from");
         const to = sys.hostApi.aspectProperty.get("to");
@@ -79,7 +81,7 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
         ethMessage.to = to
         ethMessage.gas = 400000;
         ethMessage.data = data;
-        let staticCallresult = sys.hostApi.evmCall.staticCall(ethMessage);*/
+        let staticCallresult = sys.hostApi.evmCall.staticCall(ethMessage);
 
         // let request = new JitCallBuilder()
         //     .callData(stringToUint8Array(callData))
@@ -92,7 +94,7 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
         sys.log("---running joinpoint postContractCall");
 
         // Get the method of currently called contract.
-        /*const currentCallMethod = ethereum.parseMethodSig(ctx.call!.data);
+        const currentCallMethod = ethereum.parseMethodSig(ctx.call!.data);
 
 
         // Define functions that are not allowed to be reentered.
@@ -119,7 +121,7 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
                     // sys.revert(`illegal transaction: method reentered from ${currentCallMethod} to ${parentCallMethod}`);
                 }
             }
-        }*/
+        }
     }
 
 

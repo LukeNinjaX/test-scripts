@@ -1,6 +1,6 @@
 const fs = require('fs');
 const Web3 = require('@artela/web3');
-const web3 = new Web3('http://127.0.0.1:8545');
+const web3 = new Web3('http://47.254.68.8:8545');
 
 const eventBytes = fs.readFileSync("./contract/event.bin", "utf-8")
 const eventAbidata = fs.readFileSync("./contract/event.abi", "utf-8")
@@ -103,6 +103,11 @@ async function f(n) {
                 gasPrice,
                 gas: 9000000
             }
+
+            const estimateGas = await web3.eth.estimateGas(tx);
+            console.log("eth_estimatedGas(estimeateGasTransfer): ", estimateGas);
+            tx.gas = estimateGas;
+
             let signedTx = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
             console.log("sending signed transaction...");
             let ret = await web3.eth.sendSignedTransaction(signedTx.rawTransaction)
