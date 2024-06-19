@@ -11,7 +11,7 @@ import {
     uint8ArrayToHex,
     hexToUint8Array,
     BytesData,
-    stringToUint8Array, JitCallBuilder, StaticCallRequest, CallTreeQuery, EthCallTree, uint8ArrayToAddress, Uint256, G1, G1Point, G2Point,
+    stringToUint8Array, JitCallBuilder, StaticCallRequest, CallTreeQuery, EthCallTree, uint8ArrayToAddress, Uint256, G1, G1Point, G2Point, G2Coord,
 } from "@artela/aspect-libs";
 
 import { IPreContractCallJP, IPostContractCallJP } from "@artela/aspect-libs/types/aspect-interface";
@@ -126,20 +126,137 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
             }*/
         }
 
+        {
+            /*{
+                let ax = Uint256.fromHex("18b18acfb4c2c30276db5411368e7185b311dd124691610c5d3b74034e093dc9");
+                let ay = Uint256.fromHex("063c909c4720840cb5134cb9f59fa749755796819658d32efc0d288198f37266");
+                let bx = Uint256.fromHex("07c2b7f58a84bd6145f00c9c2bc0bb1a187f20ff2c92963a88019e7c6a014eed");
+                let by = Uint256.fromHex("06614e20c147e940f2d70da3f74c9a17df361706a4485c742bd6788478fa17d7");
+                let x = new G1Point(ax, ay);
+                let y = new G1Point(bx, by);
+
+                let expectx = "2243525c5efd4b9c3d3c45ac0ca3fe4dd85e830a4ce6b65fa1eeaee202839703";
+                let expecty = "301d1d33be6da8e509df21cc35964723180eed7532537db9ae5e7d48f195c915";
+
+                const addRet = sys.hostApi.crypto.bn256Add(x, y);
+                this.check(expectx, addRet.x.toHex());
+                this.check(expecty, addRet.y.toHex());
+            }*/
+
+            /*{
+                let ax = Uint256.fromHex("0000000000000000000000000000000000000000000000000000000000000001");
+                let ay = Uint256.fromHex("0000000000000000000000000000000000000000000000000000000000000002");
+                let bx = Uint256.fromHex("0000000000000000000000000000000000000000000000000000000000000001");
+                let by = Uint256.fromHex("0000000000000000000000000000000000000000000000000000000000000002");
+                let x = new G1Point(ax, ay);
+                let y = new G1Point(bx, by);
+
+                let expectx = "030644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd3";
+                let expecty = "15ed738c0e0a7c92e7845f96b2ae9c0a68a6a449e3538fc7ff3ebf7a5a18a2c4";
+
+                const addRet = sys.hostApi.crypto.bn256Add(x, y);
+                this.check(expectx, addRet.x.toHex());
+                this.check(expecty, addRet.y.toHex());
+            }*/
+
+            /*{
+                let ax = Uint256.fromHex("17c139df0efee0f766bc0204762b774362e4ded88953a39ce849a8a7fa163fa9");
+                let ay = Uint256.fromHex("01e0559bacb160664764a357af8a9fe70baa9258e0b959273ffc5718c6d4cc7c");
+                let bx = Uint256.fromHex("17c139df0efee0f766bc0204762b774362e4ded88953a39ce849a8a7fa163fa9");
+                let by = Uint256.fromHex("2e83f8d734803fc370eba25ed1f6b8768bd6d83887b87165fc2434fe11a830cb");
+                let x = new G1Point(ax, ay);
+                let y = new G1Point(bx, by);
+
+                let expectx = "0000000000000000000000000000000000000000000000000000000000000000";
+                let expecty = "0000000000000000000000000000000000000000000000000000000000000000";
+
+                const addRet = sys.hostApi.crypto.bn256Add(x, y);
+                this.check(expectx, addRet.x.toHex());
+                this.check(expecty, addRet.y.toHex());
+            }*/
+        }
+
+        {
+            /*{
+                let x = Uint256.fromHex("039730ea8dff1254c0fee9c0ea777d29a9c710b7e616683f194f18c43b43b869");
+                let y = Uint256.fromHex("073a5ffcc6fc7a28c30723d6e58ce577356982d65b833a5a5c15bf9024b43d98");
+                let p = new G1Point(x, y);
+                let scalar = Uint256.fromHex("30644e72e131a029b85045b68181585d2833e84879b9709143e1f593f0000000");
+
+                let expectx = "039730ea8dff1254c0fee9c0ea777d29a9c710b7e616683f194f18c43b43b869";
+                let expecty = "2929ee761a352600f54921df9bf472e66217e7bb0cee9032e00acc86b3c8bfaf";
+
+                const addRet = sys.hostApi.crypto.bn256ScalarMul(p, scalar);
+                this.check(expectx, addRet.x.toHex());
+                this.check(expecty, addRet.y.toHex());
+            }
+
+            {
+                let x = Uint256.fromHex("1a87b0584ce92f4593d161480614f2989035225609f08058ccfa3d0f940febe3");
+                let y = Uint256.fromHex("1a2f3c951f6dadcc7ee9007dff81504b0fcd6d7cf59996efdc33d92bf7f9f8f6");
+                let p = new G1Point(x, y);
+                let scalar = Uint256.fromHex("0000000000000000000000000000000000000000000000000000000000000001");
+
+                let expectx = "1a87b0584ce92f4593d161480614f2989035225609f08058ccfa3d0f940febe3";
+                let expecty = "1a2f3c951f6dadcc7ee9007dff81504b0fcd6d7cf59996efdc33d92bf7f9f8f6";
+
+                const addRet = sys.hostApi.crypto.bn256ScalarMul(p, scalar);
+                this.check(expectx, addRet.x.toHex());
+                this.check(expecty, addRet.y.toHex());
+            }
+
+            {
+                let x = Uint256.fromHex("17c139df0efee0f766bc0204762b774362e4ded88953a39ce849a8a7fa163fa9");
+                let y = Uint256.fromHex("01e0559bacb160664764a357af8a9fe70baa9258e0b959273ffc5718c6d4cc7c");
+                let p = new G1Point(x, y);
+                let scalar = Uint256.fromHex("ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
+
+                let expectx = "29e587aadd7c06722aabba753017c093f70ba7eb1f1c0104ec0564e7e3e21f60";
+                let expecty = "22b1143f6a41008e7755c71c3d00b6b915d386de21783ef590486d8afa8453b1";
+
+                const addRet = sys.hostApi.crypto.bn256ScalarMul(p, scalar);
+                this.check(expectx, addRet.x.toHex());
+                this.check(expecty, addRet.y.toHex());
+            }*/
+        }
+
         /*{
-            let ax = Uint256.fromHex("18b18acfb4c2c30276db5411368e7185b311dd124691610c5d3b74034e093dc9");
-            let ay = Uint256.fromHex("063c909c4720840cb5134cb9f59fa749755796819658d32efc0d288198f37266");
-            let bx = Uint256.fromHex("07c2b7f58a84bd6145f00c9c2bc0bb1a187f20ff2c92963a88019e7c6a014eed");
-            let by = Uint256.fromHex("06614e20c147e940f2d70da3f74c9a17df361706a4485c742bd6788478fa17d7");
-            let x = new G1Point(ax, ay);
-            let y = new G1Point(bx, by);
+            {
 
-            let expectx = "2243525c5efd4b9c3d3c45ac0ca3fe4dd85e830a4ce6b65fa1eeaee202839703";
-            let expecty = "301d1d33be6da8e509df21cc35964723180eed7532537db9ae5e7d48f195c915";
+                let g1a = new G1Point(
+                    Uint256.fromHex("1c76476f4def4bb94541d57ebba1193381ffa7aa76ada664dd31c16024c43f59"),
+                    Uint256.fromHex("3034dd2920f673e204fee2811c678745fc819b55d3e9d294e45c9b03a76aef41"))
+                let g2a = new G2Point(new G2Coord(
+                    Uint256.fromHex("209dd15ebff5d46c4bd888e51a93cf99a7329636c63514396b4a452003a35bf7"),
+                    Uint256.fromHex("04bf11ca01483bfa8b34b43561848d28905960114c8ac04049af4b6315a41678"),
+                ), new G2Coord(
+                    Uint256.fromHex("2bb8324af6cfc93537a2ad1a445cfd0ca2a71acd7ac41fadbf933c2a51be344d"),
+                    Uint256.fromHex("120a2a4cf30c1bf9845f20c6fe39e07ea2cce61f0c9bb048165fe5e4de877550"),
+                ));
 
-            const addRet = sys.hostApi.crypto.bn256Add(x, y);
-            this.check(expectx, addRet.x.toHex());
-            this.check(expecty, addRet.y.toHex());
+                let g1b = new G1Point(
+                    Uint256.fromHex("111e129f1cf1097710d41c4ac70fcdfa5ba2023c6ff1cbeac322de49d1b6df7c"),
+                    Uint256.fromHex("103188585e2364128fe25c70558f1560f4f9350baf3959e603cc91486e110936"))
+                let g2b = new G2Point(new G2Coord(
+                    Uint256.fromHex("198e9393920d483a7260bfb731fb5d25f1aa493335a9e71297e485b7aef312c2"),
+                    Uint256.fromHex("1800deef121f1e76426a00665e5c4479674322d4f75edadd46debd5cd992f6ed"),
+                ), new G2Coord(
+                    Uint256.fromHex("090689d0585ff075ec9e99ad690c3395bc4b313370b38ef355acdadcd122975b"),
+                    Uint256.fromHex("12c85ea5db8c6deb4aab71808dcb408fe3d1e7690c43d37b4ce6cc0166fa7daa"),
+                ));
+
+                const cs: Array<G1Point> = [];
+                cs.push(g1a);
+                cs.push(g1b)
+                const ts: Array<G2Point> = [];
+                ts.push(g2a);
+                ts.push(g2b)
+                
+                let expect = false;
+
+                const addRet = sys.hostApi.crypto.bn256Pairing(cs, ts);
+                this.check(expect, addRet);
+            }
         }*/
 
 
@@ -163,12 +280,12 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
         // let jitresponse = sys.hostApi.evmCall.jitCall(request);
     }
 
-    private check(expect: string, actual: string): void {
+    private check<T>(expect: T, actual: T): void {
         if (expect != actual) {
-            sys.log("not equals, expect: " + expect + "; acutual: " + actual)
+            sys.log("---------------------not passe------------------")
             sys.revert("not equals");
         }
-        sys.log("----------passed---------");
+        sys.log("----------------------------passed------------------------");
     }
 
     postContractCall(ctx: PostContractCallInput): void {
