@@ -31,7 +31,7 @@ For testing, modify tokenAddress in scripts/tps1.js with the contract deployed i
 
 
 # test evm cryptos
-### 1. switch `artelad`, `aspect-core`, `aspect-tooling` to branch: `feat/evm-cryptos`, Start artela node.
+### 1. switch `artela`, `aspect-core`, `aspect-tooling` to branch: `feat/evm-cryptos`, Start artela node.
 
 ### 2. build aspect:
   ```sh
