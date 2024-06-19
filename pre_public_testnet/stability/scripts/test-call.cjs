@@ -6,6 +6,7 @@ var http = require('http'),
     url = require('url');
 
 const ARTELA_ADDR = "0x0000000000000000000000000000000000A27E14";
+const pk = '0xfaf950a1d495d838b43d8281be3dd37950614577c00dde779d49e806e0f5c0a4'
 
 var tokenAddr;
 async function bind(n) {
@@ -23,7 +24,7 @@ async function bind(n) {
     // load local account from private key
     // let privateFile = './keys/1.txt';
     // let pk = fs.readFileSync(privateFile, 'utf-8');
-    let pk = "0xfaf950a1d495d838b43d8281be3dd37950614577c00dde779d49e806e0f5c0a4"
+    // let pk = "0xfaf950a1d495d838b43d8281be3dd37950614577c00dde779d49e806e0f5c0a4"
     let sender = web3.eth.accounts.privateKeyToAccount(pk);
     console.log("from address: ", sender.address);
     web3.eth.accounts.wallet.add(sender.privateKey);
@@ -183,7 +184,7 @@ async function call() {
         console.time(lable);
         for (let m = 1; m <= 1; m++) {
             try {
-                let caller = web3.eth.accounts.privateKeyToAccount("0xfaf950a1d495d838b43d8281be3dd37950614577c00dde779d49e806e0f5c0a4");
+                let caller = web3.eth.accounts.privateKeyToAccount(pk);
                 // console.log("call with key: ", callerFile, ", address: ", caller.address);
                 web3.eth.accounts.wallet.add(caller.privateKey);
                 {

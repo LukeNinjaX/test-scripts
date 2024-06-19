@@ -104,7 +104,7 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
             }*/
 
             // out of gas
-            /*{
+            {
                 let base = hexToUint8Array("cad7d991a00047dd54d3399b6b0b937c718abddef7917c75b6681f40cc15e2be0003657d8d4c34167b2f0bbbca0ccaa407c2a6a07d50f1517a8f22979ce12a81dcaf707cc0cebfc0ce2ee84ee7f77c38b9281b9822a8d3de62784c089c9b18dcb9a2a5eecbede90ea788a862a9ddd9d609c2c52972d63e289e28f6a590ffbf51")
                 let exp = hexToUint8Array("02")
                 let mod = hexToUint8Array("e6d893b80aeed5e6e9ce9afa8a5d5675c93a32ac05554cb20e9951b2c140e3ef4e433068cf0fb73bc9f33af1853f64aa27a0028cbf570d7ac9048eae5dc7b28c87c31e5810f1e7fa2cda6adf9f1076dbc1ec1238560071e7efc4e9565c49be9e7656951985860a558a754594115830bcdb421f741408346dd5997bb01c287087")
@@ -112,7 +112,7 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
 
                 const bigModExpRet = sys.hostApi.crypto.bigModExp(base, exp, mod)
                 this.check(expect, uint8ArrayToHex(bigModExpRet));
-            }*/
+            }
 
             // out of gas
             /*{
@@ -126,7 +126,7 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
             }*/
         }
 
-        {
+        /*{
             let ax = Uint256.fromHex("18b18acfb4c2c30276db5411368e7185b311dd124691610c5d3b74034e093dc9");
             let ay = Uint256.fromHex("063c909c4720840cb5134cb9f59fa749755796819658d32efc0d288198f37266");
             let bx = Uint256.fromHex("07c2b7f58a84bd6145f00c9c2bc0bb1a187f20ff2c92963a88019e7c6a014eed");
@@ -140,7 +140,7 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
             const addRet = sys.hostApi.crypto.bn256Add(x, y);
             this.check(expectx, addRet.x.toHex());
             this.check(expecty, addRet.y.toHex());
-        }
+        }*/
 
 
         // /
