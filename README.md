@@ -19,6 +19,6 @@ For testing, modify tokenAddress in scripts/tps1.js with the contract deployed i
 
 
 # test evm cryptos
-1. Start artela node from artela branch: feat/evm-cryptos
+1. switch artelad, aspect-core, aspect-tooling to branch: feat/evm-cryptos, Start artela node.
 2. build aspect: cd /home/luke/go/src/github.com/artela-network/test-scripts/pre_public_testnet/aspect; npm run aspect:build; cp ./build/release.wasm ../stability/aspect/.
 3. replace pk and start script to test: cd /home/luke/go/src/github.com/artela-network/test-scripts/pre_public_testnet/stability; node scripts/test-call.cjs
