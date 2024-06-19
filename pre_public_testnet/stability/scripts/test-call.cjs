@@ -194,7 +194,7 @@ async function call() {
                         from: caller.address,
                         to: tokenAddress,
                         data: transfer.encodeABI(),
-                        gas: 400000
+                        gas: await transfer.estimateGas()
                     }
                     let signedTransferTx = await web3.eth.accounts.signTransaction(transferTx, caller.privateKey);
                     console.log('tx hash: ' + signedTransferTx.transactionHash);

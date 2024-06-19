@@ -104,7 +104,7 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
             }*/
 
             // out of gas
-            {
+            /*{
                 let base = hexToUint8Array("cad7d991a00047dd54d3399b6b0b937c718abddef7917c75b6681f40cc15e2be0003657d8d4c34167b2f0bbbca0ccaa407c2a6a07d50f1517a8f22979ce12a81dcaf707cc0cebfc0ce2ee84ee7f77c38b9281b9822a8d3de62784c089c9b18dcb9a2a5eecbede90ea788a862a9ddd9d609c2c52972d63e289e28f6a590ffbf51")
                 let exp = hexToUint8Array("02")
                 let mod = hexToUint8Array("e6d893b80aeed5e6e9ce9afa8a5d5675c93a32ac05554cb20e9951b2c140e3ef4e433068cf0fb73bc9f33af1853f64aa27a0028cbf570d7ac9048eae5dc7b28c87c31e5810f1e7fa2cda6adf9f1076dbc1ec1238560071e7efc4e9565c49be9e7656951985860a558a754594115830bcdb421f741408346dd5997bb01c287087")
@@ -112,7 +112,7 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
 
                 const bigModExpRet = sys.hostApi.crypto.bigModExp(base, exp, mod)
                 this.check(expect, uint8ArrayToHex(bigModExpRet));
-            }
+            }*/
 
             // out of gas
             /*{
@@ -141,9 +141,9 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
                 const addRet = sys.hostApi.crypto.bn256Add(x, y);
                 this.check(expectx, addRet.x.toHex());
                 this.check(expecty, addRet.y.toHex());
-            }*/
+            }
 
-            /*{
+            {
                 let ax = Uint256.fromHex("0000000000000000000000000000000000000000000000000000000000000001");
                 let ay = Uint256.fromHex("0000000000000000000000000000000000000000000000000000000000000002");
                 let bx = Uint256.fromHex("0000000000000000000000000000000000000000000000000000000000000001");
@@ -157,9 +157,9 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
                 const addRet = sys.hostApi.crypto.bn256Add(x, y);
                 this.check(expectx, addRet.x.toHex());
                 this.check(expecty, addRet.y.toHex());
-            }*/
+            }
 
-            /*{
+            {
                 let ax = Uint256.fromHex("17c139df0efee0f766bc0204762b774362e4ded88953a39ce849a8a7fa163fa9");
                 let ay = Uint256.fromHex("01e0559bacb160664764a357af8a9fe70baa9258e0b959273ffc5718c6d4cc7c");
                 let bx = Uint256.fromHex("17c139df0efee0f766bc0204762b774362e4ded88953a39ce849a8a7fa163fa9");
@@ -220,8 +220,8 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
             }*/
         }
 
-        /*{
-            {
+        {
+            /*{
 
                 let g1a = new G1Point(
                     Uint256.fromHex("1c76476f4def4bb94541d57ebba1193381ffa7aa76ada664dd31c16024c43f59"),
@@ -247,18 +247,106 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
 
                 const cs: Array<G1Point> = [];
                 cs.push(g1a);
-                cs.push(g1b)
+                cs.push(g1b);
                 const ts: Array<G2Point> = [];
                 ts.push(g2a);
-                ts.push(g2b)
+                ts.push(g2b);
                 
                 let expect = false;
 
+                sys.log("___________calling bn256Pairing");
+                const addRet = sys.hostApi.crypto.bn256Pairing(cs, ts);
+                this.check(expect, addRet);
+            }*/
+
+            {
+                let strArray: Array<string> = [
+                    "0000000000000000000000000000000000000000000000000000000000000001",
+                    "0000000000000000000000000000000000000000000000000000000000000002",
+                    "203e205db4f19b37b60121b83a7333706db86431c6d835849957ed8c3928ad79",
+                    "27dc7234fd11d3e8c36c59277c3e6f149d5cd3cfa9a62aee49f8130962b4b3b9",
+                    "195e8aa5b7827463722b8c153931579d3505566b4edf48d498e185f0509de152",
+                    "04bb53b8977e5f92a0bc372742c4830944a59b4fe6b1c0466e2a6dad122b5d2e",
+                    "030644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd3",
+                    "1a76dae6d3272396d0cbe61fced2bc532edac647851e3ac53ce1cc9c7e645a83",
+                    "198e9393920d483a7260bfb731fb5d25f1aa493335a9e71297e485b7aef312c2",
+                    "1800deef121f1e76426a00665e5c4479674322d4f75edadd46debd5cd992f6ed",
+                    "090689d0585ff075ec9e99ad690c3395bc4b313370b38ef355acdadcd122975b",
+                    "12c85ea5db8c6deb4aab71808dcb408fe3d1e7690c43d37b4ce6cc0166fa7daa",
+                    "0000000000000000000000000000000000000000000000000000000000000001",
+                    "0000000000000000000000000000000000000000000000000000000000000002",
+                    "203e205db4f19b37b60121b83a7333706db86431c6d835849957ed8c3928ad79",
+                    "27dc7234fd11d3e8c36c59277c3e6f149d5cd3cfa9a62aee49f8130962b4b3b9",
+                    "195e8aa5b7827463722b8c153931579d3505566b4edf48d498e185f0509de152",
+                    "04bb53b8977e5f92a0bc372742c4830944a59b4fe6b1c0466e2a6dad122b5d2e",
+                    "030644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd3",
+                    "1a76dae6d3272396d0cbe61fced2bc532edac647851e3ac53ce1cc9c7e645a83",
+                    "198e9393920d483a7260bfb731fb5d25f1aa493335a9e71297e485b7aef312c2",
+                    "1800deef121f1e76426a00665e5c4479674322d4f75edadd46debd5cd992f6ed",
+                    "090689d0585ff075ec9e99ad690c3395bc4b313370b38ef355acdadcd122975b",
+                    "12c85ea5db8c6deb4aab71808dcb408fe3d1e7690c43d37b4ce6cc0166fa7daa",
+                    "0000000000000000000000000000000000000000000000000000000000000001",
+                    "0000000000000000000000000000000000000000000000000000000000000002",
+                    "203e205db4f19b37b60121b83a7333706db86431c6d835849957ed8c3928ad79",
+                    "27dc7234fd11d3e8c36c59277c3e6f149d5cd3cfa9a62aee49f8130962b4b3b9",
+                    "195e8aa5b7827463722b8c153931579d3505566b4edf48d498e185f0509de152",
+                    "04bb53b8977e5f92a0bc372742c4830944a59b4fe6b1c0466e2a6dad122b5d2e",
+                    "030644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd3",
+                    "1a76dae6d3272396d0cbe61fced2bc532edac647851e3ac53ce1cc9c7e645a83",
+                    "198e9393920d483a7260bfb731fb5d25f1aa493335a9e71297e485b7aef312c2",
+                    "1800deef121f1e76426a00665e5c4479674322d4f75edadd46debd5cd992f6ed",
+                    "090689d0585ff075ec9e99ad690c3395bc4b313370b38ef355acdadcd122975b",
+                    "12c85ea5db8c6deb4aab71808dcb408fe3d1e7690c43d37b4ce6cc0166fa7daa",
+                    "0000000000000000000000000000000000000000000000000000000000000001",
+                    "0000000000000000000000000000000000000000000000000000000000000002",
+                    "203e205db4f19b37b60121b83a7333706db86431c6d835849957ed8c3928ad79",
+                    "27dc7234fd11d3e8c36c59277c3e6f149d5cd3cfa9a62aee49f8130962b4b3b9",
+                    "195e8aa5b7827463722b8c153931579d3505566b4edf48d498e185f0509de152",
+                    "04bb53b8977e5f92a0bc372742c4830944a59b4fe6b1c0466e2a6dad122b5d2e",
+                    "030644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd3",
+                    "1a76dae6d3272396d0cbe61fced2bc532edac647851e3ac53ce1cc9c7e645a83",
+                    "198e9393920d483a7260bfb731fb5d25f1aa493335a9e71297e485b7aef312c2",
+                    "1800deef121f1e76426a00665e5c4479674322d4f75edadd46debd5cd992f6ed",
+                    "090689d0585ff075ec9e99ad690c3395bc4b313370b38ef355acdadcd122975b",
+                    "12c85ea5db8c6deb4aab71808dcb408fe3d1e7690c43d37b4ce6cc0166fa7daa",
+                    "0000000000000000000000000000000000000000000000000000000000000001",
+                    "0000000000000000000000000000000000000000000000000000000000000002",
+                    "203e205db4f19b37b60121b83a7333706db86431c6d835849957ed8c3928ad79",
+                    "27dc7234fd11d3e8c36c59277c3e6f149d5cd3cfa9a62aee49f8130962b4b3b9",
+                    "195e8aa5b7827463722b8c153931579d3505566b4edf48d498e185f0509de152",
+                    "04bb53b8977e5f92a0bc372742c4830944a59b4fe6b1c0466e2a6dad122b5d2e",
+                    "030644e72e131a029b85045b68181585d97816a916871ca8d3c208c16d87cfd3",
+                    "1a76dae6d3272396d0cbe61fced2bc532edac647851e3ac53ce1cc9c7e645a83",
+                    "198e9393920d483a7260bfb731fb5d25f1aa493335a9e71297e485b7aef312c2",
+                    "1800deef121f1e76426a00665e5c4479674322d4f75edadd46debd5cd992f6ed",
+                    "090689d0585ff075ec9e99ad690c3395bc4b313370b38ef355acdadcd122975b",
+                    "12c85ea5db8c6deb4aab71808dcb408fe3d1e7690c43d37b4ce6cc0166fa7daa",
+                ]
+                let cs: Array<G1Point> = [];
+                let ts: Array<G2Point> = [];
+
+                sys.log("------------strArray length: " + strArray.length.toString());
+                for (let i = 0; i < strArray.length; i+=6) {
+                    sys.log("----------------handling: "+ i.toString())
+                    let g1 = new G1Point(
+                        Uint256.fromHex(strArray[i]),
+                        Uint256.fromHex(strArray[i + 1]))
+                    let g2 = new G2Point(new G2Coord(
+                        Uint256.fromHex(strArray[i + 2]),
+                        Uint256.fromHex(strArray[i + 3]),
+                    ), new G2Coord(
+                        Uint256.fromHex(strArray[i + 4]),
+                        Uint256.fromHex(strArray[i + 5]),
+                    ));
+                    cs.push(g1);
+                    ts.push(g2);
+                }
+                let expect = true;
+                sys.log("___________calling bn256Pairing");
                 const addRet = sys.hostApi.crypto.bn256Pairing(cs, ts);
                 this.check(expect, addRet);
             }
-        }*/
-
+        }
 
         // /
         // / other calls
@@ -282,7 +370,7 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
 
     private check<T>(expect: T, actual: T): void {
         if (expect != actual) {
-            sys.log("---------------------not passe------------------")
+            sys.log("----------------------------failed------------------------")
             sys.revert("not equals");
         }
         sys.log("----------------------------passed------------------------");
