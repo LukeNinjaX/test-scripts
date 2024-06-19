@@ -19,7 +19,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@artela/aspect-libs": "^0.0.31",
+    "@artela/aspect-libs": "file:/home/luke/go/src/github.com/artela-network/aspect-tooling/packages/libs",
     "@artela/web3": "^1.9.22",
     "@artela/web3-atl": "^1.9.22",
     "@artela/web3-eth": "^1.9.22",

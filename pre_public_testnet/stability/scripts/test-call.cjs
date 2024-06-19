@@ -1,18 +1,23 @@
 const fs = require('fs');
 const Web3 = require('@artela/web3');
-const web3 = new Web3('http://localhost:8545');
+const web3 = new Web3('http://127.0.0.1:8545');
 
-const eventBytes = fs.readFileSync("./contract/event.bin", "utf-8")
-const eventAbidata = fs.readFileSync("./contract/event.abi", "utf-8")
-var eventAbi = JSON.parse(eventAbidata);
-
-const tokenBytes = fs.readFileSync("./contract/erc20.bin", "utf-8")
-const tokenAbidata = fs.readFileSync("./contract/erc20.abi", "utf-8")
-var tokenAbi = JSON.parse(tokenAbidata)
+var http = require('http'),
+    url = require('url');
 
 const ARTELA_ADDR = "0x0000000000000000000000000000000000A27E14";
 
-async function f(n) {
+var tokenAddr;
+async function bind(n) {
+    const fs = require('fs');
+    const Web3 = require('@artela/web3');
+    const web3 = new Web3('http://localhost:8545');
+    const eventBytes = fs.readFileSync("./contract/event.bin", "utf-8")
+    const eventAbidata = fs.readFileSync("./contract/event.abi", "utf-8")
+    var eventAbi = JSON.parse(eventAbidata);
+    const tokenBytes = fs.readFileSync("./contract/erc20.bin", "utf-8")
+    const tokenAbidata = fs.readFileSync("./contract/erc20.abi", "utf-8")
+    var tokenAbi = JSON.parse(tokenAbidata)
     let gasPrice = await web3.eth.getGasPrice();
 
     // load local account from private key
@@ -154,13 +159,66 @@ async function f(n) {
 
     // await new Promise(r => setTimeout(r, 1000));
     console.log("token contract address: ", tokenAddress);
+    tokenAddr = tokenAddress
 }
 
-async function loop100() {
-    for (let n = 0; n < 1; n++) {
-        console.log("**************loops:", n);
-        await f(n);
+async function call() {
+    const tokenBytes = fs.readFileSync("contract/ArtToken.bin", "utf-8")
+    const tokenAbidata = fs.readFileSync("contract/ArtToken.abi", "utf-8")
+    var tokenAbi = JSON.parse(tokenAbidata)
+
+    let gasPrice = await web3.eth.getGasPrice();
+
+    {
+        const dt = new Date();
+        console.log("current time: ", dt);
     }
+
+    // let tokenAddress = "0x62bd8C0F7Cb4084B0de8528007f5bbb5a9F6875a";
+    let tokenAddress = tokenAddr;
+    let tokenContract = new web3.eth.Contract(tokenAbi, tokenAddress);
+    let receiverAddress = "0xE2AF7C239b4F2800a2F742d406628b4fc4b8a0d4";
+    for (let l = 0; l < 1; l++) {
+        let lable = "send 5000 txs, loop " + l
+        console.time(lable);
+        for (let m = 1; m <= 1; m++) {
+            try {
+                let caller = web3.eth.accounts.privateKeyToAccount("0xfaf950a1d495d838b43d8281be3dd37950614577c00dde779d49e806e0f5c0a4");
+                // console.log("call with key: ", callerFile, ", address: ", caller.address);
+                web3.eth.accounts.wallet.add(caller.privateKey);
+                {
+                    let transfer = tokenContract.methods.transfer(receiverAddress, 0);
+
+                    let transferTx = {
+                        from: caller.address,
+                        to: tokenAddress,
+                        data: transfer.encodeABI(),
+                        gas: 400000
+                    }
+                    let signedTransferTx = await web3.eth.accounts.signTransaction(transferTx, caller.privateKey);
+                    console.log('tx hash: ' + signedTransferTx.transactionHash);
+                    await web3.eth.sendSignedTransaction(signedTransferTx.rawTransaction)
+                         .on('receipt', receipt => {
+                             console.log(receipt);
+                         });
+                }
+            } catch (e) {
+                console.log("send tx failed, index: " + m, "error: ", e);
+                await new Promise(r => setTimeout(r, 1000));
+            }
+        }
+
+        const dt = new Date().toISOString();
+        console.log("date time:", dt)
+        console.timeEnd(lable);
+    }
+
 }
 
-loop100().then();
+async function test() {
+    await bind();
+    await new Promise(r => setTimeout(r, 1000));
+    await call();
+}
+
+test().then();
