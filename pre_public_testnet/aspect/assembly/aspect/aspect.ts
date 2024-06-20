@@ -19,7 +19,7 @@ import { Protobuf } from "as-proto/assembly/Protobuf";
 
 export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP {
     preContractCall(ctx: PreContractCallInput): void {
-        sys.log("---running joinpoint preContractCall");
+        /*sys.log("---running joinpoint preContractCall");
         // for (let i = 0; i < 1000; i) {
         // }
         ///
@@ -66,8 +66,32 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
         let cryptostr = stringToUint8Array("test");
         let keccakdata = sys.hostApi.crypto.keccak(cryptostr);
         let sha256data = sys.hostApi.crypto.sha256(cryptostr);
-        let ripemd160data = sys.hostApi.crypto.ripemd160(cryptostr);
-        // let ecRecoverdata = sys.hostApi.crypto.ecRecover(cryptostr);
+        let ripemd160data = sys.hostApi.crypto.ripemd160(cryptostr);*/
+        
+        {
+            sys.log("_____________________running ecRecover1");
+            let hash = Uint256.fromHex("18c547e4f7b0f325ad1e56f57e26c745b09a3e503d86e00e5255ff7f715d3d1c");
+            let r = Uint256.fromHex("73b1693892219d736caba55bdb67216e485557ea6b6af75f37096c9aa6a5a75f");
+            let s = Uint256.fromHex("eeb940b1d03b21e36b0e47e79769f095fe2ab855bd91e3a38756b7d75a9c4549");
+            let v = Uint256.fromHex("000000000000000000000000000000000000001000000000000000000000011c");
+            sys.log("_____________________running ecRecover2");
+            let ecRecoverData = sys.hostApi.crypto.ecRecover(hash.toUint8Array(), v, r, s);
+            sys.log("_____________________running ecRecover3");
+            this.check("", uint8ArrayToHex(ecRecoverData));
+            sys.log("_____________________running ecRecover4");
+        }
+        {
+            sys.log("_____________________running ecRecover11");
+            let hash = Uint256.fromHex("18c547e4f7b0f325ad1e56f57e26c745b09a3e503d86e00e5255ff7f715d3d1c");
+            let r = Uint256.fromHex("73b1693892219d736caba55bdb67216e485557ea6b6af75f37096c9aa6a5a75f");
+            let s = Uint256.fromHex("eeb940b1d03b21e36b0e47e79769f095fe2ab855bd91e3a38756b7d75a9c4549");
+            let v = Uint256.fromHex("000000000000000000000000000000000000000000000000000000000000001c");
+            sys.log("_____________________running ecRecover12");
+            let ecRecoverData = sys.hostApi.crypto.ecRecover(hash.toUint8Array(), v, r, s);
+            sys.log("_____________________running ecRecover13");
+            this.check("000000000000000000000000a94f5374fce5edbc8e2a8697c15331677e6ebf0b", uint8ArrayToHex(ecRecoverData));
+            sys.log("_____________________running ecRecover14");
+        }
 
         let walletAddress = "0xBed7f94DF2B8e44A963d52474E2aBDE05Ed2A86c";
         let callData = "test";
@@ -259,7 +283,7 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
                 this.check(expect, addRet);
             }*/
 
-            {
+            /*{
                 let strArray: Array<string> = [
                     "0000000000000000000000000000000000000000000000000000000000000001",
                     "0000000000000000000000000000000000000000000000000000000000000002",
@@ -345,13 +369,13 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
                 sys.log("___________calling bn256Pairing");
                 const addRet = sys.hostApi.crypto.bn256Pairing(cs, ts);
                 this.check(expect, addRet);
-            }
+            }*/
         }
 
         // /
         // / other calls
         // /
-        let ethMessage = new StaticCallRequest();
+        /*let ethMessage = new StaticCallRequest();
         const from = sys.hostApi.aspectProperty.get("from");
         const to = sys.hostApi.aspectProperty.get("to");
         const data = sys.hostApi.aspectProperty.get("data");
@@ -359,7 +383,7 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
         ethMessage.to = to
         ethMessage.gas = 400000;
         ethMessage.data = data;
-        let staticCallresult = sys.hostApi.evmCall.staticCall(ethMessage);
+        let staticCallresult = sys.hostApi.evmCall.staticCall(ethMessage);*/
 
         // let request = new JitCallBuilder()
         //     .callData(stringToUint8Array(callData))
