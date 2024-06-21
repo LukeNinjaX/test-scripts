@@ -194,14 +194,15 @@ async function call() {
                         from: caller.address,
                         to: tokenAddress,
                         data: transfer.encodeABI(),
-                        gas: await transfer.estimateGas()
+                        // gas: await transfer.estimateGas({from: caller.from})
+                        gas: 2000000
                     }
                     let signedTransferTx = await web3.eth.accounts.signTransaction(transferTx, caller.privateKey);
                     console.log('tx hash: ' + signedTransferTx.transactionHash);
                     await web3.eth.sendSignedTransaction(signedTransferTx.rawTransaction)
-                         .on('receipt', receipt => {
-                             console.log(receipt);
-                         });
+                        .on('receipt', receipt => {
+                            console.log(receipt);
+                        });
                 }
             } catch (e) {
                 console.log("send tx failed, index: " + m, "error: ", e);
