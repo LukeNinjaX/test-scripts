@@ -3,15 +3,17 @@
  (type $1 (func (param i32) (result i32)))
  (type $2 (func (param i32 i32)))
  (type $3 (func))
- (type $4 (func (param i32 i32 i32)))
- (type $5 (func (param i32)))
- (type $6 (func (param i32 i32 i32 i32)))
- (type $7 (func (result i32)))
- (type $8 (func (param i32 i32 i32 i32) (result i32)))
- (type $9 (func (param i32) (result i64)))
- (type $10 (func (param i32 i32 i32) (result i32)))
- (type $11 (func (param i32 i64 i32)))
- (type $12 (func (param i32 i64)))
+ (type $4 (func (param i32)))
+ (type $5 (func (param i32 i32 i32)))
+ (type $6 (func (result i32)))
+ (type $7 (func (param i32 i32 i32 i32)))
+ (type $8 (func (param i32) (result i64)))
+ (type $9 (func (param i32 i32 i32) (result i32)))
+ (type $10 (func (param i32 i32 i32 i32) (result i32)))
+ (type $11 (func (param i32 i32 i64)))
+ (type $12 (func (param i32 i32) (result i64)))
+ (type $13 (func (param i32 i64 i32)))
+ (type $14 (func (param i32 i64)))
  (import "env" "abort" (func $~lib/builtins/abort (param i32 i32 i32 i32)))
  (import "util-api" "__UtilApi__.sLog" (func $~lib/@artela/aspect-libs/hostapi/util-api/__UtilApi__.sLog (param i32)))
  (import "util-api" "__UtilApi__.revert" (func $~lib/@artela/aspect-libs/hostapi/util-api/__UtilApi__.revert (param i32)))
@@ -25,6 +27,8 @@
  (import "crypto-api" "__CryptoApi__.keccak" (func $~lib/@artela/aspect-libs/hostapi/crypto-api/__CryptoApi__.keccak (param i32) (result i32)))
  (import "crypto-api" "__CryptoApi__.sha256" (func $~lib/@artela/aspect-libs/hostapi/crypto-api/__CryptoApi__.sha256 (param i32) (result i32)))
  (import "crypto-api" "__CryptoApi__.ripemd160" (func $~lib/@artela/aspect-libs/hostapi/crypto-api/__CryptoApi__.ripemd160 (param i32) (result i32)))
+ (import "crypto-api" "__CryptoApi__.bn256Pairing" (func $~lib/@artela/aspect-libs/hostapi/crypto-api/__CryptoApi__.bn256Pairing (param i32) (result i32)))
+ (import "crypto-api" "__CryptoApi__.blake2F" (func $~lib/@artela/aspect-libs/hostapi/crypto-api/__CryptoApi__.blake2F (param i32) (result i32)))
  (import "evm-call-api" "__EvmCallApi__.staticCall" (func $~lib/@artela/aspect-libs/hostapi/evm-call-api/__EvmCallApi__.staticCall (param i32) (result i32)))
  (import "trace-api" "__TraceApi__.queryCallTree" (func $~lib/@artela/aspect-libs/hostapi/trace-api/__TraceApi__.queryCallTree (param i32) (result i32)))
  (global $~lib/rt/stub/offset (mut i32) (i32.const 0))
@@ -49,7 +53,7 @@
  (global $assembly/aspect/aspect/aspect (mut i32) (i32.const 0))
  (global $assembly/index/aspect (mut i32) (i32.const 0))
  (global $~argumentsLength (mut i32) (i32.const 0))
- (global $~lib/rt/__rtti_base i32 (i32.const 9664))
+ (global $~lib/rt/__rtti_base i32 (i32.const 14992))
  (global $~started (mut i32) (i32.const 0))
  (memory $0 1)
  (data $0 (i32.const 1036) "<")
@@ -233,45 +237,130 @@
  (data $89.1 (i32.const 8920) "\02\00\00\00\08\00\00\00t\00e\00s\00t")
  (data $90 (i32.const 8940) "l")
  (data $90.1 (i32.const 8952) "\02\00\00\00T\00\00\000\00x\00B\00e\00d\007\00f\009\004\00D\00F\002\00B\008\00e\004\004\00A\009\006\003\00d\005\002\004\007\004\00E\002\00a\00B\00D\00E\000\005\00E\00d\002\00A\008\006\00c")
- (data $91 (i32.const 9052) "\1c")
- (data $91.1 (i32.const 9064) "\02\00\00\00\08\00\00\00f\00r\00o\00m")
- (data $92 (i32.const 9084) "\1c")
- (data $92.1 (i32.const 9096) "\02\00\00\00\04\00\00\00t\00o")
- (data $93 (i32.const 9116) "\1c")
- (data $93.1 (i32.const 9128) "E\00\00\00\08\00\00\00\n")
- (data $94 (i32.const 9148) "\1c")
- (data $94.1 (i32.const 9160) "F\00\00\00\08\00\00\00\0b")
- (data $95 (i32.const 9180) "\\")
- (data $95.1 (i32.const 9192) "\02\00\00\00J\00\00\00-\00-\00-\00r\00u\00n\00n\00i\00n\00g\00 \00j\00o\00i\00n\00p\00o\00i\00n\00t\00 \00p\00o\00s\00t\00C\00o\00n\00t\00r\00a\00c\00t\00C\00a\00l\00l")
- (data $96 (i32.const 9276) "L")
- (data $96.1 (i32.const 9288) "\02\00\00\002\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00a\00s\00p\00e\00c\00t\00/\00a\00s\00p\00e\00c\00t\00.\00t\00s")
- (data $97 (i32.const 9356) ",")
- (data $97.1 (i32.const 9368) "\02\00\00\00\14\00\00\00t\00r\00a\00n\00s\00f\00e\00r\00(\00)")
- (data $98 (i32.const 9404) ",")
- (data $98.1 (i32.const 9416) "\02\00\00\00\1c\00\00\00t\00r\00a\00n\00s\00f\00e\00r\00F\00r\00o\00m\00(\00)")
- (data $99 (i32.const 9452) "\1c")
- (data $99.1 (i32.const 9464) "I\00\00\00\08\00\00\00\0c")
- (data $100 (i32.const 9484) "\1c")
- (data $100.1 (i32.const 9496) "\01")
- (data $101 (i32.const 9516) "\1c")
- (data $101.1 (i32.const 9528) "N\00\00\00\08\00\00\00\r")
- (data $102 (i32.const 9548) "<")
- (data $102.1 (i32.const 9560) "\02\00\00\00$\00\00\00K\00e\00y\00 \00d\00o\00e\00s\00 \00n\00o\00t\00 \00e\00x\00i\00s\00t")
- (data $103 (i32.const 9612) ",")
- (data $103.1 (i32.const 9624) "\02\00\00\00\16\00\00\00~\00l\00i\00b\00/\00m\00a\00p\00.\00t\00s")
- (data $104 (i32.const 9664) "O\00\00\00 \00\00\00 \00\00\00 ")
- (data $104.1 (i32.const 9688) " \00\00\00\00\00\00\00\02\01\00\00\02\t\00\00A\00\00\00\00\00\00\00 ")
- (data $104.2 (i32.const 9724) " \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00\00\00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00\00\00\00\00 ")
- (data $104.3 (i32.const 9828) " \00\00\00\00\00\00\00 ")
- (data $104.4 (i32.const 9852) " ")
- (data $104.5 (i32.const 9884) " \00\00\00\00\00\00\00 ")
- (data $104.6 (i32.const 9928) " ")
- (data $104.7 (i32.const 9952) "\02A\00\00 ")
- (data $104.8 (i32.const 9972) "\02\02\00\00\10A\04")
- (table $0 14 14 funcref)
- (elem $0 (i32.const 1) $~lib/@artela/aspect-libs/proto/aspect/v2/tx-verify-input/TxVerifyInput.decode $~lib/@artela/aspect-libs/proto/aspect/v2/pre-tx-execute-input/PreTxExecuteInput.decode $~lib/@artela/aspect-libs/proto/aspect/v2/pre-contract-call-input/PreContractCallInput.decode $~lib/@artela/aspect-libs/proto/aspect/v2/post-contract-call-input/PostContractCallInput.decode $~lib/@artela/aspect-libs/proto/aspect/v2/post-tx-execute-input/PostTxExecuteInput.decode $~lib/@artela/aspect-libs/proto/aspect/v2/operation-input/OperationInput.decode $~lib/@artela/aspect-libs/proto/aspect/v2/bytes-data/BytesData.decode $~lib/@artela/aspect-libs/proto/aspect/v2/string-data/StringData.encode $~lib/@artela/aspect-libs/proto/aspect/v2/uint-data/UintData.decode $~lib/@artela/aspect-libs/proto/aspect/v2/static-call-request/StaticCallRequest.encode $~lib/@artela/aspect-libs/proto/aspect/v2/static-call-result/StaticCallResult.decode $~lib/@artela/aspect-libs/proto/aspect/v2/call-tree-query/CallTreeQuery.encode $~lib/@artela/aspect-libs/proto/aspect/v2/eth-call-tree/EthCallTree.decode)
+ (data $91 (i32.const 9052) "\\")
+ (data $91.1 (i32.const 9064) "\02\00\00\00L\00\00\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00r\00u\00n\00n\00i\00n\00g\00 \00b\00i\00g\00M\00o\00d\00E\00x\00p")
+ (data $92 (i32.const 9148) "\\")
+ (data $92.1 (i32.const 9160) "\02\00\00\00J\00\00\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00r\00u\00n\00n\00i\00n\00g\00 \00b\00n\002\005\006\00A\00d\00d")
+ (data $93 (i32.const 9244) "l")
+ (data $93.1 (i32.const 9256) "\02\00\00\00V\00\00\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00r\00u\00n\00n\00i\00n\00g\00 \00b\00n\002\005\006\00S\00c\00a\00l\00a\00r\00M\00u\00l")
+ (data $94 (i32.const 9356) "l")
+ (data $94.1 (i32.const 9368) "\02\00\00\00R\00\00\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00r\00u\00n\00n\00i\00n\00g\00 \00b\00n\002\005\006\00P\00a\00i\00r\00i\00n\00g")
+ (data $95 (i32.const 9468) "\9c")
+ (data $95.1 (i32.const 9480) "\02\00\00\00\80\00\00\001\00c\007\006\004\007\006\00f\004\00d\00e\00f\004\00b\00b\009\004\005\004\001\00d\005\007\00e\00b\00b\00a\001\001\009\003\003\008\001\00f\00f\00a\007\00a\00a\007\006\00a\00d\00a\006\006\004\00d\00d\003\001\00c\001\006\000\002\004\00c\004\003\00f\005\009")
+ (data $96 (i32.const 9628) "|")
+ (data $96.1 (i32.const 9640) "\02\00\00\00b\00\00\00H\00e\00x\00 \00s\00t\00r\00i\00n\00g\00 \00l\00e\00n\00g\00t\00h\00 \00m\00u\00s\00t\00 \00b\00e\00 \00l\00e\00s\00s\00 \00t\00h\00a\00n\00 \006\004\00 \00c\00h\00a\00r\00a\00c\00t\00e\00r\00s")
+ (data $97 (i32.const 9756) "|")
+ (data $97.1 (i32.const 9768) "\02\00\00\00h\00\00\00~\00l\00i\00b\00/\00@\00a\00r\00t\00e\00l\00a\00/\00a\00s\00p\00e\00c\00t\00-\00l\00i\00b\00s\00/\00c\00o\00m\00m\00o\00n\00/\00w\00r\00a\00p\00t\00y\00p\00e\00s\00/\00u\00i\00n\00t\002\005\006\00.\00t\00s")
+ (data $98 (i32.const 9884) "L")
+ (data $98.1 (i32.const 9896) "\02\00\00\00.\00\00\00H\00e\00x\00 \00s\00t\00r\00i\00n\00g\00 \00i\00s\00 \00n\00o\00t\00 \00v\00a\00l\00i\00d")
+ (data $99 (i32.const 9964) "\9c")
+ (data $99.1 (i32.const 9976) "\02\00\00\00\80\00\00\003\000\003\004\00d\00d\002\009\002\000\00f\006\007\003\00e\002\000\004\00f\00e\00e\002\008\001\001\00c\006\007\008\007\004\005\00f\00c\008\001\009\00b\005\005\00d\003\00e\009\00d\002\009\004\00e\004\005\00c\009\00b\000\003\00a\007\006\00a\00e\00f\004\001")
+ (data $100 (i32.const 10124) "\\")
+ (data $100.1 (i32.const 10136) "\02\00\00\00B\00\00\00A\00r\00r\00a\00y\00 \00x\00,\00y\00 \00m\00u\00s\00t\00 \00h\00a\00v\00e\00 \00a\00 \00l\00e\00n\00g\00t\00h\00 \00o\00f\00 \002")
+ (data $101 (i32.const 10220) "|")
+ (data $101.1 (i32.const 10232) "\02\00\00\00`\00\00\00~\00l\00i\00b\00/\00@\00a\00r\00t\00e\00l\00a\00/\00a\00s\00p\00e\00c\00t\00-\00l\00i\00b\00s\00/\00c\00o\00m\00m\00o\00n\00/\00c\00r\00y\00p\00t\00o\00s\00/\00p\00o\00i\00n\00t\00.\00t\00s")
+ (data $102 (i32.const 10348) "\9c")
+ (data $102.1 (i32.const 10360) "\02\00\00\00\80\00\00\002\000\009\00d\00d\001\005\00e\00b\00f\00f\005\00d\004\006\00c\004\00b\00d\008\008\008\00e\005\001\00a\009\003\00c\00f\009\009\00a\007\003\002\009\006\003\006\00c\006\003\005\001\004\003\009\006\00b\004\00a\004\005\002\000\000\003\00a\003\005\00b\00f\007")
+ (data $103 (i32.const 10508) "\9c")
+ (data $103.1 (i32.const 10520) "\02\00\00\00\80\00\00\000\004\00b\00f\001\001\00c\00a\000\001\004\008\003\00b\00f\00a\008\00b\003\004\00b\004\003\005\006\001\008\004\008\00d\002\008\009\000\005\009\006\000\001\001\004\00c\008\00a\00c\000\004\000\004\009\00a\00f\004\00b\006\003\001\005\00a\004\001\006\007\008")
+ (data $104 (i32.const 10668) "\9c")
+ (data $104.1 (i32.const 10680) "\02\00\00\00\80\00\00\002\00b\00b\008\003\002\004\00a\00f\006\00c\00f\00c\009\003\005\003\007\00a\002\00a\00d\001\00a\004\004\005\00c\00f\00d\000\00c\00a\002\00a\007\001\00a\00c\00d\007\00a\00c\004\001\00f\00a\00d\00b\00f\009\003\003\00c\002\00a\005\001\00b\00e\003\004\004\00d")
+ (data $105 (i32.const 10828) "\9c")
+ (data $105.1 (i32.const 10840) "\02\00\00\00\80\00\00\001\002\000\00a\002\00a\004\00c\00f\003\000\00c\001\00b\00f\009\008\004\005\00f\002\000\00c\006\00f\00e\003\009\00e\000\007\00e\00a\002\00c\00c\00e\006\001\00f\000\00c\009\00b\00b\000\004\008\001\006\005\00f\00e\005\00e\004\00d\00e\008\007\007\005\005\000")
+ (data $106 (i32.const 10988) "\9c")
+ (data $106.1 (i32.const 11000) "\02\00\00\00\80\00\00\001\001\001\00e\001\002\009\00f\001\00c\00f\001\000\009\007\007\001\000\00d\004\001\00c\004\00a\00c\007\000\00f\00c\00d\00f\00a\005\00b\00a\002\000\002\003\00c\006\00f\00f\001\00c\00b\00e\00a\00c\003\002\002\00d\00e\004\009\00d\001\00b\006\00d\00f\007\00c")
+ (data $107 (i32.const 11148) "\9c")
+ (data $107.1 (i32.const 11160) "\02\00\00\00\80\00\00\001\000\003\001\008\008\005\008\005\00e\002\003\006\004\001\002\008\00f\00e\002\005\00c\007\000\005\005\008\00f\001\005\006\000\00f\004\00f\009\003\005\000\00b\00a\00f\003\009\005\009\00e\006\000\003\00c\00c\009\001\004\008\006\00e\001\001\000\009\003\006")
+ (data $108 (i32.const 11308) "\9c")
+ (data $108.1 (i32.const 11320) "\02\00\00\00\80\00\00\001\009\008\00e\009\003\009\003\009\002\000\00d\004\008\003\00a\007\002\006\000\00b\00f\00b\007\003\001\00f\00b\005\00d\002\005\00f\001\00a\00a\004\009\003\003\003\005\00a\009\00e\007\001\002\009\007\00e\004\008\005\00b\007\00a\00e\00f\003\001\002\00c\002")
+ (data $109 (i32.const 11468) "\9c")
+ (data $109.1 (i32.const 11480) "\02\00\00\00\80\00\00\001\008\000\000\00d\00e\00e\00f\001\002\001\00f\001\00e\007\006\004\002\006\00a\000\000\006\006\005\00e\005\00c\004\004\007\009\006\007\004\003\002\002\00d\004\00f\007\005\00e\00d\00a\00d\00d\004\006\00d\00e\00b\00d\005\00c\00d\009\009\002\00f\006\00e\00d")
+ (data $110 (i32.const 11628) "\9c")
+ (data $110.1 (i32.const 11640) "\02\00\00\00\80\00\00\000\009\000\006\008\009\00d\000\005\008\005\00f\00f\000\007\005\00e\00c\009\00e\009\009\00a\00d\006\009\000\00c\003\003\009\005\00b\00c\004\00b\003\001\003\003\007\000\00b\003\008\00e\00f\003\005\005\00a\00c\00d\00a\00d\00c\00d\001\002\002\009\007\005\00b")
+ (data $111 (i32.const 11788) "\9c")
+ (data $111.1 (i32.const 11800) "\02\00\00\00\80\00\00\001\002\00c\008\005\00e\00a\005\00d\00b\008\00c\006\00d\00e\00b\004\00a\00a\00b\007\001\008\000\008\00d\00c\00b\004\000\008\00f\00e\003\00d\001\00e\007\006\009\000\00c\004\003\00d\003\007\00b\004\00c\00e\006\00c\00c\000\001\006\006\00f\00a\007\00d\00a\00a")
+ (data $112 (i32.const 11948) "\1c")
+ (data $112.1 (i32.const 11960) "\01")
+ (data $113 (i32.const 11980) "\1c")
+ (data $113.1 (i32.const 11992) "\01")
+ (data $114 (i32.const 12012) "\\")
+ (data $114.1 (i32.const 12024) "\02\00\00\00>\00\00\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00c\00a\00l\00l\00i\00n\00g\00 \00b\00n\002\005\006\00P\00a\00i\00r\00i\00n\00g")
+ (data $115 (i32.const 12108) "\1c")
+ (data $115.1 (i32.const 12120) "\01")
+ (data $116 (i32.const 12140) "\1c")
+ (data $116.1 (i32.const 12152) "\01")
+ (data $117 (i32.const 12172) "|")
+ (data $117.1 (i32.const 12184) "\02\00\00\00^\00\00\00E\00l\00e\00m\00e\00n\00t\00 \00t\00y\00p\00e\00 \00m\00u\00s\00t\00 \00b\00e\00 \00n\00u\00l\00l\00a\00b\00l\00e\00 \00i\00f\00 \00a\00r\00r\00a\00y\00 \00i\00s\00 \00h\00o\00l\00e\00y")
+ (data $118 (i32.const 12300) "\1c")
+ (data $118.1 (i32.const 12312) "O\00\00\00\08\00\00\00\n")
+ (data $119 (i32.const 12332) "L")
+ (data $119.1 (i32.const 12344) "\02\00\00\006\00\00\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00c\00a\00l\00l\00i\00n\00g\00 \00b\00l\00a\00k\00e\002\00F\001")
+ (data $120 (i32.const 12412) "\1c\01")
+ (data $120.1 (i32.const 12424) "\02\00\00\00\00\01\00\004\008\00c\009\00b\00d\00f\002\006\007\00e\006\000\009\006\00a\003\00b\00a\007\00c\00a\008\004\008\005\00a\00e\006\007\00b\00b\002\00b\00f\008\009\004\00f\00e\007\002\00f\003\006\00e\003\00c\00f\001\003\006\001\00d\005\00f\003\00a\00f\005\004\00f\00a\005\00d\001\008\002\00e\006\00a\00d\007\00f\005\002\000\00e\005\001\001\00f\006\00c\003\00e\002\00b\008\00c\006\008\000\005\009\00b\006\00b\00b\00d\004\001\00f\00b\00a\00b\00d\009\008\003\001\00f\007\009\002\001\007\00e\001\003\001\009\00c\00d\00e\000\005\00b")
+ (data $121 (i32.const 12700) "\1c\02")
+ (data $121.1 (i32.const 12712) "\02\00\00\00\00\02\00\006\001\006\002\006\003\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000")
+ (data $122 (i32.const 13244) "\\")
+ (data $122.1 (i32.const 13256) "\02\00\00\00@\00\00\000\003\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000\000")
+ (data $123 (i32.const 13340) ",")
+ (data $123.1 (i32.const 13352) "\02\00\00\00\10\00\00\000\000\000\000\000\000\000\00c")
+ (data $124 (i32.const 13388) "\1c\01")
+ (data $124.1 (i32.const 13400) "\02\00\00\00\00\01\00\007\005\00a\00b\006\009\00d\003\001\009\000\00a\005\006\002\00c\005\001\00a\00e\00f\008\00d\008\008\00f\001\00c\002\007\007\005\008\007\006\009\004\004\004\000\007\002\007\000\00c\004\002\00c\009\008\004\004\002\005\002\00c\002\006\00d\002\008\007\005\002\009\008\007\004\003\00e\007\00f\006\00d\005\00e\00a\002\00f\002\00d\003\00e\008\00d\002\002\006\000\003\009\00c\00d\003\001\00b\004\00e\004\002\006\00a\00c\004\00f\002\00d\003\00d\006\006\006\00a\006\001\000\00c\002\001\001\006\00f\00d\00e\004\007\003\005")
+ (data $125 (i32.const 13676) "L")
+ (data $125.1 (i32.const 13688) "\02\00\00\006\00\00\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00_\00c\00a\00l\00l\00i\00n\00g\00 \00b\00l\00a\00k\00e\002\00F\002")
+ (data $126 (i32.const 13756) "\1c")
+ (data $126.1 (i32.const 13768) "Q\00\00\00\08\00\00\00\0b")
+ (data $127 (i32.const 13788) "\8c")
+ (data $127.1 (i32.const 13800) "\02\00\00\00t\00\00\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00f\00a\00i\00l\00e\00d\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-")
+ (data $128 (i32.const 13932) ",")
+ (data $128.1 (i32.const 13944) "\02\00\00\00\14\00\00\00n\00o\00t\00 \00e\00q\00u\00a\00l\00s")
+ (data $129 (i32.const 13980) "\8c")
+ (data $129.1 (i32.const 13992) "\02\00\00\00t\00\00\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00p\00a\00s\00s\00e\00d\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-\00-")
+ (data $130 (i32.const 14124) "\1c")
+ (data $130.1 (i32.const 14136) "\02\00\00\00\08\00\00\00f\00r\00o\00m")
+ (data $131 (i32.const 14156) "\1c")
+ (data $131.1 (i32.const 14168) "\02\00\00\00\04\00\00\00t\00o")
+ (data $132 (i32.const 14188) "\1c")
+ (data $132.1 (i32.const 14200) "T\00\00\00\08\00\00\00\0c")
+ (data $133 (i32.const 14220) "\1c")
+ (data $133.1 (i32.const 14232) "U\00\00\00\08\00\00\00\r")
+ (data $134 (i32.const 14252) "\\")
+ (data $134.1 (i32.const 14264) "\02\00\00\00J\00\00\00-\00-\00-\00r\00u\00n\00n\00i\00n\00g\00 \00j\00o\00i\00n\00p\00o\00i\00n\00t\00 \00p\00o\00s\00t\00C\00o\00n\00t\00r\00a\00c\00t\00C\00a\00l\00l")
+ (data $135 (i32.const 14348) "L")
+ (data $135.1 (i32.const 14360) "\02\00\00\002\00\00\00a\00s\00s\00e\00m\00b\00l\00y\00/\00a\00s\00p\00e\00c\00t\00/\00a\00s\00p\00e\00c\00t\00.\00t\00s")
+ (data $136 (i32.const 14428) ",")
+ (data $136.1 (i32.const 14440) "\02\00\00\00\14\00\00\00t\00r\00a\00n\00s\00f\00e\00r\00(\00)")
+ (data $137 (i32.const 14476) ",")
+ (data $137.1 (i32.const 14488) "\02\00\00\00\1c\00\00\00t\00r\00a\00n\00s\00f\00e\00r\00F\00r\00o\00m\00(\00)")
+ (data $138 (i32.const 14524) "\1c")
+ (data $138.1 (i32.const 14536) "X\00\00\00\08\00\00\00\0e")
+ (data $139 (i32.const 14556) "\1c")
+ (data $139.1 (i32.const 14568) "\01")
+ (data $140 (i32.const 14588) "\1c")
+ (data $140.1 (i32.const 14600) "\\\00\00\00\08\00\00\00\0f")
+ (data $141 (i32.const 14620) "<")
+ (data $141.1 (i32.const 14632) "\02\00\00\00$\00\00\00K\00e\00y\00 \00d\00o\00e\00s\00 \00n\00o\00t\00 \00e\00x\00i\00s\00t")
+ (data $142 (i32.const 14684) ",")
+ (data $142.1 (i32.const 14696) "\02\00\00\00\16\00\00\00~\00l\00i\00b\00/\00m\00a\00p\00.\00t\00s")
+ (data $143 (i32.const 14732) "\\")
+ (data $143.1 (i32.const 14744) "\02\00\00\00H\00\00\00M\00i\00s\00s\00i\00n\00g\00 \00f\00o\00r\00k\00(\00)\00 \00b\00e\00f\00o\00r\00e\00 \00l\00d\00e\00l\00i\00m\00(\00)\00 \00c\00a\00l\00l\00.")
+ (data $144 (i32.const 14828) "l")
+ (data $144.1 (i32.const 14840) "\02\00\00\00Z\00\00\00~\00l\00i\00b\00/\00a\00s\00-\00p\00r\00o\00t\00o\00/\00a\00s\00s\00e\00m\00b\00l\00y\00/\00i\00n\00t\00e\00r\00n\00a\00l\00/\00F\00i\00x\00e\00d\00S\00i\00z\00e\00r\00.\00t\00s")
+ (data $145 (i32.const 14940) ",")
+ (data $145.1 (i32.const 14952) "\02\00\00\00\1c\00\00\00A\00r\00r\00a\00y\00 \00i\00s\00 \00e\00m\00p\00t\00y")
+ (data $146 (i32.const 14992) "]\00\00\00 \00\00\00 \00\00\00 ")
+ (data $146.1 (i32.const 15016) " \00\00\00\00\00\00\00\02\01\00\00\02\t\00\00A\00\00\00\00\00\00\00 ")
+ (data $146.2 (i32.const 15052) " \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00\00\00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00 \00\00\00\00\00\00\00 ")
+ (data $146.3 (i32.const 15156) " \00\00\00\00\00\00\00 ")
+ (data $146.4 (i32.const 15180) " ")
+ (data $146.5 (i32.const 15212) " \00\00\00\00\00\00\00 ")
+ (data $146.6 (i32.const 15256) " ")
+ (data $146.7 (i32.const 15272) "\02\02\00\00\00\00\00\00\02A\00\00\02A\00\00\02A\00\00\00\00\00\00\02A\00\00\00\00\00\00\02A")
+ (data $146.8 (i32.const 15340) "\02A\00\00 ")
+ (data $146.9 (i32.const 15360) "\10A\04")
+ (table $0 16 16 funcref)
+ (elem $0 (i32.const 1) $~lib/@artela/aspect-libs/proto/aspect/v2/tx-verify-input/TxVerifyInput.decode $~lib/@artela/aspect-libs/proto/aspect/v2/pre-tx-execute-input/PreTxExecuteInput.decode $~lib/@artela/aspect-libs/proto/aspect/v2/pre-contract-call-input/PreContractCallInput.decode $~lib/@artela/aspect-libs/proto/aspect/v2/post-contract-call-input/PostContractCallInput.decode $~lib/@artela/aspect-libs/proto/aspect/v2/post-tx-execute-input/PostTxExecuteInput.decode $~lib/@artela/aspect-libs/proto/aspect/v2/operation-input/OperationInput.decode $~lib/@artela/aspect-libs/proto/aspect/v2/bytes-data/BytesData.decode $~lib/@artela/aspect-libs/proto/aspect/v2/string-data/StringData.encode $~lib/@artela/aspect-libs/proto/aspect/v2/uint-data/UintData.decode $~lib/@artela/aspect-libs/proto/aspect/v2/bn256pairing-input/Bn256PairingInput.encode $~lib/@artela/aspect-libs/proto/aspect/v2/blake2finput/Blake2FInput.encode $~lib/@artela/aspect-libs/proto/aspect/v2/static-call-request/StaticCallRequest.encode $~lib/@artela/aspect-libs/proto/aspect/v2/static-call-result/StaticCallResult.decode $~lib/@artela/aspect-libs/proto/aspect/v2/call-tree-query/CallTreeQuery.encode $~lib/@artela/aspect-libs/proto/aspect/v2/eth-call-tree/EthCallTree.decode)
  (export "execute" (func $~lib/@artela/aspect-libs/types/entrance/execute))
- (export "allocate" (func $~lib/memory/heap.alloc))
+ (export "allocate" (func $~lib/@artela/aspect-libs/types/entrance/allocate))
  (export "__new" (func $~lib/rt/stub/__new))
  (export "__pin" (func $~lib/rt/stub/__pin))
  (export "__unpin" (func $~lib/rt/stub/__unpin))
@@ -1591,7 +1680,7 @@
   if
    i32.const 2112
    i32.const 2240
-   i32.const 22
+   i32.const 38
    i32.const 12
    call $~lib/builtins/abort
    unreachable
@@ -1677,7 +1766,8 @@
    unreachable
   end
  )
- (func $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi.instance
+ (func $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi.instance (result i32)
+  (local $0 i32)
   global.get $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi._instance
   i32.eqz
   if
@@ -1687,6 +1777,7 @@
    global.set $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi._instance
   end
   global.get $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi._instance
+  local.tee $0
   i32.eqz
   if
    i32.const 2112
@@ -1696,6 +1787,7 @@
    call $~lib/builtins/abort
    unreachable
   end
+  local.get $0
  )
  (func $~lib/@artela/aspect-libs/common/helper/message/MessageUtil.instance (result i32)
   (local $0 i32)
@@ -1742,7 +1834,7 @@
  (func $start:~lib/@artela/aspect-libs/types/aspect-entry
   (local $0 i32)
   (local $1 i32)
-  i32.const 9996
+  i32.const 15372
   global.set $~lib/rt/stub/offset
   i32.const 16
   i32.const 4
@@ -1926,6 +2018,7 @@
    unreachable
   end
   call $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi.instance
+  drop
   call $~lib/@artela/aspect-libs/hostapi/aspect-state-api/AspectStateApi.instance
   call $~lib/@artela/aspect-libs/hostapi/aspect-property-api/AspectPropertyApi.instance
   call $~lib/@artela/aspect-libs/hostapi/aspect-transient-storage-api/AspectTransientStorageApi.instance
@@ -2520,7 +2613,7 @@
    i32.const 0
    return
   end
-  block $__inlined_func$~lib/util/string/compareImpl (result i32)
+  block $__inlined_func$~lib/util/string/compareImpl$1 (result i32)
    local.get $0
    local.set $2
    local.get $3
@@ -2584,7 +2677,7 @@
       local.get $4
       local.get $3
       i32.sub
-      br $__inlined_func$~lib/util/string/compareImpl
+      br $__inlined_func$~lib/util/string/compareImpl$1
      end
      local.get $2
      i32.const 2
@@ -2698,10 +2791,6 @@
     br $for-loop|0
    end
   end
- )
- (func $~lib/memory/heap.alloc (param $0 i32) (result i32)
-  local.get $0
-  call $~lib/rt/stub/__alloc
  )
  (func $~lib/@artela/aspect-libs/proto/aspect/v2/block-input/BlockInput.decode (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
@@ -4400,7 +4489,7 @@
    i32.const 4544
    call $~lib/string/String.__eq
    if
-    block $__inlined_func$~lib/@artela/aspect-libs/types/aspect-entry/EntryPoint#isOwner$56 (result i32)
+    block $__inlined_func$~lib/@artela/aspect-libs/types/aspect-entry/EntryPoint#isOwner$70 (result i32)
      local.get $2
      i32.load
      if
@@ -4422,7 +4511,7 @@
       if
        i32.const 2112
        i32.const 5360
-       i32.const 87
+       i32.const 85
        i32.const 19
        call $~lib/builtins/abort
        unreachable
@@ -4493,7 +4582,7 @@
       i32.const 1
       call $~lib/memory/memory.fill
       local.get $1
-      br $__inlined_func$~lib/@artela/aspect-libs/types/aspect-entry/EntryPoint#isOwner$56
+      br $__inlined_func$~lib/@artela/aspect-libs/types/aspect-entry/EntryPoint#isOwner$70
      end
      i32.const 0
     end
@@ -4521,7 +4610,7 @@
     if
      i32.const 5472
      i32.const 5360
-     i32.const 95
+     i32.const 93
      i32.const 7
      call $~lib/builtins/abort
      unreachable
@@ -4558,7 +4647,7 @@
     if
      i32.const 2112
      i32.const 5360
-     i32.const 99
+     i32.const 97
      i32.const 33
      call $~lib/builtins/abort
      unreachable
@@ -4570,7 +4659,7 @@
     drop
     i32.const 5584
     i32.const 5360
-    i32.const 99
+    i32.const 97
     i32.const 33
     call $~lib/builtins/abort
     unreachable
@@ -4588,7 +4677,7 @@
     if
      i32.const 5472
      i32.const 5360
-     i32.const 105
+     i32.const 103
      i32.const 7
      call $~lib/builtins/abort
      unreachable
@@ -4625,7 +4714,7 @@
     if
      i32.const 2112
      i32.const 5360
-     i32.const 109
+     i32.const 107
      i32.const 26
      call $~lib/builtins/abort
      unreachable
@@ -4637,7 +4726,7 @@
     drop
     i32.const 5584
     i32.const 5360
-    i32.const 109
+    i32.const 107
     i32.const 26
     call $~lib/builtins/abort
     unreachable
@@ -4655,7 +4744,7 @@
     if
      i32.const 5472
      i32.const 5360
-     i32.const 115
+     i32.const 113
      i32.const 7
      call $~lib/builtins/abort
      unreachable
@@ -4692,7 +4781,7 @@
     if
      i32.const 2112
      i32.const 5360
-     i32.const 119
+     i32.const 117
      i32.const 29
      call $~lib/builtins/abort
      unreachable
@@ -4706,7 +4795,7 @@
     if
      i32.const 5584
      i32.const 5360
-     i32.const 119
+     i32.const 117
      i32.const 29
      call $~lib/builtins/abort
      unreachable
@@ -4741,7 +4830,7 @@
     if
      i32.const 5472
      i32.const 5360
-     i32.const 125
+     i32.const 123
      i32.const 7
      call $~lib/builtins/abort
      unreachable
@@ -4778,7 +4867,7 @@
     if
      i32.const 2112
      i32.const 5360
-     i32.const 129
+     i32.const 127
      i32.const 30
      call $~lib/builtins/abort
      unreachable
@@ -4792,7 +4881,7 @@
     if
      i32.const 5584
      i32.const 5360
-     i32.const 129
+     i32.const 127
      i32.const 30
      call $~lib/builtins/abort
      unreachable
@@ -4828,7 +4917,7 @@
     if
      i32.const 5472
      i32.const 5360
-     i32.const 135
+     i32.const 133
      i32.const 7
      call $~lib/builtins/abort
      unreachable
@@ -4865,7 +4954,7 @@
     if
      i32.const 2112
      i32.const 5360
-     i32.const 139
+     i32.const 137
      i32.const 27
      call $~lib/builtins/abort
      unreachable
@@ -4877,7 +4966,7 @@
     drop
     i32.const 5584
     i32.const 5360
-    i32.const 139
+    i32.const 137
     i32.const 27
     call $~lib/builtins/abort
     unreachable
@@ -4895,7 +4984,7 @@
     if
      i32.const 5472
      i32.const 5360
-     i32.const 145
+     i32.const 143
      i32.const 7
      call $~lib/builtins/abort
      unreachable
@@ -4932,7 +5021,7 @@
     if
      i32.const 2112
      i32.const 5360
-     i32.const 149
+     i32.const 147
      i32.const 23
      call $~lib/builtins/abort
      unreachable
@@ -4950,12 +5039,16 @@
    i32.const 5856
    call $~lib/string/String.__concat
    i32.const 5360
-   i32.const 81
+   i32.const 79
    i32.const 5
    call $~lib/builtins/abort
    unreachable
   end
   local.get $0
+ )
+ (func $~lib/@artela/aspect-libs/types/entrance/allocate (param $0 i32) (result i32)
+  local.get $0
+  call $~lib/rt/stub/__alloc
  )
  (func $~lib/rt/stub/__pin (param $0 i32) (result i32)
   local.get $0
@@ -6199,6 +6292,103 @@
   end
   local.get $2
  )
+ (func $~lib/string/String#startsWith (param $0 i32) (result i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  i32.const 8076
+  i32.load
+  i32.const 1
+  i32.shr_u
+  local.tee $2
+  local.get $0
+  i32.const 20
+  i32.sub
+  i32.load offset=16
+  i32.const 1
+  i32.shr_u
+  i32.gt_s
+  if
+   i32.const 0
+   return
+  end
+  block $__inlined_func$~lib/util/string/compareImpl$3 (result i32)
+   i32.const 8080
+   local.set $3
+   i32.const 1
+   local.get $0
+   local.tee $1
+   i32.const 7
+   i32.and
+   local.get $2
+   local.tee $0
+   i32.const 4
+   i32.lt_u
+   select
+   i32.eqz
+   if
+    loop $do-loop|0
+     local.get $1
+     i64.load
+     local.get $3
+     i64.load
+     i64.eq
+     if
+      local.get $1
+      i32.const 8
+      i32.add
+      local.set $1
+      local.get $3
+      i32.const 8
+      i32.add
+      local.set $3
+      local.get $0
+      i32.const 4
+      i32.sub
+      local.tee $0
+      i32.const 4
+      i32.ge_u
+      br_if $do-loop|0
+     end
+    end
+   end
+   loop $while-continue|1
+    local.get $0
+    local.tee $2
+    i32.const 1
+    i32.sub
+    local.set $0
+    local.get $2
+    if
+     local.get $3
+     i32.load16_u
+     local.tee $2
+     local.get $1
+     i32.load16_u
+     local.tee $4
+     i32.ne
+     if
+      local.get $4
+      local.get $2
+      i32.sub
+      br $__inlined_func$~lib/util/string/compareImpl$3
+     end
+     local.get $1
+     i32.const 2
+     i32.add
+     local.set $1
+     local.get $3
+     i32.const 2
+     i32.add
+     local.set $3
+     br $while-continue|1
+    end
+   end
+   i32.const 0
+  end
+  i32.eqz
+ )
  (func $~lib/string/String#substr (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
   (local $3 i32)
   local.get $2
@@ -6283,7 +6473,7 @@
   i32.load16_u
   local.set $0
   loop $while-continue|0
-   block $__inlined_func$~lib/util/string/isSpace$361 (result i32)
+   block $__inlined_func$~lib/util/string/isSpace$15 (result i32)
     local.get $0
     i32.const 128
     i32.or
@@ -6298,7 +6488,7 @@
     local.get $0
     i32.const 5760
     i32.lt_u
-    br_if $__inlined_func$~lib/util/string/isSpace$361
+    br_if $__inlined_func$~lib/util/string/isSpace$15
     drop
     i32.const 1
     local.get $0
@@ -6306,7 +6496,7 @@
     i32.add
     i32.const 10
     i32.le_u
-    br_if $__inlined_func$~lib/util/string/isSpace$361
+    br_if $__inlined_func$~lib/util/string/isSpace$15
     drop
     block $break|0
      block $case6|0
@@ -6341,7 +6531,7 @@
       br $break|0
      end
      i32.const 1
-     br $__inlined_func$~lib/util/string/isSpace$361
+     br $__inlined_func$~lib/util/string/isSpace$15
     end
     i32.const 0
    end
@@ -6500,7 +6690,6 @@
   (local $2 i32)
   (local $3 i32)
   (local $4 i32)
-  (local $5 i32)
   local.get $0
   i32.const 20
   i32.sub
@@ -6514,96 +6703,8 @@
    call $~lib/typedarray/Uint8Array#constructor
    return
   end
-  i32.const 8076
-  i32.load
-  i32.const 1
-  i32.shr_u
-  local.tee $2
   local.get $0
-  i32.const 20
-  i32.sub
-  i32.load offset=16
-  i32.const 1
-  i32.shr_u
-  i32.gt_s
-  if (result i32)
-   i32.const 1
-  else
-   block $__inlined_func$~lib/util/string/compareImpl$1 (result i32)
-    i32.const 8080
-    local.set $4
-    i32.const 1
-    local.get $0
-    local.tee $1
-    i32.const 7
-    i32.and
-    local.get $2
-    i32.const 4
-    i32.lt_u
-    select
-    i32.eqz
-    if
-     loop $do-loop|0
-      local.get $1
-      i64.load
-      local.get $4
-      i64.load
-      i64.eq
-      if
-       local.get $1
-       i32.const 8
-       i32.add
-       local.set $1
-       local.get $4
-       i32.const 8
-       i32.add
-       local.set $4
-       local.get $2
-       i32.const 4
-       i32.sub
-       local.tee $2
-       i32.const 4
-       i32.ge_u
-       br_if $do-loop|0
-      end
-     end
-    end
-    loop $while-continue|1
-     local.get $2
-     local.tee $3
-     i32.const 1
-     i32.sub
-     local.set $2
-     local.get $3
-     if
-      local.get $4
-      i32.load16_u
-      local.tee $3
-      local.get $1
-      i32.load16_u
-      local.tee $5
-      i32.ne
-      if
-       local.get $5
-       local.get $3
-       i32.sub
-       br $__inlined_func$~lib/util/string/compareImpl$1
-      end
-      local.get $1
-      i32.const 2
-      i32.add
-      local.set $1
-      local.get $4
-      i32.const 2
-      i32.add
-      local.set $4
-      br $while-continue|1
-     end
-    end
-    i32.const 0
-   end
-  end
-  i32.eqz
+  call $~lib/string/String#startsWith
   if
    i32.const 1
    global.set $~argumentsLength
@@ -6619,34 +6720,80 @@
   i32.load offset=16
   i32.const 1
   i32.shr_u
-  local.tee $3
+  local.tee $4
   i32.const 1
   i32.shr_u
   call $~lib/typedarray/Uint8Array#constructor
-  local.set $4
-  i32.const 0
   local.set $2
-  i32.const 0
-  local.set $1
   loop $for-loop|0
-   local.get $2
-   local.get $3
+   local.get $1
+   local.get $4
    i32.lt_s
    if
-    local.get $4
-    local.get $1
-    local.get $0
     local.get $2
+    local.get $3
+    local.get $0
+    local.get $1
     i32.const 2
     call $~lib/string/String#substr
     call $~lib/util/string/strtol<i32>
     i32.const 255
     i32.and
     call $~lib/typedarray/Uint8Array#__set
-    local.get $2
+    local.get $1
     i32.const 2
     i32.add
-    local.set $2
+    local.set $1
+    local.get $3
+    i32.const 1
+    i32.add
+    local.set $3
+    br $for-loop|0
+   end
+  end
+  local.get $2
+ )
+ (func $~lib/@artela/aspect-libs/common/helper/convert/uint8ArrayToHex (param $0 i32) (result i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  local.get $0
+  i32.load offset=8
+  i32.const 1
+  i32.shl
+  i32.const 1420
+  i32.load
+  i32.const 1
+  i32.shr_u
+  i32.add
+  call $~lib/typedarray/Uint8Array#constructor
+  local.set $3
+  loop $for-loop|0
+   i32.const 1420
+   i32.load
+   i32.const 1
+   i32.shr_u
+   local.tee $4
+   local.get $1
+   i32.gt_s
+   if
+    local.get $3
+    local.get $1
+    local.get $1
+    local.get $4
+    i32.ge_u
+    if (result i32)
+     i32.const -1
+    else
+     local.get $1
+     i32.const 1
+     i32.shl
+     i32.const 1424
+     i32.add
+     i32.load16_u
+    end
+    call $~lib/typedarray/Uint8Array#__set
     local.get $1
     i32.const 1
     i32.add
@@ -6654,67 +6801,192 @@
     br $for-loop|0
    end
   end
-  local.get $4
- )
- (func $~lib/string/String#charAt (param $0 i32) (result i32)
-  (local $1 i32)
-  local.get $0
-  i32.const 8108
-  i32.load
-  i32.const 1
-  i32.shr_u
-  i32.ge_u
-  if
-   i32.const 1424
-   return
-  end
-  i32.const 2
-  i32.const 2
-  call $~lib/rt/stub/__new
-  local.tee $1
-  local.get $0
-  i32.const 1
-  i32.shl
-  i32.const 8112
-  i32.add
-  i32.load16_u
-  i32.store16
-  local.get $1
- )
- (func $~lib/@artela/aspect-libs/common/helper/convert/uint8ArrayToHex (param $0 i32) (result i32)
-  (local $1 i32)
-  (local $2 i32)
-  i32.const 1424
-  local.set $1
-  loop $for-loop|0
+  loop $for-loop|1
    local.get $2
    local.get $0
    i32.load offset=8
    i32.lt_s
    if
-    local.get $1
     local.get $0
     local.get $2
     call $~lib/typedarray/Uint8Array#__get
     local.tee $1
     i32.const 4
     i32.shr_u
-    call $~lib/string/String#charAt
+    local.set $4
+    local.get $3
+    local.get $2
+    i32.const 1
+    i32.shl
+    i32.const 1420
+    i32.load
+    i32.const 1
+    i32.shr_u
+    i32.add
+    local.get $4
+    i32.const 8108
+    i32.load
+    i32.const 1
+    i32.shr_u
+    i32.ge_u
+    if (result i32)
+     i32.const -1
+    else
+     local.get $4
+     i32.const 1
+     i32.shl
+     i32.const 8112
+     i32.add
+     i32.load16_u
+    end
+    call $~lib/typedarray/Uint8Array#__set
+    local.get $3
+    local.get $2
+    i32.const 1
+    i32.shl
+    i32.const 1
+    i32.add
+    i32.const 1420
+    i32.load
+    i32.const 1
+    i32.shr_u
+    i32.add
     local.get $1
     i32.const 15
     i32.and
-    call $~lib/string/String#charAt
-    call $~lib/string/String.__concat
-    call $~lib/string/String.__concat
-    local.set $1
+    local.tee $1
+    i32.const 8108
+    i32.load
+    i32.const 1
+    i32.shr_u
+    i32.ge_u
+    if (result i32)
+     i32.const -1
+    else
+     local.get $1
+     i32.const 1
+     i32.shl
+     i32.const 8112
+     i32.add
+     i32.load16_u
+    end
+    call $~lib/typedarray/Uint8Array#__set
     local.get $2
     i32.const 1
     i32.add
     local.set $2
-    br $for-loop|0
+    br $for-loop|1
    end
   end
+  local.get $3
+  i32.load
+  local.tee $0
+  local.get $0
+  i32.const 20
+  i32.sub
+  i32.load offset=16
+  call $~lib/string/String.UTF8.decodeUnsafe
+ )
+ (func $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi#revert (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  (local $6 i32)
+  i32.const 1424
+  call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#constructor
+  local.tee $0
   local.get $1
+  i32.store offset=4
+  local.get $0
+  i32.load
+  local.set $6
+  local.get $1
+  local.tee $2
+  i32.const 20
+  i32.sub
+  i32.load offset=16
+  local.get $2
+  i32.add
+  local.set $4
+  loop $while-continue|0
+   local.get $2
+   local.get $4
+   i32.lt_u
+   if
+    local.get $2
+    i32.load16_u
+    local.tee $5
+    i32.const 128
+    i32.lt_u
+    if (result i32)
+     local.get $3
+     i32.const 1
+     i32.add
+    else
+     local.get $5
+     i32.const 2048
+     i32.lt_u
+     if (result i32)
+      local.get $3
+      i32.const 2
+      i32.add
+     else
+      local.get $5
+      i32.const 64512
+      i32.and
+      i32.const 55296
+      i32.eq
+      local.get $2
+      i32.const 2
+      i32.add
+      local.get $4
+      i32.lt_u
+      i32.and
+      if
+       local.get $2
+       i32.load16_u offset=2
+       i32.const 64512
+       i32.and
+       i32.const 56320
+       i32.eq
+       if
+        local.get $3
+        i32.const 4
+        i32.add
+        local.set $3
+        local.get $2
+        i32.const 4
+        i32.add
+        local.set $2
+        br $while-continue|0
+       end
+      end
+      local.get $3
+      i32.const 3
+      i32.add
+     end
+    end
+    local.set $3
+    local.get $2
+    i32.const 2
+    i32.add
+    local.set $2
+    br $while-continue|0
+   end
+  end
+  local.get $6
+  local.get $3
+  i32.store offset=4
+  local.get $0
+  call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#store
+  call $~lib/@artela/aspect-libs/hostapi/util-api/__UtilApi__.revert
+  local.get $1
+  i32.const 3168
+  i32.const 26
+  i32.const 5
+  call $~lib/builtins/abort
+  unreachable
  )
  (func $~lib/@artela/aspect-libs/common/helper/convert/stringToUint8Array (param $0 i32) (result i32)
   (local $1 i32)
@@ -6967,25 +7239,9 @@
       i32.const 1
       i32.add
       i32.store offset=12
-      local.get $3
       local.get $0
-      i32.load offset=12
-      i32.ge_u
-      if
-       i32.const 5232
-       i32.const 8544
-       i32.const 114
-       i32.const 42
-       call $~lib/builtins/abort
-       unreachable
-      end
-      local.get $0
-      i32.load offset=4
       local.get $3
-      i32.const 2
-      i32.shl
-      i32.add
-      i32.load
+      call $~lib/array/Array<i32>#__get
      end
      local.tee $3
      local.set $0
@@ -7126,28 +7382,8 @@
     end
     local.get $1
     i32.load offset=8
-    local.tee $2
-    i32.load offset=12
-    local.tee $3
-    i32.const 1
-    i32.add
-    local.set $4
-    local.get $2
-    local.get $4
-    i32.const 2
-    i32.const 1
-    call $~lib/array/ensureCapacity
-    local.get $2
-    i32.load offset=4
-    local.get $3
-    i32.const 2
-    i32.shl
-    i32.add
     local.get $0
-    i32.store
-    local.get $2
-    local.get $4
-    i32.store offset=12
+    call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#push
     local.get $1
     local.get $0
     i32.const 128
@@ -7571,6 +7807,1137 @@
   local.get $1
   i32.load offset=4
  )
+ (func $~lib/@artela/aspect-libs/common/cryptos/point/G1Point#constructor (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  i32.const 8
+  i32.const 67
+  call $~lib/rt/stub/__new
+  local.tee $2
+  i32.const 0
+  i32.store
+  local.get $2
+  i32.const 0
+  i32.store offset=4
+  local.get $2
+  local.get $0
+  i32.store
+  local.get $2
+  local.get $1
+  i32.store offset=4
+  local.get $2
+ )
+ (func $~lib/array/Array<u64>#__set (param $0 i32) (param $1 i32) (param $2 i64)
+  (local $3 i32)
+  local.get $1
+  local.get $0
+  i32.load offset=12
+  i32.ge_u
+  if
+   local.get $1
+   i32.const 0
+   i32.lt_s
+   if
+    i32.const 5232
+    i32.const 8544
+    i32.const 130
+    i32.const 22
+    call $~lib/builtins/abort
+    unreachable
+   end
+   local.get $0
+   local.get $1
+   i32.const 1
+   i32.add
+   local.tee $3
+   i32.const 3
+   i32.const 1
+   call $~lib/array/ensureCapacity
+   local.get $0
+   local.get $3
+   i32.store offset=12
+  end
+  local.get $0
+  i32.load offset=4
+  local.get $1
+  i32.const 3
+  i32.shl
+  i32.add
+  local.get $2
+  i64.store
+ )
+ (func $~lib/array/Array<u64>#constructor (param $0 i32) (result i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  i32.const 16
+  i32.const 69
+  call $~lib/rt/stub/__new
+  local.tee $1
+  i32.const 0
+  i32.store
+  local.get $1
+  i32.const 0
+  i32.store offset=4
+  local.get $1
+  i32.const 0
+  i32.store offset=8
+  local.get $1
+  i32.const 0
+  i32.store offset=12
+  local.get $0
+  i32.const 134217727
+  i32.gt_u
+  if
+   i32.const 1280
+   i32.const 8544
+   i32.const 70
+   i32.const 60
+   call $~lib/builtins/abort
+   unreachable
+  end
+  i32.const 8
+  local.get $0
+  local.get $0
+  i32.const 8
+  i32.le_u
+  select
+  i32.const 3
+  i32.shl
+  local.tee $2
+  i32.const 1
+  call $~lib/rt/stub/__new
+  local.tee $3
+  i32.const 0
+  local.get $2
+  call $~lib/memory/memory.fill
+  local.get $1
+  local.get $3
+  i32.store
+  local.get $1
+  local.get $3
+  i32.store offset=4
+  local.get $1
+  local.get $2
+  i32.store offset=8
+  local.get $1
+  local.get $0
+  i32.store offset=12
+  local.get $1
+ )
+ (func $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#constructor (result i32)
+  (local $0 i32)
+  i32.const 4
+  i32.const 68
+  call $~lib/rt/stub/__new
+  local.tee $0
+  i32.const 4
+  call $~lib/array/Array<u64>#constructor
+  i32.store
+  local.get $0
+  i32.load
+  i32.const 0
+  i64.const 0
+  call $~lib/array/Array<u64>#__set
+  local.get $0
+  i32.load
+  i32.const 1
+  i64.const 0
+  call $~lib/array/Array<u64>#__set
+  local.get $0
+  i32.load
+  i32.const 2
+  i64.const 0
+  call $~lib/array/Array<u64>#__set
+  local.get $0
+  i32.load
+  i32.const 3
+  i64.const 0
+  call $~lib/array/Array<u64>#__set
+  local.get $0
+ )
+ (func $~lib/string/String#substring (param $0 i32) (param $1 i32) (param $2 i32) (result i32)
+  (local $3 i32)
+  (local $4 i32)
+  local.get $1
+  i32.const 0
+  local.get $1
+  i32.const 0
+  i32.gt_s
+  select
+  local.tee $3
+  local.get $0
+  i32.const 20
+  i32.sub
+  i32.load offset=16
+  i32.const 1
+  i32.shr_u
+  local.tee $1
+  local.get $1
+  local.get $3
+  i32.gt_s
+  select
+  local.tee $3
+  local.get $2
+  i32.const 0
+  local.get $2
+  i32.const 0
+  i32.gt_s
+  select
+  local.tee $2
+  local.get $1
+  local.get $1
+  local.get $2
+  i32.gt_s
+  select
+  local.tee $2
+  local.get $2
+  local.get $3
+  i32.gt_s
+  select
+  i32.const 1
+  i32.shl
+  local.set $4
+  local.get $3
+  local.get $2
+  local.get $2
+  local.get $3
+  i32.lt_s
+  select
+  i32.const 1
+  i32.shl
+  local.tee $2
+  local.get $4
+  i32.sub
+  local.tee $3
+  i32.eqz
+  if
+   i32.const 1424
+   return
+  end
+  local.get $4
+  i32.eqz
+  local.get $2
+  local.get $1
+  i32.const 1
+  i32.shl
+  i32.eq
+  i32.and
+  if
+   local.get $0
+   return
+  end
+  local.get $3
+  i32.const 2
+  call $~lib/rt/stub/__new
+  local.tee $1
+  local.get $0
+  local.get $4
+  i32.add
+  local.get $3
+  call $~lib/memory/memory.copy
+  local.get $1
+ )
+ (func $~lib/util/string/strtol<i64> (param $0 i32) (result i64)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i64)
+  (local $4 i64)
+  (local $5 i32)
+  (local $6 i32)
+  local.get $0
+  i32.const 20
+  i32.sub
+  i32.load offset=16
+  i32.const 1
+  i32.shr_u
+  local.tee $1
+  i32.eqz
+  if
+   i64.const 0
+   return
+  end
+  local.get $0
+  local.tee $2
+  i32.load16_u
+  local.set $0
+  loop $while-continue|0
+   block $__inlined_func$~lib/util/string/isSpace$25 (result i32)
+    local.get $0
+    i32.const 128
+    i32.or
+    i32.const 160
+    i32.eq
+    local.get $0
+    i32.const 9
+    i32.sub
+    i32.const 4
+    i32.le_u
+    i32.or
+    local.get $0
+    i32.const 5760
+    i32.lt_u
+    br_if $__inlined_func$~lib/util/string/isSpace$25
+    drop
+    i32.const 1
+    local.get $0
+    i32.const -8192
+    i32.add
+    i32.const 10
+    i32.le_u
+    br_if $__inlined_func$~lib/util/string/isSpace$25
+    drop
+    block $break|0
+     block $case6|0
+      local.get $0
+      i32.const 5760
+      i32.eq
+      br_if $case6|0
+      local.get $0
+      i32.const 8232
+      i32.eq
+      br_if $case6|0
+      local.get $0
+      i32.const 8233
+      i32.eq
+      br_if $case6|0
+      local.get $0
+      i32.const 8239
+      i32.eq
+      br_if $case6|0
+      local.get $0
+      i32.const 8287
+      i32.eq
+      br_if $case6|0
+      local.get $0
+      i32.const 12288
+      i32.eq
+      br_if $case6|0
+      local.get $0
+      i32.const 65279
+      i32.eq
+      br_if $case6|0
+      br $break|0
+     end
+     i32.const 1
+     br $__inlined_func$~lib/util/string/isSpace$25
+    end
+    i32.const 0
+   end
+   if
+    local.get $2
+    i32.const 2
+    i32.add
+    local.tee $2
+    i32.load16_u
+    local.set $0
+    local.get $1
+    i32.const 1
+    i32.sub
+    local.set $1
+    br $while-continue|0
+   end
+  end
+  i64.const 1
+  local.set $3
+  local.get $0
+  i32.const 43
+  i32.eq
+  local.get $0
+  i32.const 45
+  i32.eq
+  i32.or
+  if (result i32)
+   local.get $1
+   i32.const 1
+   i32.sub
+   local.tee $1
+   i32.eqz
+   if
+    i64.const 0
+    return
+   end
+   i64.const -1
+   i64.const 1
+   local.get $0
+   i32.const 45
+   i32.eq
+   select
+   local.set $3
+   local.get $2
+   i32.const 2
+   i32.add
+   local.tee $2
+   i32.load16_u
+  else
+   local.get $0
+  end
+  i32.const 48
+  i32.eq
+  local.get $1
+  i32.const 2
+  i32.gt_s
+  i32.and
+  if (result i32)
+   local.get $2
+   i32.load16_u offset=2
+   i32.const 32
+   i32.or
+   i32.const 120
+   i32.eq
+  else
+   i32.const 0
+  end
+  if
+   local.get $2
+   i32.const 4
+   i32.add
+   local.set $2
+   local.get $1
+   i32.const 2
+   i32.sub
+   local.set $1
+  end
+  local.get $1
+  i32.const 1
+  i32.sub
+  local.set $5
+  loop $while-continue|2
+   local.get $1
+   local.tee $0
+   i32.const 1
+   i32.sub
+   local.set $1
+   local.get $0
+   if
+    block $while-break|2
+     local.get $2
+     i32.load16_u
+     local.tee $6
+     i32.const 48
+     i32.sub
+     local.tee $0
+     i32.const 10
+     i32.ge_u
+     if
+      local.get $6
+      i32.const 65
+      i32.sub
+      i32.const 25
+      i32.le_u
+      if (result i32)
+       local.get $6
+       i32.const 55
+       i32.sub
+      else
+       local.get $6
+       i32.const 87
+       i32.sub
+       local.get $6
+       local.get $6
+       i32.const 97
+       i32.sub
+       i32.const 25
+       i32.le_u
+       select
+      end
+      local.set $0
+     end
+     local.get $0
+     i32.const 16
+     i32.ge_u
+     if
+      local.get $1
+      local.get $5
+      i32.eq
+      if
+       i64.const 0
+       return
+      end
+      br $while-break|2
+     end
+     local.get $0
+     i64.extend_i32_u
+     local.get $4
+     i64.const 4
+     i64.shl
+     i64.add
+     local.set $4
+     local.get $2
+     i32.const 2
+     i32.add
+     local.set $2
+     br $while-continue|2
+    end
+   end
+  end
+  local.get $3
+  local.get $4
+  i64.mul
+ )
+ (func $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#fromHex (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i64)
+  (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  local.get $1
+  call $~lib/string/String#startsWith
+  if
+   i32.const 1
+   global.set $~argumentsLength
+   local.get $1
+   i32.const 2
+   i32.const 2147483647
+   call $~lib/string/String#substring
+   local.set $1
+  end
+  local.get $1
+  i32.const 20
+  i32.sub
+  i32.load offset=16
+  i32.const 1
+  i32.shr_u
+  i32.const 64
+  i32.gt_u
+  if
+   i32.const 9648
+   i32.const 9776
+   i32.const 269
+   i32.const 13
+   call $~lib/builtins/abort
+   unreachable
+  end
+  block $__inlined_func$~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#isValidHexString$1108
+   loop $for-loop|0
+    local.get $1
+    i32.const 20
+    i32.sub
+    i32.load offset=16
+    i32.const 1
+    i32.shr_u
+    local.tee $0
+    local.get $2
+    i32.gt_s
+    if
+     local.get $0
+     local.get $2
+     i32.le_u
+     if
+      i32.const 1424
+      local.set $0
+     else
+      i32.const 2
+      i32.const 2
+      call $~lib/rt/stub/__new
+      local.tee $0
+      local.get $1
+      local.get $2
+      i32.const 1
+      i32.shl
+      i32.add
+      i32.load16_u
+      i32.store16
+     end
+     local.get $0
+     i32.const 20
+     i32.sub
+     i32.load offset=16
+     i32.const 1
+     i32.shr_u
+     if (result i32)
+      local.get $0
+      i32.load16_u
+     else
+      i32.const -1
+     end
+     local.tee $0
+     i32.const 57
+     i32.le_s
+     local.get $0
+     i32.const 48
+     i32.ge_s
+     i32.and
+     if (result i32)
+      i32.const 1
+     else
+      local.get $0
+      i32.const 70
+      i32.le_s
+      local.get $0
+      i32.const 65
+      i32.ge_s
+      i32.and
+     end
+     if (result i32)
+      i32.const 1
+     else
+      local.get $0
+      i32.const 102
+      i32.le_s
+      local.get $0
+      i32.const 97
+      i32.ge_s
+      i32.and
+     end
+     i32.eqz
+     br_if $__inlined_func$~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#isValidHexString$1108
+     local.get $2
+     i32.const 1
+     i32.add
+     local.set $2
+     br $for-loop|0
+    end
+   end
+   i32.const 1
+   local.set $3
+  end
+  local.get $3
+  i32.eqz
+  if
+   i32.const 9904
+   i32.const 9776
+   i32.const 273
+   i32.const 13
+   call $~lib/builtins/abort
+   unreachable
+  end
+  i32.const 6300
+  i32.load
+  i32.const -2
+  i32.and
+  local.tee $0
+  i32.eqz
+  local.get $1
+  i32.const 20
+  i32.sub
+  i32.load offset=16
+  i32.const -2
+  i32.and
+  local.tee $6
+  i32.const 128
+  i32.gt_u
+  i32.or
+  i32.eqz
+  if
+   i32.const 128
+   i32.const 2
+   call $~lib/rt/stub/__new
+   local.set $7
+   i32.const 128
+   local.get $6
+   i32.sub
+   local.tee $2
+   local.get $0
+   i32.gt_u
+   if
+    local.get $2
+    local.get $2
+    i32.const 2
+    i32.sub
+    local.get $0
+    i32.div_u
+    local.get $0
+    i32.mul
+    local.tee $3
+    i32.sub
+    local.set $8
+    loop $while-continue|0
+     local.get $3
+     local.get $4
+     i32.gt_u
+     if
+      local.get $4
+      local.get $7
+      i32.add
+      i32.const 6304
+      local.get $0
+      call $~lib/memory/memory.copy
+      local.get $0
+      local.get $4
+      i32.add
+      local.set $4
+      br $while-continue|0
+     end
+    end
+    local.get $3
+    local.get $7
+    i32.add
+    i32.const 6304
+    local.get $8
+    call $~lib/memory/memory.copy
+   else
+    local.get $7
+    i32.const 6304
+    local.get $2
+    call $~lib/memory/memory.copy
+   end
+   local.get $2
+   local.get $7
+   i32.add
+   local.get $1
+   local.get $6
+   call $~lib/memory/memory.copy
+   local.get $7
+   local.set $1
+  end
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#constructor
+  local.set $3
+  i32.const 0
+  local.set $0
+  loop $for-loop|04
+   local.get $0
+   i32.const 4
+   i32.lt_s
+   if
+    i64.const 0
+    local.set $5
+    i32.const 0
+    local.set $2
+    loop $for-loop|1
+     local.get $2
+     i32.const 8
+     i32.lt_s
+     if
+      local.get $5
+      local.get $1
+      i32.const 62
+      local.get $0
+      i32.const 4
+      i32.shl
+      local.get $2
+      i32.const 1
+      i32.shl
+      i32.add
+      local.tee $4
+      i32.sub
+      i32.const 64
+      local.get $4
+      i32.sub
+      call $~lib/string/String#substring
+      call $~lib/util/string/strtol<i64>
+      local.get $2
+      i32.const 3
+      i32.shl
+      i64.extend_i32_s
+      i64.shl
+      i64.or
+      local.set $5
+      local.get $2
+      i32.const 1
+      i32.add
+      local.set $2
+      br $for-loop|1
+     end
+    end
+    local.get $3
+    i32.load
+    local.get $0
+    local.get $5
+    call $~lib/array/Array<u64>#__set
+    local.get $0
+    i32.const 1
+    i32.add
+    local.set $0
+    br $for-loop|04
+   end
+  end
+  local.get $3
+ )
+ (func $~lib/@artela/aspect-libs/common/cryptos/point/G2Point#constructor (param $0 i32) (param $1 i32) (result i32)
+  (local $2 i32)
+  i32.const 8
+  i32.const 70
+  call $~lib/rt/stub/__new
+  local.tee $2
+  i32.const 0
+  i32.store
+  local.get $2
+  i32.const 0
+  i32.store offset=4
+  local.get $0
+  i32.load offset=12
+  i32.const 2
+  i32.ne
+  if (result i32)
+   i32.const 1
+  else
+   local.get $1
+   i32.load offset=12
+   i32.const 2
+   i32.ne
+  end
+  if
+   i32.const 10144
+   i32.const 10240
+   i32.const 39
+   i32.const 7
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $2
+  local.get $0
+  i32.store
+  local.get $2
+  local.get $1
+  i32.store offset=4
+  local.get $2
+ )
+ (func $~lib/array/Array<~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256>#__set (param $0 i32) (param $1 i32) (param $2 i32)
+  (local $3 i32)
+  local.get $1
+  local.get $0
+  i32.load offset=12
+  i32.ge_u
+  if
+   local.get $1
+   i32.const 0
+   i32.lt_s
+   if
+    i32.const 5232
+    i32.const 8544
+    i32.const 130
+    i32.const 22
+    call $~lib/builtins/abort
+    unreachable
+   end
+   local.get $0
+   local.get $1
+   i32.const 1
+   i32.add
+   local.tee $3
+   i32.const 2
+   i32.const 1
+   call $~lib/array/ensureCapacity
+   local.get $0
+   local.get $3
+   i32.store offset=12
+  end
+  local.get $0
+  i32.load offset=4
+  local.get $1
+  i32.const 2
+  i32.shl
+  i32.add
+  local.get $2
+  i32.store
+ )
+ (func $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#push (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  local.get $0
+  local.get $0
+  i32.load offset=12
+  local.tee $2
+  i32.const 1
+  i32.add
+  local.tee $3
+  i32.const 2
+  i32.const 1
+  call $~lib/array/ensureCapacity
+  local.get $0
+  i32.load offset=4
+  local.get $2
+  i32.const 2
+  i32.shl
+  i32.add
+  local.get $1
+  i32.store
+  local.get $0
+  local.get $3
+  i32.store offset=12
+ )
+ (func $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#__get (param $0 i32) (param $1 i32) (result i32)
+  local.get $1
+  local.get $0
+  i32.load offset=12
+  i32.ge_u
+  if
+   i32.const 5232
+   i32.const 8544
+   i32.const 114
+   i32.const 42
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $0
+  i32.load offset=4
+  local.get $1
+  i32.const 2
+  i32.shl
+  i32.add
+  i32.load
+  local.tee $0
+  i32.eqz
+  if
+   i32.const 12192
+   i32.const 8544
+   i32.const 118
+   i32.const 40
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $0
+ )
+ (func $~lib/array/Array<u64>#__get (param $0 i32) (param $1 i32) (result i64)
+  local.get $1
+  local.get $0
+  i32.load offset=12
+  i32.ge_u
+  if
+   i32.const 5232
+   i32.const 8544
+   i32.const 114
+   i32.const 42
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $0
+  i32.load offset=4
+  local.get $1
+  i32.const 3
+  i32.shl
+  i32.add
+  i64.load
+ )
+ (func $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#toUint8Array (param $0 i32) (result i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  i32.const 32
+  call $~lib/typedarray/Uint8Array#constructor
+  local.set $3
+  loop $for-loop|0
+   local.get $2
+   i32.const 4
+   i32.lt_s
+   if
+    i32.const 0
+    local.set $1
+    loop $for-loop|1
+     local.get $1
+     i32.const 8
+     i32.lt_s
+     if
+      local.get $3
+      i32.const 31
+      local.get $2
+      i32.const 3
+      i32.shl
+      local.get $1
+      i32.add
+      i32.sub
+      local.get $0
+      i32.load
+      local.get $2
+      call $~lib/array/Array<u64>#__get
+      local.get $1
+      i32.const 3
+      i32.shl
+      i64.extend_i32_s
+      i64.shr_u
+      i32.wrap_i64
+      i32.const 255
+      i32.and
+      call $~lib/typedarray/Uint8Array#__set
+      local.get $1
+      i32.const 1
+      i32.add
+      local.set $1
+      br $for-loop|1
+     end
+    end
+    local.get $2
+    i32.const 1
+    i32.add
+    local.set $2
+    br $for-loop|0
+   end
+  end
+  local.get $3
+ )
+ (func $~lib/@artela/aspect-libs/proto/aspect/v2/bn256pairing-input/Bn256PairingInput.encode (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  local.get $0
+  i32.load
+  local.set $4
+  loop $for-loop|0
+   local.get $2
+   local.get $4
+   i32.load offset=12
+   i32.lt_s
+   if
+    local.get $1
+    i32.const 10
+    call $~lib/as-proto/assembly/Writer/Writer#uint32@override
+    local.get $1
+    call $~lib/as-proto/assembly/Writer/Writer#fork@override
+    local.get $4
+    local.get $2
+    call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#__get
+    local.set $5
+    local.get $1
+    i32.const 10
+    call $~lib/as-proto/assembly/Writer/Writer#uint32@override
+    local.get $1
+    local.get $5
+    i32.load
+    call $~lib/as-proto/assembly/Writer/Writer#bytes@override
+    local.get $1
+    i32.const 18
+    call $~lib/as-proto/assembly/Writer/Writer#uint32@override
+    local.get $1
+    local.get $5
+    i32.load offset=4
+    call $~lib/as-proto/assembly/Writer/Writer#bytes@override
+    local.get $1
+    call $~lib/as-proto/assembly/Writer/Writer#ldelim@override
+    local.get $2
+    i32.const 1
+    i32.add
+    local.set $2
+    br $for-loop|0
+   end
+  end
+  local.get $0
+  i32.load offset=4
+  local.set $0
+  loop $for-loop|1
+   local.get $3
+   local.get $0
+   i32.load offset=12
+   i32.lt_s
+   if
+    local.get $1
+    i32.const 18
+    call $~lib/as-proto/assembly/Writer/Writer#uint32@override
+    local.get $1
+    call $~lib/as-proto/assembly/Writer/Writer#fork@override
+    local.get $0
+    local.get $3
+    call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#__get
+    local.set $2
+    local.get $1
+    i32.const 10
+    call $~lib/as-proto/assembly/Writer/Writer#uint32@override
+    local.get $1
+    local.get $2
+    i32.load
+    call $~lib/as-proto/assembly/Writer/Writer#bytes@override
+    local.get $1
+    i32.const 18
+    call $~lib/as-proto/assembly/Writer/Writer#uint32@override
+    local.get $1
+    local.get $2
+    i32.load offset=4
+    call $~lib/as-proto/assembly/Writer/Writer#bytes@override
+    local.get $1
+    i32.const 26
+    call $~lib/as-proto/assembly/Writer/Writer#uint32@override
+    local.get $1
+    local.get $2
+    i32.load offset=8
+    call $~lib/as-proto/assembly/Writer/Writer#bytes@override
+    local.get $1
+    i32.const 34
+    call $~lib/as-proto/assembly/Writer/Writer#uint32@override
+    local.get $1
+    local.get $2
+    i32.load offset=12
+    call $~lib/as-proto/assembly/Writer/Writer#bytes@override
+    local.get $1
+    call $~lib/as-proto/assembly/Writer/Writer#ldelim@override
+    local.get $3
+    i32.const 1
+    i32.add
+    local.set $3
+    br $for-loop|1
+   end
+  end
+ )
+ (func $~lib/@artela/aspect-libs/proto/aspect/v2/blake2finput/Blake2FInput.encode (param $0 i32) (param $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  local.get $1
+  i32.const 10
+  call $~lib/as-proto/assembly/Writer/Writer#uint32@override
+  local.get $1
+  local.get $0
+  i32.load
+  call $~lib/as-proto/assembly/Writer/Writer#bytes@override
+  local.get $1
+  i32.const 18
+  call $~lib/as-proto/assembly/Writer/Writer#uint32@override
+  local.get $1
+  local.get $0
+  i32.load offset=4
+  call $~lib/as-proto/assembly/Writer/Writer#bytes@override
+  local.get $1
+  i32.const 26
+  call $~lib/as-proto/assembly/Writer/Writer#uint32@override
+  local.get $1
+  local.get $0
+  i32.load offset=8
+  call $~lib/as-proto/assembly/Writer/Writer#bytes@override
+  local.get $1
+  i32.const 32
+  call $~lib/as-proto/assembly/Writer/Writer#uint32@override
+  local.get $0
+  i32.load8_u offset=12
+  local.set $2
+  block $__inlined_func$~lib/as-proto/assembly/Writer/Writer#bool@override$470
+   block $default
+    block $case1
+     local.get $1
+     i32.const 8
+     i32.sub
+     i32.load
+     local.tee $3
+     i32.const 4
+     i32.ne
+     if
+      local.get $3
+      i32.const 6
+      i32.eq
+      br_if $case1
+      br $default
+     end
+     local.get $1
+     i32.load offset=4
+     local.get $2
+     i32.const 0
+     i32.ne
+     i32.store8
+     local.get $1
+     local.get $1
+     i32.load offset=4
+     i32.const 1
+     i32.add
+     i32.store offset=4
+     br $__inlined_func$~lib/as-proto/assembly/Writer/Writer#bool@override$470
+    end
+    local.get $1
+    local.get $1
+    i32.load
+    i32.const 1
+    i32.add
+    i32.store
+    br $__inlined_func$~lib/as-proto/assembly/Writer/Writer#bool@override$470
+   end
+   unreachable
+  end
+  local.get $1
+  i32.const 42
+  call $~lib/as-proto/assembly/Writer/Writer#uint32@override
+  local.get $1
+  local.get $0
+  i32.load offset=16
+  call $~lib/as-proto/assembly/Writer/Writer#bytes@override
+ )
  (func $~lib/@artela/aspect-libs/proto/aspect/v2/static-call-request/StaticCallRequest.encode (param $0 i32) (param $1 i32)
   local.get $1
   i32.const 10
@@ -7624,7 +8991,7 @@
   call $~lib/typedarray/Uint8Array#constructor
   local.set $3
   i32.const 16
-  i32.const 68
+  i32.const 83
   call $~lib/rt/stub/__new
   local.tee $4
   i32.const 0
@@ -7726,7 +9093,12 @@
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
+  (local $7 i32)
+  (local $8 i32)
+  (local $9 i32)
+  (local $10 i32)
   call $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi.instance
+  drop
   i32.const 7888
   call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#constructor
   call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#store
@@ -7738,99 +9110,8 @@
   call $~lib/string/String.__eq
   if
    call $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi.instance
-   i32.const 1424
-   call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#constructor
-   local.tee $2
    i32.const 8176
-   i32.store offset=4
-   local.get $2
-   i32.load
-   local.set $3
-   i32.const 8176
-   local.set $1
-   i32.const 8172
-   i32.load
-   i32.const 8176
-   i32.add
-   local.set $4
-   loop $while-continue|0
-    local.get $1
-    local.get $4
-    i32.lt_u
-    if
-     local.get $1
-     i32.load16_u
-     local.tee $5
-     i32.const 128
-     i32.lt_u
-     if (result i32)
-      local.get $0
-      i32.const 1
-      i32.add
-     else
-      local.get $5
-      i32.const 2048
-      i32.lt_u
-      if (result i32)
-       local.get $0
-       i32.const 2
-       i32.add
-      else
-       local.get $5
-       i32.const 64512
-       i32.and
-       i32.const 55296
-       i32.eq
-       local.get $1
-       i32.const 2
-       i32.add
-       local.get $4
-       i32.lt_u
-       i32.and
-       if
-        local.get $1
-        i32.load16_u offset=2
-        i32.const 64512
-        i32.and
-        i32.const 56320
-        i32.eq
-        if
-         local.get $0
-         i32.const 4
-         i32.add
-         local.set $0
-         local.get $1
-         i32.const 4
-         i32.add
-         local.set $1
-         br $while-continue|0
-        end
-       end
-       local.get $0
-       i32.const 3
-       i32.add
-      end
-     end
-     local.set $0
-     local.get $1
-     i32.const 2
-     i32.add
-     local.set $1
-     br $while-continue|0
-    end
-   end
-   local.get $3
-   local.get $0
-   i32.store offset=4
-   local.get $2
-   call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#store
-   call $~lib/@artela/aspect-libs/hostapi/util-api/__UtilApi__.revert
-   i32.const 8176
-   i32.const 3168
-   i32.const 26
-   i32.const 5
-   call $~lib/builtins/abort
-   unreachable
+   call $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi#revert
   end
   i32.const 8288
   call $~lib/@artela/aspect-libs/common/helper/convert/hexToUint8Array
@@ -8073,30 +9354,30 @@
   drop
   i32.const 8624
   call $~lib/@artela/aspect-libs/common/helper/convert/stringToUint8Array
-  local.set $3
+  local.set $2
   i32.const 1424
   call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#constructor
-  local.tee $4
+  local.tee $3
   i32.const 8592
   i32.store offset=4
-  local.get $4
+  local.get $3
   i32.load
-  local.set $5
+  local.set $4
   i32.const 8592
   local.set $1
   i32.const 8588
   i32.load
   i32.const 8592
   i32.add
-  local.set $6
-  loop $while-continue|00
+  local.set $5
+  loop $while-continue|0
    local.get $1
-   local.get $6
+   local.get $5
    i32.lt_u
    if
     local.get $1
     i32.load16_u
-    local.tee $2
+    local.tee $6
     i32.const 128
     i32.lt_u
     if (result i32)
@@ -8104,7 +9385,7 @@
      i32.const 1
      i32.add
     else
-     local.get $2
+     local.get $6
      i32.const 2048
      i32.lt_u
      if (result i32)
@@ -8112,7 +9393,7 @@
       i32.const 2
       i32.add
      else
-      local.get $2
+      local.get $6
       i32.const 64512
       i32.and
       i32.const 55296
@@ -8120,7 +9401,7 @@
       local.get $1
       i32.const 2
       i32.add
-      local.get $6
+      local.get $5
       i32.lt_u
       i32.and
       if
@@ -8139,7 +9420,7 @@
         i32.const 4
         i32.add
         local.set $1
-        br $while-continue|00
+        br $while-continue|0
        end
       end
       local.get $0
@@ -8152,13 +9433,13 @@
     i32.const 2
     i32.add
     local.set $1
-    br $while-continue|00
+    br $while-continue|0
    end
   end
-  local.get $5
+  local.get $4
   local.get $0
   i32.store offset=4
-  local.get $4
+  local.get $3
   call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#store
   local.set $0
   i32.const 0
@@ -8167,11 +9448,11 @@
   call $~lib/typedarray/Uint8Array#constructor
   call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AUint8Array#constructor
   local.tee $1
-  local.get $3
+  local.get $2
   i32.store offset=4
   local.get $1
   i32.load
-  local.get $3
+  local.get $2
   i32.load offset=8
   i32.store offset=4
   local.get $0
@@ -8276,6 +9557,472 @@
   local.get $1
   i32.load offset=4
   drop
+  call $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi.instance
+  drop
+  i32.const 9072
+  call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#constructor
+  call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#store
+  call $~lib/@artela/aspect-libs/hostapi/util-api/__UtilApi__.sLog
+  call $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi.instance
+  drop
+  i32.const 9168
+  call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#constructor
+  call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#store
+  call $~lib/@artela/aspect-libs/hostapi/util-api/__UtilApi__.sLog
+  call $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi.instance
+  drop
+  i32.const 9264
+  call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#constructor
+  call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#store
+  call $~lib/@artela/aspect-libs/hostapi/util-api/__UtilApi__.sLog
+  call $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi.instance
+  drop
+  i32.const 9376
+  call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#constructor
+  call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#store
+  call $~lib/@artela/aspect-libs/hostapi/util-api/__UtilApi__.sLog
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#constructor
+  i32.const 9488
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#fromHex
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#constructor
+  i32.const 9984
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#fromHex
+  call $~lib/@artela/aspect-libs/common/cryptos/point/G1Point#constructor
+  local.set $0
+  i32.const 2
+  i32.const 2
+  i32.const 71
+  i32.const 0
+  call $~lib/rt/__newArray
+  local.tee $1
+  i32.load offset=4
+  drop
+  local.get $1
+  i32.const 0
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#constructor
+  i32.const 10368
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#fromHex
+  call $~lib/array/Array<~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256>#__set
+  local.get $1
+  i32.const 1
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#constructor
+  i32.const 10528
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#fromHex
+  call $~lib/array/Array<~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256>#__set
+  i32.const 2
+  i32.const 2
+  i32.const 71
+  i32.const 0
+  call $~lib/rt/__newArray
+  local.tee $2
+  i32.load offset=4
+  drop
+  local.get $2
+  i32.const 0
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#constructor
+  i32.const 10688
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#fromHex
+  call $~lib/array/Array<~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256>#__set
+  local.get $2
+  i32.const 1
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#constructor
+  i32.const 10848
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#fromHex
+  call $~lib/array/Array<~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256>#__set
+  local.get $1
+  local.get $2
+  call $~lib/@artela/aspect-libs/common/cryptos/point/G2Point#constructor
+  local.set $1
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#constructor
+  i32.const 11008
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#fromHex
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#constructor
+  i32.const 11168
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#fromHex
+  call $~lib/@artela/aspect-libs/common/cryptos/point/G1Point#constructor
+  local.set $2
+  i32.const 2
+  i32.const 2
+  i32.const 71
+  i32.const 0
+  call $~lib/rt/__newArray
+  local.tee $3
+  i32.load offset=4
+  drop
+  local.get $3
+  i32.const 0
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#constructor
+  i32.const 11328
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#fromHex
+  call $~lib/array/Array<~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256>#__set
+  local.get $3
+  i32.const 1
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#constructor
+  i32.const 11488
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#fromHex
+  call $~lib/array/Array<~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256>#__set
+  i32.const 2
+  i32.const 2
+  i32.const 71
+  i32.const 0
+  call $~lib/rt/__newArray
+  local.tee $4
+  i32.load offset=4
+  drop
+  local.get $4
+  i32.const 0
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#constructor
+  i32.const 11648
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#fromHex
+  call $~lib/array/Array<~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256>#__set
+  local.get $4
+  i32.const 1
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#constructor
+  i32.const 11808
+  call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#fromHex
+  call $~lib/array/Array<~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256>#__set
+  local.get $3
+  local.get $4
+  call $~lib/@artela/aspect-libs/common/cryptos/point/G2Point#constructor
+  local.set $3
+  i32.const 0
+  i32.const 2
+  i32.const 72
+  i32.const 11968
+  call $~lib/rt/__newArray
+  local.tee $5
+  local.get $0
+  call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#push
+  local.get $5
+  local.get $2
+  call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#push
+  i32.const 0
+  i32.const 2
+  i32.const 73
+  i32.const 12000
+  call $~lib/rt/__newArray
+  local.tee $6
+  local.get $1
+  call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#push
+  local.get $6
+  local.get $3
+  call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#push
+  call $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi.instance
+  drop
+  i32.const 12032
+  call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#constructor
+  call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#store
+  call $~lib/@artela/aspect-libs/hostapi/util-api/__UtilApi__.sLog
+  i32.const 0
+  local.set $0
+  block $__inlined_func$~lib/@artela/aspect-libs/hostapi/crypto-api/CryptoApi#bn256Pairing$71
+   local.get $5
+   i32.load offset=12
+   local.get $6
+   i32.load offset=12
+   i32.ne
+   br_if $__inlined_func$~lib/@artela/aspect-libs/hostapi/crypto-api/CryptoApi#bn256Pairing$71
+   i32.const 0
+   i32.const 2
+   i32.const 75
+   i32.const 12128
+   call $~lib/rt/__newArray
+   local.set $7
+   i32.const 0
+   i32.const 2
+   i32.const 77
+   i32.const 12160
+   call $~lib/rt/__newArray
+   local.set $1
+   loop $for-loop|0
+    local.get $0
+    local.get $5
+    i32.load offset=12
+    i32.lt_s
+    if
+     local.get $5
+     local.get $0
+     call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#__get
+     i32.load
+     call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#toUint8Array
+     local.set $3
+     local.get $5
+     local.get $0
+     call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#__get
+     i32.load offset=4
+     call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#toUint8Array
+     local.set $4
+     i32.const 8
+     i32.const 74
+     call $~lib/rt/stub/__new
+     local.tee $2
+     i32.const 0
+     i32.store
+     local.get $2
+     i32.const 0
+     i32.store offset=4
+     local.get $2
+     local.get $3
+     i32.store
+     local.get $2
+     local.get $4
+     i32.store offset=4
+     local.get $6
+     local.get $0
+     call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#__get
+     i32.load
+     i32.const 0
+     call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#__get
+     call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#toUint8Array
+     local.set $3
+     local.get $6
+     local.get $0
+     call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#__get
+     i32.load
+     i32.const 1
+     call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#__get
+     call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#toUint8Array
+     local.set $8
+     local.get $6
+     local.get $0
+     call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#__get
+     i32.load offset=4
+     i32.const 0
+     call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#__get
+     call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#toUint8Array
+     local.set $9
+     local.get $6
+     local.get $0
+     call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#__get
+     i32.load offset=4
+     i32.const 1
+     call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#__get
+     call $~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256#toUint8Array
+     local.set $10
+     i32.const 16
+     i32.const 76
+     call $~lib/rt/stub/__new
+     local.tee $4
+     i32.const 0
+     i32.store
+     local.get $4
+     i32.const 0
+     i32.store offset=4
+     local.get $4
+     i32.const 0
+     i32.store offset=8
+     local.get $4
+     i32.const 0
+     i32.store offset=12
+     local.get $4
+     local.get $3
+     i32.store
+     local.get $4
+     local.get $8
+     i32.store offset=4
+     local.get $4
+     local.get $9
+     i32.store offset=8
+     local.get $4
+     local.get $10
+     i32.store offset=12
+     local.get $7
+     local.get $2
+     call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#push
+     local.get $1
+     local.get $4
+     call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#push
+     local.get $0
+     i32.const 1
+     i32.add
+     local.set $0
+     br $for-loop|0
+    end
+   end
+   i32.const 8
+   i32.const 78
+   call $~lib/rt/stub/__new
+   local.tee $0
+   i32.const 0
+   i32.store
+   local.get $0
+   i32.const 0
+   i32.store offset=4
+   local.get $0
+   local.get $7
+   i32.store
+   local.get $0
+   local.get $1
+   i32.store offset=4
+   local.get $0
+   i32.const 12320
+   call $~lib/as-proto/assembly/Protobuf/Protobuf.encode<~lib/@artela/aspect-libs/proto/aspect/v2/string-data/StringData>
+   call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AUint8Array#constructor
+   call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AUint8Array#store
+   call $~lib/@artela/aspect-libs/hostapi/crypto-api/__CryptoApi__.bn256Pairing
+   local.set $0
+   i32.const 0
+   global.set $~argumentsLength
+   i32.const 0
+   call $~lib/typedarray/Uint8Array#constructor
+   call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AUint8Array#constructor
+   local.tee $1
+   local.get $0
+   call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AUint8Array#load
+   local.get $1
+   i32.load offset=4
+   local.tee $0
+   i32.load offset=8
+   local.tee $1
+   i32.const 32
+   i32.ne
+   br_if $__inlined_func$~lib/@artela/aspect-libs/hostapi/crypto-api/CryptoApi#bn256Pairing$71
+   local.get $1
+   i32.const 31
+   i32.le_u
+   if
+    i32.const 5232
+    i32.const 5296
+    i32.const 190
+    i32.const 33
+    call $~lib/builtins/abort
+    unreachable
+   end
+   local.get $0
+   i32.load offset=4
+   i32.load8_u offset=31
+   drop
+  end
+  call $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi.instance
+  drop
+  i32.const 12352
+  call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#constructor
+  call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#store
+  call $~lib/@artela/aspect-libs/hostapi/util-api/__UtilApi__.sLog
+  i32.const 12432
+  call $~lib/@artela/aspect-libs/common/helper/convert/hexToUint8Array
+  local.set $0
+  i32.const 12720
+  call $~lib/@artela/aspect-libs/common/helper/convert/hexToUint8Array
+  local.set $1
+  i32.const 13264
+  call $~lib/@artela/aspect-libs/common/helper/convert/hexToUint8Array
+  local.set $2
+  i32.const 13360
+  call $~lib/@artela/aspect-libs/common/helper/convert/hexToUint8Array
+  local.set $3
+  call $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi.instance
+  drop
+  i32.const 13696
+  call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#constructor
+  call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#store
+  call $~lib/@artela/aspect-libs/hostapi/util-api/__UtilApi__.sLog
+  i32.const 13408
+  block $__inlined_func$~lib/@artela/aspect-libs/hostapi/crypto-api/CryptoApi#blake2F$510 (result i32)
+   local.get $0
+   i32.load offset=8
+   i32.const 64
+   i32.ne
+   if (result i32)
+    i32.const 1
+   else
+    local.get $1
+    i32.load offset=8
+    i32.const 128
+    i32.ne
+   end
+   if (result i32)
+    i32.const 1
+   else
+    local.get $2
+    i32.load offset=8
+    i32.const 16
+    i32.ne
+   end
+   if (result i32)
+    i32.const 1
+   else
+    local.get $3
+    i32.load offset=8
+    i32.const 4
+    i32.ne
+   end
+   if
+    i32.const 0
+    call $~lib/typedarray/Uint8Array#constructor
+    br $__inlined_func$~lib/@artela/aspect-libs/hostapi/crypto-api/CryptoApi#blake2F$510
+   end
+   i32.const 20
+   i32.const 80
+   call $~lib/rt/stub/__new
+   local.tee $4
+   i32.const 0
+   i32.store
+   local.get $4
+   i32.const 0
+   i32.store offset=4
+   local.get $4
+   i32.const 0
+   i32.store offset=8
+   local.get $4
+   i32.const 0
+   i32.store8 offset=12
+   local.get $4
+   i32.const 0
+   i32.store offset=16
+   local.get $4
+   local.get $0
+   i32.store
+   local.get $4
+   local.get $1
+   i32.store offset=4
+   local.get $4
+   local.get $2
+   i32.store offset=8
+   local.get $4
+   i32.const 0
+   i32.store8 offset=12
+   local.get $4
+   local.get $3
+   i32.store offset=16
+   local.get $4
+   i32.const 13776
+   call $~lib/as-proto/assembly/Protobuf/Protobuf.encode<~lib/@artela/aspect-libs/proto/aspect/v2/string-data/StringData>
+   call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AUint8Array#constructor
+   call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AUint8Array#store
+   call $~lib/@artela/aspect-libs/hostapi/crypto-api/__CryptoApi__.blake2F
+   local.set $0
+   i32.const 0
+   global.set $~argumentsLength
+   i32.const 0
+   call $~lib/typedarray/Uint8Array#constructor
+   call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AUint8Array#constructor
+   local.tee $1
+   local.get $0
+   call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AUint8Array#load
+   local.get $1
+   i32.load offset=4
+  end
+  call $~lib/@artela/aspect-libs/common/helper/convert/uint8ArrayToHex
+  call $~lib/string/String.__eq
+  i32.eqz
+  if
+   call $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi.instance
+   drop
+   i32.const 13808
+   call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#constructor
+   call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#store
+   call $~lib/@artela/aspect-libs/hostapi/util-api/__UtilApi__.sLog
+   call $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi.instance
+   i32.const 13952
+   call $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi#revert
+  end
+  call $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi.instance
+  drop
+  i32.const 14000
+  call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#constructor
+  call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#store
+  call $~lib/@artela/aspect-libs/hostapi/util-api/__UtilApi__.sLog
   i32.const 0
   global.set $~argumentsLength
   i32.const 0
@@ -8288,7 +10035,7 @@
   call $~lib/typedarray/Uint8Array#constructor
   local.set $2
   i32.const 24
-  i32.const 67
+  i32.const 82
   call $~lib/rt/stub/__new
   local.tee $3
   i32.const 0
@@ -8314,10 +10061,10 @@
   local.get $3
   i64.const 0
   i64.store offset=16
-  i32.const 9072
+  i32.const 14144
   call $~lib/@artela/aspect-libs/hostapi/aspect-property-api/AspectPropertyApi#get
   local.set $0
-  i32.const 9104
+  i32.const 14176
   call $~lib/@artela/aspect-libs/hostapi/aspect-property-api/AspectPropertyApi#get
   local.set $1
   i32.const 8624
@@ -8336,7 +10083,7 @@
   local.get $2
   i32.store offset=8
   local.get $3
-  i32.const 9136
+  i32.const 14208
   call $~lib/as-proto/assembly/Protobuf/Protobuf.encode<~lib/@artela/aspect-libs/proto/aspect/v2/string-data/StringData>
   local.set $0
   i32.const 0
@@ -8388,7 +10135,7 @@
   global.set $~argumentsLength
   global.get $~lib/as-proto/assembly/Protobuf/READER
   i32.const -1
-  i32.const 9168
+  i32.const 14240
   i32.load
   call_indirect (type $0)
   drop
@@ -8431,45 +10178,6 @@
   local.get $2
   call $~lib/memory/memory.copy
   local.get $3
- )
- (func $~lib/array/Array<~lib/string/String>#__set (param $0 i32) (param $1 i32) (param $2 i32)
-  (local $3 i32)
-  local.get $1
-  local.get $0
-  i32.load offset=12
-  i32.ge_u
-  if
-   local.get $1
-   i32.const 0
-   i32.lt_s
-   if
-    i32.const 5232
-    i32.const 8544
-    i32.const 130
-    i32.const 22
-    call $~lib/builtins/abort
-    unreachable
-   end
-   local.get $0
-   local.get $1
-   i32.const 1
-   i32.add
-   local.tee $3
-   i32.const 2
-   i32.const 1
-   call $~lib/array/ensureCapacity
-   local.get $0
-   local.get $3
-   i32.store offset=12
-  end
-  local.get $0
-  i32.load offset=4
-  local.get $1
-  i32.const 2
-  i32.shl
-  i32.add
-  local.get $2
-  i32.store
  )
  (func $~lib/array/Array<~lib/string/String>#indexOf (param $0 i32) (param $1 i32) (result i32)
   (local $2 i32)
@@ -8549,7 +10257,7 @@
  (func $"~lib/map/Map<u64,~lib/@artela/aspect-libs/proto/aspect/v2/eth-call-message/EthCallMessage>#constructor" (result i32)
   (local $0 i32)
   i32.const 24
-  i32.const 77
+  i32.const 91
   call $~lib/rt/stub/__new
   local.tee $0
   i32.const 16
@@ -8614,12 +10322,12 @@
   local.set $7
   i32.const 0
   i32.const 3
-  i32.const 76
-  i32.const 9504
+  i32.const 69
+  i32.const 14576
   call $~lib/rt/__newArray
   local.set $8
   i32.const 68
-  i32.const 75
+  i32.const 90
   call $~lib/rt/stub/__new
   local.tee $9
   i32.const 0
@@ -8956,7 +10664,7 @@
   i32.add
   i32.load
   local.set $3
-  block $"__inlined_func$~lib/map/Map<u64,~lib/@artela/aspect-libs/proto/aspect/v2/eth-call-message/EthCallMessage>#find$878"
+  block $"__inlined_func$~lib/map/Map<u64,~lib/@artela/aspect-libs/proto/aspect/v2/eth-call-message/EthCallMessage>#find$1045"
    loop $while-continue|0
     local.get $3
     if
@@ -8973,7 +10681,7 @@
       local.get $1
       i64.eq
      end
-     br_if $"__inlined_func$~lib/map/Map<u64,~lib/@artela/aspect-libs/proto/aspect/v2/eth-call-message/EthCallMessage>#find$878"
+     br_if $"__inlined_func$~lib/map/Map<u64,~lib/@artela/aspect-libs/proto/aspect/v2/eth-call-message/EthCallMessage>#find$1045"
      local.get $4
      i32.const -2
      i32.and
@@ -9219,7 +10927,7 @@
   call $"~lib/map/Map<u64,~lib/@artela/aspect-libs/proto/aspect/v2/eth-call-message/EthCallMessage>#constructor"
   local.set $2
   i32.const 4
-  i32.const 74
+  i32.const 89
   call $~lib/rt/stub/__new
   local.tee $1
   i32.const 0
@@ -9413,17 +11121,18 @@
  (func $assembly/aspect/aspect/StressTestAspect#postContractCall (param $0 i32)
   (local $1 i32)
   (local $2 i32)
-  (local $3 i64)
+  (local $3 i32)
   (local $4 i32)
   (local $5 i32)
   (local $6 i32)
   (local $7 i32)
-  (local $8 i32)
+  (local $8 i64)
   (local $9 i32)
   (local $10 i32)
   (local $11 i32)
   call $~lib/@artela/aspect-libs/hostapi/util-api/UtilApi.instance
-  i32.const 9200
+  drop
+  i32.const 14272
   call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#constructor
   call $~lib/@artela/aspect-libs/common/wraptypes/basic-types/AString#store
   call $~lib/@artela/aspect-libs/hostapi/util-api/__UtilApi__.sLog
@@ -9433,8 +11142,8 @@
   i32.eqz
   if
    i32.const 2112
-   i32.const 9296
-   i32.const 97
+   i32.const 14368
+   i32.const 428
    i32.const 59
    call $~lib/builtins/abort
    unreachable
@@ -9455,7 +11164,7 @@
   local.set $0
   i32.const 2
   i32.const 2
-  i32.const 71
+  i32.const 86
   i32.const 0
   call $~lib/rt/__newArray
   local.tee $11
@@ -9463,20 +11172,20 @@
   drop
   local.get $11
   i32.const 0
-  i32.const 9376
+  i32.const 14448
   call $~lib/@artela/aspect-libs/common/helper/convert/stringToUint8Array
   call $~lib/@artela/aspect-libs/hostapi/crypto-api/CryptoApi#keccak
   call $~lib/typedarray/Uint8Array#slice
   call $~lib/@artela/aspect-libs/common/helper/convert/uint8ArrayToHex
-  call $~lib/array/Array<~lib/string/String>#__set
+  call $~lib/array/Array<~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256>#__set
   local.get $11
   i32.const 1
-  i32.const 9424
+  i32.const 14496
   call $~lib/@artela/aspect-libs/common/helper/convert/stringToUint8Array
   call $~lib/@artela/aspect-libs/hostapi/crypto-api/CryptoApi#keccak
   call $~lib/typedarray/Uint8Array#slice
   call $~lib/@artela/aspect-libs/common/helper/convert/uint8ArrayToHex
-  call $~lib/array/Array<~lib/string/String>#__set
+  call $~lib/array/Array<~lib/@artela/aspect-libs/common/wraptypes/uint256/Uint256>#__set
   local.get $11
   local.get $0
   call $~lib/array/Array<~lib/string/String>#indexOf
@@ -9484,7 +11193,7 @@
   i32.ge_s
   if
    i32.const 8
-   i32.const 72
+   i32.const 87
    call $~lib/rt/stub/__new
    local.tee $0
    i64.const 0
@@ -9493,7 +11202,7 @@
    i64.const -1
    i64.store
    local.get $0
-   i32.const 9472
+   i32.const 14544
    call $~lib/as-proto/assembly/Protobuf/Protobuf.encode<~lib/@artela/aspect-libs/proto/aspect/v2/string-data/StringData>
    local.set $1
    i32.const 0
@@ -9545,7 +11254,7 @@
    global.set $~argumentsLength
    global.get $~lib/as-proto/assembly/Protobuf/READER
    i32.const -1
-   i32.const 9536
+   i32.const 14608
    i32.load
    call_indirect (type $0)
    local.tee $7
@@ -9558,125 +11267,40 @@
    local.set $5
    local.get $0
    i32.load offset=16
-   local.set $10
-   i32.const 16
-   i32.const 76
-   call $~lib/rt/stub/__new
-   local.tee $1
-   i32.const 0
-   i32.store
-   local.get $1
-   i32.const 0
-   i32.store offset=4
-   local.get $1
-   i32.const 0
-   i32.store offset=8
-   local.get $1
-   i32.const 0
-   i32.store offset=12
-   local.get $10
-   i32.const 134217727
-   i32.gt_u
-   if
-    i32.const 1280
-    i32.const 8544
-    i32.const 70
-    i32.const 60
-    call $~lib/builtins/abort
-    unreachable
-   end
-   i32.const 8
-   local.get $10
-   local.get $10
-   i32.const 8
-   i32.le_u
-   select
-   i32.const 3
-   i32.shl
    local.tee $4
-   i32.const 1
-   call $~lib/rt/stub/__new
-   local.tee $0
-   i32.const 0
-   local.get $4
-   call $~lib/memory/memory.fill
-   local.get $1
-   local.get $0
-   i32.store
-   local.get $1
-   local.get $0
-   i32.store offset=4
-   local.get $1
-   local.get $4
-   i32.store offset=8
-   local.get $1
-   local.get $10
-   i32.store offset=12
+   call $~lib/array/Array<u64>#constructor
+   local.set $1
    loop $for-loop|0
-    local.get $9
+    local.get $4
     local.get $10
-    i32.lt_s
+    i32.gt_s
     if
      local.get $5
-     local.get $9
+     local.get $10
      i32.const 4
      i32.shl
      i32.add
-     local.tee $0
+     local.tee $3
      i32.load offset=12
      i32.const 1
      i32.and
      i32.eqz
      if
-      local.get $0
-      i64.load
-      local.set $3
       local.get $2
       local.tee $0
       i32.const 1
       i32.add
       local.set $2
-      local.get $0
       local.get $1
-      i32.load offset=12
-      i32.ge_u
-      if
-       local.get $0
-       i32.const 0
-       i32.lt_s
-       if
-        i32.const 5232
-        i32.const 8544
-        i32.const 130
-        i32.const 22
-        call $~lib/builtins/abort
-        unreachable
-       end
-       local.get $1
-       local.get $0
-       i32.const 1
-       i32.add
-       local.tee $4
-       i32.const 3
-       i32.const 1
-       call $~lib/array/ensureCapacity
-       local.get $1
-       local.get $4
-       i32.store offset=12
-      end
-      local.get $1
-      i32.load offset=4
       local.get $0
-      i32.const 3
-      i32.shl
-      i32.add
       local.get $3
-      i64.store
+      i64.load
+      call $~lib/array/Array<u64>#__set
      end
-     local.get $9
+     local.get $10
      i32.const 1
      i32.add
-     local.set $9
+     local.set $10
      br $for-loop|0
     end
    end
@@ -9690,35 +11314,20 @@
    i32.store offset=12
    loop $for-loop|00
     local.get $6
-    local.get $8
+    local.get $9
     i32.gt_s
     if
-     local.get $8
      local.get $1
-     i32.load offset=12
-     i32.ge_u
-     if
-      i32.const 5232
-      i32.const 8544
-      i32.const 114
-      i32.const 42
-      call $~lib/builtins/abort
-      unreachable
-     end
+     local.get $9
+     call $~lib/array/Array<u64>#__get
+     local.set $8
      local.get $7
      i32.load
      local.tee $0
      i32.load
      local.get $0
      i32.load offset=4
-     local.get $1
-     i32.load offset=4
      local.get $8
-     i32.const 3
-     i32.shl
-     i32.add
-     i64.load
-     local.tee $3
      i32.wrap_i64
      i32.const -1028477379
      i32.mul
@@ -9728,7 +11337,7 @@
      i32.rotl
      i32.const 668265263
      i32.mul
-     local.get $3
+     local.get $8
      i64.const 32
      i64.shr_u
      i32.wrap_i64
@@ -9764,7 +11373,7 @@
      i32.add
      i32.load
      local.set $0
-     block $"__inlined_func$~lib/map/Map<u64,~lib/@artela/aspect-libs/proto/aspect/v2/eth-call-message/EthCallMessage>#find$884"
+     block $"__inlined_func$~lib/map/Map<u64,~lib/@artela/aspect-libs/proto/aspect/v2/eth-call-message/EthCallMessage>#find$1048"
       loop $while-continue|0
        local.get $0
        if
@@ -9778,10 +11387,10 @@
         else
          local.get $0
          i64.load
-         local.get $3
+         local.get $8
          i64.eq
         end
-        br_if $"__inlined_func$~lib/map/Map<u64,~lib/@artela/aspect-libs/proto/aspect/v2/eth-call-message/EthCallMessage>#find$884"
+        br_if $"__inlined_func$~lib/map/Map<u64,~lib/@artela/aspect-libs/proto/aspect/v2/eth-call-message/EthCallMessage>#find$1048"
         local.get $2
         i32.const -2
         i32.and
@@ -9795,8 +11404,8 @@
      local.get $0
      i32.eqz
      if
-      i32.const 9568
-      i32.const 9632
+      i32.const 14640
+      i32.const 14704
       i32.const 105
       i32.const 17
       call $~lib/builtins/abort
@@ -9819,14 +11428,35 @@
      end
      call $~lib/array/Array<~lib/string/String>#indexOf
      drop
-     local.get $8
+     local.get $9
      i32.const 1
      i32.add
-     local.set $8
+     local.set $9
      br $for-loop|00
     end
    end
   end
+ )
+ (func $~lib/array/Array<i32>#__get (param $0 i32) (param $1 i32) (result i32)
+  local.get $1
+  local.get $0
+  i32.load offset=12
+  i32.ge_u
+  if
+   i32.const 5232
+   i32.const 8544
+   i32.const 114
+   i32.const 42
+   call $~lib/builtins/abort
+   unreachable
+  end
+  local.get $0
+  i32.load offset=4
+  local.get $1
+  i32.const 2
+  i32.shl
+  i32.add
+  i32.load
  )
  (func $~lib/as-proto/assembly/Reader/Reader#bytes@override (param $0 i32) (result i32)
   (local $1 i32)
@@ -10024,6 +11654,108 @@
   end
   unreachable
  )
+ (func $~lib/as-proto/assembly/Writer/Writer#fork@override (param $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  block $default
+   block $case1
+    local.get $0
+    i32.const 8
+    i32.sub
+    i32.load
+    local.tee $1
+    i32.const 4
+    i32.ne
+    if
+     local.get $1
+     i32.const 6
+     i32.eq
+     br_if $case1
+     br $default
+    end
+    local.get $0
+    i32.load offset=12
+    local.get $0
+    i32.load
+    i32.load offset=8
+    i32.load offset=12
+    i32.ge_s
+    if (result i32)
+     i32.const 0
+    else
+     local.get $0
+     i32.load
+     i32.load offset=8
+     local.set $1
+     local.get $0
+     local.get $0
+     i32.load offset=12
+     local.tee $2
+     i32.const 1
+     i32.add
+     i32.store offset=12
+     local.get $1
+     local.get $2
+     call $~lib/array/Array<i32>#__get
+    end
+    local.set $1
+    loop $while-continue|0
+     local.get $1
+     i32.const 127
+     i32.gt_u
+     if
+      local.get $0
+      local.get $0
+      i32.load offset=4
+      local.tee $2
+      i32.const 1
+      i32.add
+      i32.store offset=4
+      local.get $2
+      local.get $1
+      i32.const 127
+      i32.and
+      i32.const 128
+      i32.or
+      i32.store8
+      local.get $1
+      i32.const 7
+      i32.shr_u
+      local.set $1
+      br $while-continue|0
+     end
+    end
+    local.get $0
+    local.get $0
+    i32.load offset=4
+    local.tee $0
+    i32.const 1
+    i32.add
+    i32.store offset=4
+    local.get $0
+    local.get $1
+    i32.store8
+    return
+   end
+   local.get $0
+   i32.load offset=4
+   local.get $0
+   i32.load
+   call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#push
+   local.get $0
+   i32.load offset=12
+   local.get $0
+   i32.load offset=8
+   i32.load offset=12
+   call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#push
+   local.get $0
+   i32.load offset=8
+   i32.const 0
+   call $~lib/array/Array<~lib/@artela/aspect-libs/common/cryptos/point/G1Point>#push
+   return
+  end
+  unreachable
+ )
  (func $~lib/as-proto/assembly/Writer/Writer#bytes@override (param $0 i32) (param $1 i32)
   (local $2 i32)
   (local $3 i32)
@@ -10141,6 +11873,186 @@
    i32.load offset=8
    i32.add
    i32.store
+   return
+  end
+  unreachable
+ )
+ (func $~lib/as-proto/assembly/Writer/Writer#ldelim@override (param $0 i32)
+  (local $1 i32)
+  (local $2 i32)
+  (local $3 i32)
+  (local $4 i32)
+  (local $5 i32)
+  block $default
+   block $case1
+    local.get $0
+    i32.const 8
+    i32.sub
+    i32.load
+    local.tee $1
+    i32.const 4
+    i32.ne
+    if
+     local.get $1
+     i32.const 6
+     i32.eq
+     br_if $case1
+     br $default
+    end
+    return
+   end
+   local.get $0
+   i32.load offset=4
+   i32.load offset=12
+   if (result i32)
+    local.get $0
+    i32.load offset=12
+    i32.load offset=12
+   else
+    i32.const 0
+   end
+   i32.eqz
+   if
+    i32.const 14752
+    i32.const 14848
+    i32.const 126
+    i32.const 5
+    call $~lib/builtins/abort
+    unreachable
+   end
+   local.get $0
+   i32.load
+   local.set $3
+   block $__inlined_func$~lib/as-proto/assembly/internal/FixedSizer/FixedSizer#ldelim$67
+    block $folding-inner0
+     local.get $0
+     i32.load offset=4
+     local.tee $2
+     i32.load offset=12
+     local.tee $1
+     i32.const 0
+     i32.le_s
+     br_if $folding-inner0
+     local.get $2
+     i32.load offset=4
+     local.get $1
+     i32.const 1
+     i32.sub
+     local.tee $4
+     i32.const 2
+     i32.shl
+     i32.add
+     i32.load
+     local.set $1
+     local.get $2
+     local.get $4
+     i32.store offset=12
+     local.get $0
+     i32.load offset=12
+     local.tee $4
+     i32.load offset=12
+     local.tee $2
+     i32.const 0
+     i32.le_s
+     br_if $folding-inner0
+     local.get $4
+     i32.load offset=4
+     local.get $2
+     i32.const 1
+     i32.sub
+     local.tee $5
+     i32.const 2
+     i32.shl
+     i32.add
+     i32.load
+     local.set $2
+     local.get $4
+     local.get $5
+     i32.store offset=12
+     local.get $2
+     local.get $0
+     i32.load offset=8
+     local.tee $4
+     i32.load offset=12
+     i32.ge_u
+     if
+      local.get $2
+      i32.const 0
+      i32.lt_s
+      if
+       i32.const 5232
+       i32.const 8544
+       i32.const 130
+       i32.const 22
+       call $~lib/builtins/abort
+       unreachable
+      end
+      local.get $4
+      local.get $2
+      i32.const 1
+      i32.add
+      local.tee $5
+      i32.const 2
+      i32.const 1
+      call $~lib/array/ensureCapacity
+      local.get $4
+      local.get $5
+      i32.store offset=12
+     end
+     local.get $4
+     i32.load offset=4
+     local.get $2
+     i32.const 2
+     i32.shl
+     i32.add
+     local.get $3
+     local.get $1
+     i32.sub
+     local.tee $1
+     i32.store
+     local.get $0
+     i32.load
+     local.set $2
+     local.get $0
+     local.get $1
+     i32.const 128
+     i32.lt_u
+     if (result i32)
+      i32.const 1
+     else
+      local.get $1
+      i32.const 16384
+      i32.lt_u
+      if (result i32)
+       i32.const 2
+      else
+       local.get $1
+       i32.const 2097152
+       i32.lt_u
+       if (result i32)
+        i32.const 3
+       else
+        i32.const 4
+        i32.const 5
+        local.get $1
+        i32.const 268435456
+        i32.lt_u
+        select
+       end
+      end
+     end
+     local.get $2
+     i32.add
+     i32.store
+     br $__inlined_func$~lib/as-proto/assembly/internal/FixedSizer/FixedSizer#ldelim$67
+    end
+    i32.const 14960
+    i32.const 8544
+    i32.const 271
+    i32.const 18
+    call $~lib/builtins/abort
+    unreachable
+   end
    return
   end
   unreachable

@@ -2,7 +2,7 @@ const { fetchAdd, fetchCheck, web3, workingDir } = require('./common');
 const path = require('path');
 const fs = require("fs");
 
-let bankPK = '0x9c361ccf444a4197765cd4ce60e93921f4b842db08558ffdef155c599ef943b2';
+let bankPK = '0x2b853a54c36f51221e06158b3719f5c71359e27d1d047b67cb9d850dbefdd315';
 
 async function f() {
     // load bank account, the private key of bank is the genesis account key got from last step.
@@ -60,7 +60,6 @@ async function f() {
                 'to': receiver.address,
                 'value': web3.utils.toWei('100', 'ether'), // transfer 0.1 eth
                 'gas': 200000,
-                'gaslimit': 400000,
                 // 'nonce': bank2Nonce
             };
 

@@ -4,8 +4,7 @@ import * as __import2 from "runtime-api";
 import * as __import3 from "aspect-property-api";
 import * as __import4 from "aspect-state-api";
 import * as __import5 from "crypto-api";
-import * as __import6 from "evm-call-api";
-import * as __import7 from "trace-api";
+import * as __import6 from "trace-api";
 async function instantiate(module, imports = {}) {
   const __module0 = imports["util-api"];
   const __module1 = imports["statedb-api"];
@@ -13,8 +12,7 @@ async function instantiate(module, imports = {}) {
   const __module3 = imports["aspect-property-api"];
   const __module4 = imports["aspect-state-api"];
   const __module5 = imports["crypto-api"];
-  const __module6 = imports["evm-call-api"];
-  const __module7 = imports["trace-api"];
+  const __module6 = imports["trace-api"];
   const adaptedImports = {
     env: Object.assign(Object.create(globalThis), imports.env || {}, {
       abort(message, fileName, lineNumber, columnNumber) {
@@ -88,25 +86,11 @@ async function instantiate(module, imports = {}) {
         // ~lib/@artela/aspect-libs/hostapi/crypto-api/__CryptoApi__.ripemd160(i32) => i32
         return __module5.__CryptoApi__.ripemd160(dataPtr);
       },
-      "__CryptoApi__.bn256Pairing"(dataPtr) {
-        // ~lib/@artela/aspect-libs/hostapi/crypto-api/__CryptoApi__.bn256Pairing(i32) => i32
-        return __module5.__CryptoApi__.bn256Pairing(dataPtr);
-      },
-      "__CryptoApi__.blake2F"(dataPtr) {
-        // ~lib/@artela/aspect-libs/hostapi/crypto-api/__CryptoApi__.blake2F(i32) => i32
-        return __module5.__CryptoApi__.blake2F(dataPtr);
-      },
     }),
-    "evm-call-api": Object.assign(Object.create(__module6), {
-      "__EvmCallApi__.staticCall"(request) {
-        // ~lib/@artela/aspect-libs/hostapi/evm-call-api/__EvmCallApi__.staticCall(i32) => i32
-        return __module6.__EvmCallApi__.staticCall(request);
-      },
-    }),
-    "trace-api": Object.assign(Object.create(__module7), {
+    "trace-api": Object.assign(Object.create(__module6), {
       "__TraceApi__.queryCallTree"(query) {
         // ~lib/@artela/aspect-libs/hostapi/trace-api/__TraceApi__.queryCallTree(i32) => i32
-        return __module7.__TraceApi__.queryCallTree(query);
+        return __module6.__TraceApi__.queryCallTree(query);
       },
     }),
   };
@@ -146,8 +130,7 @@ export const {
     "aspect-property-api": __maybeDefault(__import3),
     "aspect-state-api": __maybeDefault(__import4),
     "crypto-api": __maybeDefault(__import5),
-    "evm-call-api": __maybeDefault(__import6),
-    "trace-api": __maybeDefault(__import7),
+    "trace-api": __maybeDefault(__import6),
   }
 ))(new URL("release.wasm", import.meta.url));
 function __maybeDefault(module) {

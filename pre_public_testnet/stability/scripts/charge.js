@@ -4,7 +4,7 @@ const fs = require('fs')
 const path = require('path')
 
 let arr = new Array();
-let bankPK = '0x209ecc5c450724a2ac0c18cada2fadc8a6d775f442cce183af6c267b549e7a9a';
+let bankPK = '0x3adce186388fca6b5022116882d472a75cc25f31e7a15b211f8425190172c0b2';
 
 function traverseFolder(folderPath) {
     const files = fs.readdirSync(folderPath);

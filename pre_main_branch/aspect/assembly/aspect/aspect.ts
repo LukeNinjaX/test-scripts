@@ -12,6 +12,7 @@ import {
     hexToUint8Array,
     BytesData,
     Blake2FInput,
+    InitInput,
     stringToUint8Array, JitCallBuilder, StaticCallRequest, CallTreeQuery, EthCallTree, uint8ArrayToAddress, Uint256, G1, G1Point, G2Point,
 } from "@artela/aspect-libs";
 
@@ -19,6 +20,8 @@ import { IPreContractCallJP, IPostContractCallJP } from "@artela/aspect-libs/typ
 import { Protobuf } from "as-proto/assembly/Protobuf";
 
 export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP {
+    init(input: InitInput): void { }
+
     preContractCall(ctx: PreContractCallInput): void {
         sys.log("---running joinpoint preContractCall");
         // for (let i = 0; i < 1000; i) {
@@ -250,7 +253,7 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
 
         sys.log("_____________________running bn256Pairing");
         {
-            {
+            /*{
 
                 let g1a = new G1Point(
                     Uint256.fromHex("1c76476f4def4bb94541d57ebba1193381ffa7aa76ada664dd31c16024c43f59"),
@@ -286,7 +289,7 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
                 sys.log("___________calling bn256Pairing");
                 const addRet = sys.hostApi.crypto.bn256Pairing(cs, ts);
                 // this.check(expect, addRet);
-            }
+            }*/
 
             /*{
                 let strArray: Array<string> = [
@@ -379,7 +382,7 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
         }
 
         {
-            {
+            /*{
                 sys.log("___________calling blake2F1");
                 let h: Uint8Array = hexToUint8Array("48c9bdf267e6096a3ba7ca8485ae67bb2bf894fe72f36e3cf1361d5f3af54fa5d182e6ad7f520e511f6c3e2b8c68059b6bbd41fbabd9831f79217e1319cde05b");
                 let m: Uint8Array = hexToUint8Array("6162630000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000");
@@ -390,21 +393,21 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
                 sys.log("___________calling blake2F2");
                 const addRet = sys.hostApi.crypto.blake2F(h, m, t, final, rounds);
                 this.check(expect, uint8ArrayToHex(addRet));
-            }
+            }*/
         }
 
         // /
         // / other calls
         // /
-        let ethMessage = new StaticCallRequest();
-        const from = sys.hostApi.aspectProperty.get("from");
-        const to = sys.hostApi.aspectProperty.get("to");
-        const data = sys.hostApi.aspectProperty.get("data");
-        ethMessage.from = from
-        ethMessage.to = to
-        ethMessage.gas = 400000;
-        ethMessage.data = data;
-        let staticCallresult = sys.hostApi.evmCall.staticCall(ethMessage);
+        // let ethMessage = new StaticCallRequest();
+        // const from = sys.hostApi.aspectProperty.get("from");
+        // const to = sys.hostApi.aspectProperty.get("to");
+        // const data = sys.hostApi.aspectProperty.get("data");
+        // ethMessage.from = from
+        // ethMessage.to = to
+        // ethMessage.gas = 400000;
+        // ethMessage.data = data;
+        // let staticCallresult = sys.hostApi.evmCall.staticCall(ethMessage);
 
         // let request = new JitCallBuilder()
         //     .callData(stringToUint8Array(callData))
@@ -440,12 +443,10 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
             const callTreeQuery = new CallTreeQuery(-1);
             const queryCallTree = sys.hostApi.trace.queryCallTree(callTreeQuery);
             const ethCallTree = Protobuf.decode<EthCallTree>(queryCallTree, EthCallTree.decode);
-            var size = ethCallTree.calls.size;
-            var arrayKeys = ethCallTree.calls.keys();
+            var size = ethCallTree.calls.length;
 
             for (let i = 0; i < size; i++) {
-                var key = arrayKeys[i];
-                var oneCall = ethCallTree.calls.get(key);
+                var oneCall = ethCallTree.calls[i];
                 const parentCallMethod = ethereum.parseMethodSig(oneCall.data);
                 if (noReentrantMethods.includes(parentCallMethod)) {
                     // If yes, revert the transaction.

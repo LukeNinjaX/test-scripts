@@ -1,12 +1,12 @@
 const Web3 = require('@artela/web3');
-const web3 = new Web3('http://47.88.28.193:8545');
+const web3 = new Web3('http://127.0.0.1:8545');
 
 async function f() {
     // receiver is the EOA address or contract address that receive native tokens
-    const receiver = "0xe5B277852B77485056701eFc9B1B77b84E96eB9f";
+    const receiver = "0x37A05Aa3895B54D01fa7967e850fE482D2f289E6";
 
     // load bank account, the private key of bank is the genesis account key got from last step.
-    const bank = web3.atl.accounts.privateKeyToAccount("0x30bfa696a21797185fcec4d0eada17bd5fd847344eb2043c4683085538c37c2f")
+    const bank = web3.atl.accounts.privateKeyToAccount("0x19277fe1eed6e65044c0ddd49de78192b622359a8f07595cb25576d6e103b9c2")
     web3.atl.accounts.wallet.add(bank.privateKey);
 
     // transfer account from bank to local account
@@ -15,9 +15,8 @@ async function f() {
     let tx1 = {
         'from': bank,
         'to': receiver,
-        'value': web3.utils.toWei('300', 'ether'), // transfer 1 eth
+        'value': web3.utils.toWei('10000000', 'ether'), // transfer 1 eth
         'gas': 2000000,
-        'gaslimit': 4000000,
         'nonce': bankNonce
     };
 

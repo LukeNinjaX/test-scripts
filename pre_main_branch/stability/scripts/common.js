@@ -55,12 +55,16 @@ async function fetchBlocks() {
 }
 
 async function fetchCheck() {
+    let i = 0;
     while (true) {
         const sendlen = sentTransactionHashes.size;
         const faillen = failureTransactionHashes.size;
         if (sendlen > faillen) {
-            console.log(`waitting tx to finish: ${sendlen - faillen}`);
-            await new Promise(r => setTimeout(r, 300));
+            if (i % 10 == 0) {
+                console.log(`waitting tx to finish: ${sendlen - faillen}`);
+            }
+            i++;
+            await new Promise(r => setTimeout(r, 100));
         } else {
             if (faillen == 0) {
                 console.log(`waitting tx to finish: 0`);

@@ -88,6 +88,14 @@ async function instantiate(module, imports = {}) {
         // ~lib/@artela/aspect-libs/hostapi/crypto-api/__CryptoApi__.ripemd160(i32) => i32
         return __module5.__CryptoApi__.ripemd160(dataPtr);
       },
+      "__CryptoApi__.bn256Pairing"(dataPtr) {
+        // ~lib/@artela/aspect-libs/hostapi/crypto-api/__CryptoApi__.bn256Pairing(i32) => i32
+        return __module5.__CryptoApi__.bn256Pairing(dataPtr);
+      },
+      "__CryptoApi__.blake2F"(dataPtr) {
+        // ~lib/@artela/aspect-libs/hostapi/crypto-api/__CryptoApi__.blake2F(i32) => i32
+        return __module5.__CryptoApi__.blake2F(dataPtr);
+      },
     }),
     "evm-call-api": Object.assign(Object.create(__module6), {
       "__EvmCallApi__.staticCall"(request) {

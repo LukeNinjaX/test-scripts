@@ -15,9 +15,9 @@ async function f(n) {
     let gasPrice = await web3.eth.getGasPrice();
 
     // load local account from private key
-    // let privateFile = './keys/1.txt';
-    // let pk = fs.readFileSync(privateFile, 'utf-8');
-    let pk = "0xfaf950a1d495d838b43d8281be3dd37950614577c00dde779d49e806e0f5c0a4"
+    let privateFile = './keys/1.txt';
+    let pk = fs.readFileSync(privateFile, 'utf-8');
+    // let pk = "0xfaf950a1d495d838b43d8281be3dd37950614577c00dde779d49e806e0f5c0a4"
     let sender = web3.eth.accounts.privateKeyToAccount(pk);
     console.log("from address: ", sender.address);
     web3.eth.accounts.wallet.add(sender.privateKey);

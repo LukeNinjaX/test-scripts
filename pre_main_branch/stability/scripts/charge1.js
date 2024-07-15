@@ -16,7 +16,6 @@ async function f() {
         'to': receiver,
         'value': web3.utils.toWei('10000000', 'ether'), // transfer 1 eth
         'gas': 2000000,
-        'gaslimit': 4000000,
         'nonce': bankNonce
     };
 

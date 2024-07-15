@@ -50,7 +50,7 @@ async function f() {
     // let receiverAddress = "0xE2AF7C239b4F2800a2F742d406628b4fc4b8a0d4";
 
     let tokenContract = new web3.eth.Contract(tokenAbi, tokenAddress);
-    for (let l = 0; l < 1; l++) {
+    for (let l = 0; l < 100; l++) {
         console.log("=====================================================================");
         console.log("===========================call tx loops: ", l, "===========================");
 
@@ -70,7 +70,7 @@ async function f() {
                         from: account.address,
                         to: tokenAddress,
                         data: transfer.encodeABI(),
-                        gas: 400000
+                        gas: 40000
                     }
                     let signedTransferTx = await web3.eth.accounts.signTransaction(transferTx, receiver.privateKey);
                     console.log('transfer tx hash: ' + signedTransferTx.transactionHash);
@@ -82,14 +82,13 @@ async function f() {
                     //         console.log(receipt);
                     //     });
                 }
-                // await new Promise(r => setTimeout(r, 50));
             } catch (e) {
                 console.log("send tx failed, index: " + m, "error: ", e);
                 await new Promise(r => setTimeout(r, 1000));
             }
         }
 
-        fetchCheck();
+        await fetchCheck();
         const dt = new Date();
         console.log("date time:", dt)
         console.timeEnd(lable);
