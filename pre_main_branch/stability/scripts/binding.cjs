@@ -1,12 +1,13 @@
 const fs = require('fs');
 const { web3, workingDir } = require('./common');
+const path = require('path');
 
-const eventBytes = fs.readFileSync("./contract/event.bin", "utf-8")
-const eventAbidata = fs.readFileSync("./contract/event.abi", "utf-8")
+const eventBytes = fs.readFileSync(path.join(workingDir, "./contract/event.bin"), "utf-8")
+const eventAbidata = fs.readFileSync(path.join(workingDir, "./contract/event.abi"), "utf-8")
 var eventAbi = JSON.parse(eventAbidata);
 
-const tokenBytes = fs.readFileSync("./contract/erc20.bin", "utf-8")
-const tokenAbidata = fs.readFileSync("./contract/erc20.abi", "utf-8")
+const tokenBytes = fs.readFileSync(path.join(workingDir, "./contract/erc20.bin"), "utf-8")
+const tokenAbidata = fs.readFileSync(path.join(workingDir, "./contract/erc20.abi"), "utf-8")
 var tokenAbi = JSON.parse(tokenAbidata)
 
 const ARTELA_ADDR = "0x0000000000000000000000000000000000A27E14";
@@ -15,7 +16,7 @@ async function f(n) {
     let gasPrice = await web3.eth.getGasPrice();
 
     // load local account from private key
-    let privateFile = './keys/1.txt';
+    let privateFile = path.join(workingDir, './keys/1.txt');
     let pk = fs.readFileSync(privateFile, 'utf-8');
     // let pk = "0xfaf950a1d495d838b43d8281be3dd37950614577c00dde779d49e806e0f5c0a4"
     let sender = web3.eth.accounts.privateKeyToAccount(pk);
@@ -77,7 +78,7 @@ async function f(n) {
         console.log("--------------------deloy aspect--------------------------, index: ", n * 2000 + i);
         let aspectID;
         {
-            let aspectCode = fs.readFileSync('./aspect/release.wasm', {
+            let aspectCode = fs.readFileSync(path.join(workingDir, './aspect/release.wasm'), {
                 encoding: "hex"
             });
             let pretokenContract = new web3.eth.Contract(tokenAbi, pretokenAddress);
@@ -101,12 +102,13 @@ async function f(n) {
                 data: deploy.encodeABI(),
                 to: ARTELA_ADDR,
                 gasPrice,
-                gas: 9000000
+                // gas: 9000000
+                gas: await deploy.estimateGas({ from: sender.address, data: deploy.encodeABI(), to: ARTELA_ADDR })
             }
 
-            const estimateGas = await web3.eth.estimateGas(tx);
-            console.log("eth_estimatedGas(estimeateGasTransfer): ", estimateGas);
-            tx.gas = estimateGas;
+            // const estimateGas = await web3.eth.estimateGas(tx);
+            // console.log("eth_estimatedGas(estimeateGasTransfer): ", estimateGas);
+            // tx.gas = estimateGas;
 
             let signedTx = await web3.eth.accounts.signTransaction(tx, sender.privateKey);
             console.log("sending signed transaction...");

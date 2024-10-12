@@ -4514,7 +4514,7 @@
   i32.load offset=4
   call $~lib/string/String.UTF8.decodeUnsafe
   i32.store offset=4
-  block $__inlined_func$~lib/@artela/aspect-libs/types/aspect-entry/EntryPoint#execute$231
+  block $__inlined_func$~lib/@artela/aspect-libs/types/aspect-entry/EntryPoint#execute$232
    local.get $5
    i32.load offset=4
    local.tee $0
@@ -4619,7 +4619,7 @@
      i32.const 0
     end
     local.set $0
-    br $__inlined_func$~lib/@artela/aspect-libs/types/aspect-entry/EntryPoint#execute$231
+    br $__inlined_func$~lib/@artela/aspect-libs/types/aspect-entry/EntryPoint#execute$232
    end
    i32.const 0
    global.set $~argumentsLength
@@ -4847,7 +4847,7 @@
     end
     i32.const 0
     local.set $0
-    br $__inlined_func$~lib/@artela/aspect-libs/types/aspect-entry/EntryPoint#execute$231
+    br $__inlined_func$~lib/@artela/aspect-libs/types/aspect-entry/EntryPoint#execute$232
    end
    local.get $0
    i32.const 4160
@@ -4938,7 +4938,7 @@
       if
        i32.const 2112
        i32.const 9376
-       i32.const 431
+       i32.const 429
        i32.const 59
        call $~lib/builtins/abort
        unreachable
@@ -5122,7 +5122,7 @@
     end
     i32.const 0
     local.set $0
-    br $__inlined_func$~lib/@artela/aspect-libs/types/aspect-entry/EntryPoint#execute$231
+    br $__inlined_func$~lib/@artela/aspect-libs/types/aspect-entry/EntryPoint#execute$232
    end
    local.get $0
    i32.const 4224
@@ -5260,17 +5260,6 @@
     local.get $3
     i32.load offset=4
     local.set $0
-    local.get $4
-    i32.load
-    i32.eqz
-    if
-     i32.const 5232
-     i32.const 5120
-     i32.const 158
-     i32.const 7
-     call $~lib/builtins/abort
-     unreachable
-    end
     i32.const 2
     global.set $~argumentsLength
     global.get $~lib/as-proto/assembly/Protobuf/READER
@@ -5296,30 +5285,63 @@
     i32.load
     call_indirect (type $0)
     drop
-    local.get $4
-    i32.load
-    local.tee $0
-    i32.eqz
-    if
-     i32.const 2112
+    block $__inlined_func$~lib/@artela/aspect-libs/types/aspect-entry/EntryPoint#init$827
+     local.get $4
+     i32.load
+     local.tee $0
+     if
+      local.get $0
+      i32.eqz
+      if
+       i32.const 2112
+       i32.const 5120
+       i32.const 160
+       i32.const 7
+       call $~lib/builtins/abort
+       unreachable
+      end
+      local.get $0
+      i32.const 8
+      i32.sub
+      i32.load
+      i32.const 31
+      i32.eq
+      br_if $__inlined_func$~lib/@artela/aspect-libs/types/aspect-entry/EntryPoint#init$827
+      unreachable
+     end
+     local.get $4
+     i32.load offset=4
+     local.tee $0
+     if
+      local.get $0
+      i32.eqz
+      if
+       i32.const 2112
+       i32.const 5120
+       i32.const 165
+       i32.const 7
+       call $~lib/builtins/abort
+       unreachable
+      end
+      local.get $0
+      i32.const 8
+      i32.sub
+      i32.load
+      i32.const 31
+      i32.eq
+      br_if $__inlined_func$~lib/@artela/aspect-libs/types/aspect-entry/EntryPoint#init$827
+      unreachable
+     end
+     i32.const 5232
      i32.const 5120
-     i32.const 162
+     i32.const 169
      i32.const 5
      call $~lib/builtins/abort
      unreachable
     end
-    local.get $0
-    i32.const 8
-    i32.sub
-    i32.load
-    i32.const 31
-    i32.ne
-    if
-     unreachable
-    end
     i32.const 0
     local.set $0
-    br $__inlined_func$~lib/@artela/aspect-libs/types/aspect-entry/EntryPoint#execute$231
+    br $__inlined_func$~lib/@artela/aspect-libs/types/aspect-entry/EntryPoint#execute$232
    end
    i32.const 5600
    local.get $0
@@ -6664,7 +6686,7 @@
   i32.load16_u
   local.set $0
   loop $while-continue|0
-   block $__inlined_func$~lib/util/string/isSpace$369 (result i32)
+   block $__inlined_func$~lib/util/string/isSpace$370 (result i32)
     local.get $0
     i32.const 128
     i32.or
@@ -6679,7 +6701,7 @@
     local.get $0
     i32.const 5760
     i32.lt_u
-    br_if $__inlined_func$~lib/util/string/isSpace$369
+    br_if $__inlined_func$~lib/util/string/isSpace$370
     drop
     i32.const 1
     local.get $0
@@ -6687,7 +6709,7 @@
     i32.add
     i32.const 10
     i32.le_u
-    br_if $__inlined_func$~lib/util/string/isSpace$369
+    br_if $__inlined_func$~lib/util/string/isSpace$370
     drop
     block $break|0
      block $case6|0
@@ -6722,7 +6744,7 @@
       br $break|0
      end
      i32.const 1
-     br $__inlined_func$~lib/util/string/isSpace$369
+     br $__inlined_func$~lib/util/string/isSpace$370
     end
     i32.const 0
    end
@@ -7384,7 +7406,7 @@
   local.get $0
   i32.load
   local.set $2
-  block $__inlined_func$~lib/as-proto/assembly/Writer/Writer#string@override$391
+  block $__inlined_func$~lib/as-proto/assembly/Writer/Writer#string@override$392
    block $default
     block $case1
      local.get $1
@@ -7502,7 +7524,7 @@
      i32.load offset=4
      i32.add
      i32.store offset=4
-     br $__inlined_func$~lib/as-proto/assembly/Writer/Writer#string@override$391
+     br $__inlined_func$~lib/as-proto/assembly/Writer/Writer#string@override$392
     end
     i32.const 0
     local.set $0
@@ -7641,7 +7663,7 @@
     i32.load
     i32.add
     i32.store
-    br $__inlined_func$~lib/as-proto/assembly/Writer/Writer#string@override$391
+    br $__inlined_func$~lib/as-proto/assembly/Writer/Writer#string@override$392
    end
    unreachable
   end
@@ -8728,7 +8750,7 @@
   local.get $0
   i64.load
   local.set $2
-  block $__inlined_func$~lib/as-proto/assembly/Writer/Writer#int64@override$449
+  block $__inlined_func$~lib/as-proto/assembly/Writer/Writer#int64@override$450
    block $default
     block $case1
      local.get $1
@@ -8781,7 +8803,7 @@
      local.get $0
      local.get $2
      i64.store8
-     br $__inlined_func$~lib/as-proto/assembly/Writer/Writer#int64@override$449
+     br $__inlined_func$~lib/as-proto/assembly/Writer/Writer#int64@override$450
     end
     local.get $1
     i32.load
@@ -8852,7 +8874,7 @@
     local.get $0
     i32.add
     i32.store
-    br $__inlined_func$~lib/as-proto/assembly/Writer/Writer#int64@override$449
+    br $__inlined_func$~lib/as-proto/assembly/Writer/Writer#int64@override$450
    end
    unreachable
   end

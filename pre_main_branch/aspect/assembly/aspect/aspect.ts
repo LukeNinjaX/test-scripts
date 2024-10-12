@@ -24,8 +24,6 @@ export class StressTestAspect implements IPreContractCallJP, IPostContractCallJP
 
     preContractCall(ctx: PreContractCallInput): void {
         sys.log("---running joinpoint preContractCall");
-        // for (let i = 0; i < 1000; i) {
-        // }
         ///
         /// utils hostapi
         ///
